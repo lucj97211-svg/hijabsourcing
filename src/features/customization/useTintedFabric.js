@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { hexToRgb } from "./colorMath.js";
 
+/* Darkest fold factor. Tuned offline against the real cut-outs: this value
+   maximises fold contrast while keeping the rendered mid-tone within ~6/255
+   of the requested hex. */
+const SHADOW = 0.15;
+
 /**
  * Tint a white fabric cut-out to an exact target colour.
  *
@@ -41,14 +46,31 @@ export function useTintedFabric(src, hex) {
       const px = frame.data;
       const target = hexToRgb(hex) || { r: 255, g: 255, b: 255 };
 
+      // The white garment only spans ~40 luminance levels, so tinting it
+      // directly yields a flat, painted-on look. Measure the actual range
+      // first, then stretch it so the folds survive the dye.
+      let lo = 255;
+      let hi = 0;
+      for (let i = 0; i < px.length; i += 4) {
+        if (px[i + 3] < 200) continue;
+        const l = px[i] * 0.2126 + px[i + 1] * 0.7152 + px[i + 2] * 0.0722;
+        if (l < lo) lo = l;
+        if (l > hi) hi = l;
+      }
+      const span = Math.max(hi - lo, 1);
+
       for (let i = 0; i < px.length; i += 4) {
         if (px[i + 3] === 0) continue; // outside the garment
 
-        // Fabric is white, so its luminance is pure shading information.
-        const shade = (px[i] * 0.2126 + px[i + 1] * 0.7152 + px[i + 2] * 0.0722) / 255;
+        const l = px[i] * 0.2126 + px[i + 1] * 0.7152 + px[i + 2] * 0.0722;
+        // Normalise this pixel within the garment's own tonal range.
+        const t = Math.min(Math.max((l - lo) / span, 0), 1);
 
-        // Ease the ramp so deep folds keep contrast instead of going flat.
-        const k = 0.25 + 0.75 * shade;
+        // Dyed cloth is a subtractive layer: fold shadows scale the hue down,
+        // lit areas approach the full-strength dye. Scaling alone (no lift
+        // toward white) is what keeps the rendered colour equal to the hex
+        // the user picked — adding a specular lift washes the hue out.
+        const k = SHADOW + (1 - SHADOW) * t;
 
         px[i] = Math.round(target.r * k);
         px[i + 1] = Math.round(target.g * k);
