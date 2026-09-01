@@ -1,0 +1,11 @@
+node_modules
+dist
+.accio
+.env
+.env.local
+.env.*.local
+.DS_Store
+vite.log
+vite.err.log
+shots/
+test-logo.png

@@ -1,0 +1,131 @@
+/* Hijab Sourcing — design tokens
+   Baseline: Botanical-Modernist-Apothecary (structure), values rebound to sage #56896A */
+
+:root {
+  /* Brand ramp — anchored on the user's picker value #56896A (H143 S37 B54) */
+  --brand-50: #f2f6f3;
+  --brand-100: #e3ece6;
+  --brand-200: #c7dacd;
+  --brand-300: #9cbfaa;
+  --brand-400: #74a187;
+  --brand-500: #56896a;
+  --brand-600: #446e55;
+  --brand-700: #33543f;
+  --brand-800: #24382d;
+  --brand-900: #1b2a22;
+
+  /* Surfaces — warm cream, never pure white */
+  --bg: #fbf8f2;
+  --surface: #fffdf8;
+  --surface-warm: #f3ede1;
+  --surface-dark: var(--brand-800);
+  --surface-glass: rgba(255, 255, 255, 0.1);
+
+  /* Foreground ramp */
+  --fg: #2c2a26;
+  --fg-2: #4a463f;
+  --muted: #7a7368;
+  --meta: #a69d90;
+
+  /* Borders */
+  --border: rgba(44, 42, 38, 0.16);
+  --border-soft: rgba(44, 42, 38, 0.08);
+  --border-inv: rgba(255, 253, 248, 0.2);
+
+  /* Accent — single */
+  --accent: var(--brand-500);
+  --accent-on: #fbf8f2;
+  --accent-text: var(--brand-600);
+  --accent-hover: var(--brand-400);
+  --accent-active: var(--brand-700);
+
+  /* Material detail — numerals only, outside the accent budget */
+  --brass: #a8895c;
+
+  /* Semantic */
+  --success: #3f7a55;
+  --warn: #b07a2b;
+  --danger: #a8412f;
+
+  /* Type families */
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-body: "Karla", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Type scale */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: clamp(26px, 3.2vw, 34px);
+  --text-3xl: clamp(30px, 4.4vw, 46px);
+  --text-4xl: clamp(38px, 6.4vw, 76px);
+
+  --leading-display: 1.06;
+  --leading-tight: 1.22;
+  --leading-body: 1.62;
+  --tracking-display: -0.02em;
+  --tracking-label: 0.14em;
+  --tracking-mono: 0.06em;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 60px;
+  --space-16: 80px;
+  --space-20: 100px;
+
+  --section-y: 116px;
+
+  /* Geometry — sharp */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-chip: 2px;
+  --radius-full: 9999px;
+  --hairline: 1px;
+
+  /* Elevation — flat discipline */
+  --elev-flat: none;
+  --elev-ring: 0 0 0 1px var(--border);
+  --elev-float: 0 16px 40px rgba(27, 42, 34, 0.14);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--brand-600);
+
+  /* Motion */
+  --motion-press: 90ms;
+  --motion-fast: 150ms;
+  --motion-base: 220ms;
+  --motion-enter: 280ms;
+  --motion-reveal: 520ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --container-max: 1280px;
+  --container-narrow: 820px;
+  --gutter: 40px;
+  --header-h: 76px;
+  --topbar-h: 34px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --section-y: 84px;
+    --gutter: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-y: 60px;
+    --gutter: 20px;
+    --header-h: 64px;
+  }
+}

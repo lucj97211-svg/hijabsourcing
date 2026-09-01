@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "siteId": "hijabsourcing-3e0f8b18",
+  "name": "hijabsourcing",
+  "kind": "react-vite",
+  "devCommand": "vite",
+  "buildCommand": "vite build",
+  "outputDir": "dist",
+  "entry": "index.html",
+  "databaseUrl": "",
+  "createdBy": "accio-site-builder",
+  "createdAt": "2026-09-01T04:31:23.787Z",
+  "installedAt": "2026-09-01T05:55:55.176Z"
+}
