@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FAQ, PROCESS, QC, TRUST } from "../data/site.js";
+import { FAQ, MARKETS, PROCESS, QC, TRUST } from "../data/site.js";
 import Reveal from "./Reveal.jsx";
 
 export function TrustBar() {
@@ -9,11 +9,44 @@ export function TrustBar() {
         <ul className="trust-grid">
           {TRUST.map((item, i) => (
             <Reveal as="li" key={item.title} delay={i} className="trust-item">
+              <p className="trust-item__figure">
+                <span className="trust-item__number">{item.figure}</span>
+                <span className="mono trust-item__unit">{item.unit}</span>
+              </p>
               <h3 className="trust-item__title">{item.title}</h3>
               <p className="trust-item__line">{item.line}</p>
             </Reveal>
           ))}
         </ul>
+      </div>
+    </section>
+  );
+}
+
+export function MarketsBand() {
+  return (
+    <section className="markets-band" data-component="markets-band">
+      <div className="container markets-layout">
+        <Reveal className="markets-intro">
+          <span className="eyebrow">Where we ship</span>
+          <h2>Exporting to ten markets.</h2>
+          <p className="lead">
+            We already handle the documentation, packing standards and freight routes for these
+            destinations, so your first shipment is not our first attempt.
+          </p>
+        </Reveal>
+        <Reveal className="markets-cols" delay={1}>
+          {MARKETS.map((group) => (
+            <div className="markets-col" key={group.region}>
+              <h3 className="mono markets-col__region">{group.region}</h3>
+              <ul>
+                {group.countries.map((c) => (
+                  <li key={c}>{c}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </Reveal>
       </div>
     </section>
   );
@@ -116,6 +149,14 @@ export function FactoryAbout() {
               <span>Knitting · dyeing · finishing · cut &amp; sew</span>
             </li>
             <li>
+              <span>Capacity</span>
+              <span>500,000 pieces per month</span>
+            </li>
+            <li>
+              <span>Lead time</span>
+              <span>30 days from approved sample</span>
+            </li>
+            <li>
               <span>Output</span>
               <span>Roll goods or finished pieces</span>
             </li>
@@ -124,8 +165,12 @@ export function FactoryAbout() {
               <span>Woven labels · tags · cards · boxes</span>
             </li>
             <li>
-              <span>Markets</span>
+              <span>Customers</span>
               <span>Brand owners · boutiques · online sellers · distributors</span>
+            </li>
+            <li>
+              <span>Export</span>
+              <span>10 markets across 4 regions</span>
             </li>
           </ul>
         </Reveal>

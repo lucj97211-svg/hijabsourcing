@@ -2,7 +2,14 @@ import React from "react";
 import SiteHeader from "./components/SiteHeader.jsx";
 import Hero from "./components/Hero.jsx";
 import FabricCatalogue from "./components/FabricCatalogue.jsx";
-import { FactoryAbout, FaqAccordion, ProcessGrid, QcGrid, TrustBar } from "./components/Sections.jsx";
+import {
+  FactoryAbout,
+  FaqAccordion,
+  MarketsBand,
+  ProcessGrid,
+  QcGrid,
+  TrustBar,
+} from "./components/Sections.jsx";
 import InquiryForm from "./components/InquiryForm.jsx";
 import SiteFooter from "./components/SiteFooter.jsx";
 import CustomizationStudio from "./features/customization/CustomizationStudio.jsx";
@@ -19,6 +26,7 @@ export default function App() {
         <CustomizationStudio />
         <ProcessGrid />
         <QcGrid />
+        <MarketsBand />
         <FactoryAbout />
         <FaqAccordion />
         <InquiryForm />

@@ -88,9 +88,9 @@ Every major section carries `data-component`.
 ## Page Structure
 
 Single primary page `/` with anchors `#fabrics #customization #process #about #contact`, in order:
-utility strip → sticky header → hero (+4 glass capability cards) → capability bar → fabric catalogue
-(Jersey 6 / Modal 7, tabbed) → customization studio → production process (dark, 8 steps) → QC (6) →
-factory & about → FAQ → inquiry form → footer.
+utility strip → sticky header → hero (+4 glass capability cards) → trust bar (4 figures) → fabric
+catalogue (Jersey 6 / Modal 7, tabbed) → customization studio → production process (dark, 8 steps)
+→ QC (6) → export markets band → factory & about → FAQ → inquiry form → footer.
 
 ## Responsive Rules
 
@@ -160,9 +160,11 @@ external CDN at runtime, no imagery from either reference site.
   The picker behaviour the user asked for is fully preserved.
 - **Branded fibre names** (Lenzing, Tencel) appear as plain product names with no ™/®, no logos, and
   neutral descriptions ("beech-derived modal", "lyocell-blend").
-- **No invented statistics.** Capacity, lead times, country counts, founding year and certifications
-  are not fabricated. The trust bar ships as non-numeric capability labels until the client supplies
-  real figures.
+- **No invented statistics.** Only client-confirmed figures appear: 500,000 pieces monthly capacity,
+  30-day production lead time, and ten export markets (US, Canada, UK, EU, UAE, Oman, Australia,
+  Singapore, Malaysia, Indonesia). Founding year, staff count, factory area and certifications are
+  still unstated because they have not been supplied. The count is written as "10 markets" — nine
+  countries plus the EU, which is a bloc rather than a single country.
 - **No client-logo wall** — would require written permission from named brands.
 - **Social links** ship as `#` placeholders pending real URLs.
 - **Form transport:** static site, so validation → prefilled `mailto` + WhatsApp deep link +

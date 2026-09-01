@@ -26,16 +26,47 @@ export const NAV = [
 
 export const CAPABILITIES = [
   { label: "OEM & ODM", line: "Your design, or ours developed with you." },
-  { label: "Low MOQ", line: "Start small, scale one colour at a time." },
+  { label: "500k / month", line: "Capacity for repeat programmes at scale." },
   { label: "Custom weight & shade", line: "60 to 240 GSM, matched to your reference." },
-  { label: "Worldwide shipping", line: "Roll goods or finished pieces, door to door." },
+  { label: "30-day lead time", line: "From approved sample to finished goods." },
 ];
 
 export const TRUST = [
-  { title: "One mill, one contact", line: "Knitting, dyeing and finishing under one roof — no trading layer in between." },
-  { title: "Weight is a choice", line: "Every base fabric runs across a weight band, not a single fixed GSM." },
-  { title: "Lab dip before bulk", line: "Shade is approved on physical fabric before a single roll is dyed." },
-  { title: "Branding included", line: "Woven labels, hang tags, cards and boxes finished in-house." },
+  {
+    figure: "500,000",
+    unit: "pieces / month",
+    title: "Monthly capacity",
+    line: "Enough headroom to take a repeat programme without pushing your next order down the queue.",
+  },
+  {
+    figure: "30",
+    unit: "days",
+    title: "Production lead time",
+    line: "One month from approved sample to finished goods, quoted honestly before you commit.",
+  },
+  {
+    figure: "10",
+    unit: "markets",
+    title: "Export coverage",
+    line: "Nine countries plus the EU — North America, the UK, Europe, the Gulf, Southeast Asia and Oceania.",
+  },
+  {
+    figure: "13",
+    unit: "base fabrics",
+    title: "Jersey & modal range",
+    line: "Every base runs across a weight band from 60 to 240 GSM, not a single fixed weight.",
+  },
+];
+
+/* Confirmed export markets. Grouped for display; the EU is a bloc, not one country. */
+export const MARKETS = [
+  { region: "North America", countries: ["United States", "Canada"] },
+  { region: "Europe", countries: ["United Kingdom", "European Union"] },
+  { region: "Middle East", countries: ["United Arab Emirates", "Oman"] },
+  {
+    region: "Asia Pacific",
+    countries: ["Australia", "Singapore", "Malaysia", "Indonesia"],
+  },
 ];
 
 export const JERSEY = [
@@ -239,12 +270,12 @@ export const CARRIERS = [
 ];
 
 export const PROCESS = [
-  { no: "01", name: "Inquiry", body: "Send your weight, shade and quantity. We come back with a quote and an honest lead time." },
+  { no: "01", name: "Inquiry", body: "Send your weight, shade and quantity. We come back with a quote and a dated schedule." },
   { no: "02", name: "Fabric", body: "We post physical swatches from the base range so you judge the hand, not a screen." },
   { no: "03", name: "Lab Dip", body: "Three shade options against your reference. Approve one, or send it back with a note." },
   { no: "04", name: "Sample", body: "A full-size sample piece in your approved fabric and shade, cut and hemmed to spec." },
   { no: "05", name: "Approval", body: "You sign off on hand, shade, size and finish. Nothing enters bulk before this." },
-  { no: "06", name: "Production", body: "Knitting, dyeing and finishing run in sequence in our own mill." },
+  { no: "06", name: "Production", body: "Knitting, dyeing and finishing run in sequence in our own mill — around 30 days." },
   { no: "07", name: "Inspection", body: "Batch checks on shade, weight, dimensions and branding before packing." },
   { no: "08", name: "Shipping", body: "Roll goods or finished pieces, packed to your carton spec and shipped door to door." },
 ];
@@ -270,6 +301,18 @@ export const FAQ = [
   {
     q: "What does GSM actually change?",
     a: "GSM is grams per square metre — the fabric's weight. Lower weights are lighter and more sheer with a fluid fall; higher weights are more opaque, warmer and hold their shape. Every base fabric in our range runs across a band rather than a single fixed weight, so you choose where in that band your product sits.",
+  },
+  {
+    q: "How long does production take?",
+    a: "Around 30 days from approved sample to finished goods for a standard order. Sampling and lab dips happen before that clock starts. If your deadline is tighter, tell us the date up front — we would rather say no than miss it.",
+  },
+  {
+    q: "What volume can you handle?",
+    a: "Our capacity is about 500,000 pieces per month, so repeat programmes and seasonal peaks do not push your next order down the queue. Small first orders are welcome too — capacity is there for when you scale.",
+  },
+  {
+    q: "Which countries do you ship to?",
+    a: "We currently export to the United States, Canada, the United Kingdom, the European Union, the United Arab Emirates, Oman, Australia, Singapore, Malaysia and Indonesia. If your market is not on that list, ask — it usually just means we have not shipped there yet, not that we cannot.",
   },
   {
     q: "Do you supply roll goods or finished hijabs?",

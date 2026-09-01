@@ -47,7 +47,8 @@ structure, responsive rules and the image manifest.
 
 - Shade codes are in-house (`HS-118 Sage Ash` etc.), deliberately not Pantone references.
 - Branded fibre names appear as plain product names without trademark symbols or logos.
-- No factory statistics are published until real figures are supplied — no invented numbers.
+- Only client-confirmed factory figures are published: 500,000 pieces/month capacity, 30-day lead
+  time, ten export markets. Nothing else is invented.
 - Instagram and Facebook links in the footer are placeholders pending real URLs.
 
 ## Contact
