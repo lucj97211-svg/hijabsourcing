@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run prerender",
+    "prerender": "vite build --config vite.prerender.config.js && node node_modules/.prerender/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

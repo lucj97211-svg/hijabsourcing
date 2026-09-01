@@ -38,19 +38,193 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Hijab Sourcing",
-        "url": "https://www.hijabsourcing.com/",
-        "description": "Jersey and modal hijab fabric OEM / ODM manufacturer. Custom weight, shade matching and in-house branding.",
-        "email": "sofia@wennuanfactory.com",
-        "telephone": "+86-158-6896-5821",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "sales",
-          "email": "sofia@wennuanfactory.com",
-          "telephone": "+86-158-6896-5821",
-          "availableLanguage": ["English", "Chinese"]
-        }
+        "@graph": [
+          {
+            "@type": ["Organization", "Manufacturer"],
+            "@id": "https://www.hijabsourcing.com/#organization",
+            "name": "Hijab Sourcing",
+            "url": "https://www.hijabsourcing.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.hijabsourcing.com/assets/images/brand/favicon-512.png",
+              "width": 512,
+              "height": 512
+            },
+            "image": "https://www.hijabsourcing.com/assets/images/hero/hero-fabric-daylight.jpg",
+            "description": "Jersey and modal hijab fabric OEM / ODM manufacturer. Knitting, dyeing, finishing, cutting, labelling and retail packaging in one mill. 60 to 240 GSM, lab-dip shade matching, about 500,000 pieces monthly capacity and a 30-day production lead time.",
+            "foundingDate": "2015",
+            "numberOfEmployees": { "@type": "QuantitativeValue", "value": 120 },
+            "email": "sofia@wennuanfactory.com",
+            "telephone": "+86-158-6896-5821",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "3F, Building 1, Anqiaotou Village, Sunduan Street",
+              "addressLocality": "Shaoxing",
+              "addressRegion": "Zhejiang",
+              "addressCountry": "CN"
+            },
+            "hasCredential": [
+              {
+                "@type": "EducationalOccupationalCredential",
+                "credentialCategory": "certification",
+                "name": "OEKO-TEX Standard 100"
+              },
+              {
+                "@type": "EducationalOccupationalCredential",
+                "credentialCategory": "certification",
+                "name": "BSCI"
+              }
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "sales",
+              "email": "sofia@wennuanfactory.com",
+              "telephone": "+86-158-6896-5821",
+              "availableLanguage": ["English", "Chinese"]
+            },
+            "areaServed": [
+              { "@type": "Country", "name": "United States" },
+              { "@type": "Country", "name": "Canada" },
+              { "@type": "Country", "name": "United Kingdom" },
+              { "@type": "Country", "name": "United Arab Emirates" },
+              { "@type": "Country", "name": "Oman" },
+              { "@type": "Country", "name": "Australia" },
+              { "@type": "Country", "name": "Singapore" },
+              { "@type": "Country", "name": "Malaysia" },
+              { "@type": "Country", "name": "Indonesia" }
+            ],
+            "knowsAbout": [
+              "Hijab fabric manufacturing",
+              "Jersey hijab fabric",
+              "Modal hijab fabric",
+              "OEM hijab production",
+              "ODM hijab production",
+              "Lab dip colour matching",
+              "GSM fabric weight specification",
+              "Private label woven labels and retail packaging"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.hijabsourcing.com/#website",
+            "url": "https://www.hijabsourcing.com/",
+            "name": "Hijab Sourcing",
+            "publisher": { "@id": "https://www.hijabsourcing.com/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Service",
+            "@id": "https://www.hijabsourcing.com/#service",
+            "name": "Custom hijab fabric manufacturing (OEM / ODM)",
+            "serviceType": "Hijab fabric OEM and ODM manufacturing",
+            "provider": { "@id": "https://www.hijabsourcing.com/#organization" },
+            "description": "Choose a jersey or modal base, set the weight anywhere from 60 to 240 GSM, match a shade on physical lab dip, and add in-house woven labels, hang tags and retail packaging. Ships as roll goods or as finished, labelled and retail-packed hijabs.",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Hijab fabric bases",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "Jersey hijab fabric",
+                    "category": "Hijab fabric",
+                    "material": "Jersey knit",
+                    "description": "Jersey base fabrics for hijabs, produced across a 60 to 240 GSM weight band with lab-dip shade matching."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "Modal hijab fabric",
+                    "category": "Hijab fabric",
+                    "material": "Modal knit",
+                    "description": "Modal base fabrics for hijabs including 30s, 40s, 50s, Lenzing, Tencel, Bamboo and Twill modal, produced across a 60 to 240 GSM weight band."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.hijabsourcing.com/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is your minimum order per colour?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "It depends on the base fabric and whether the shade is from our stock range or a custom lab dip. Stock shades start considerably lower than custom ones. Send the fabric and shade you have in mind and we will quote the exact minimum rather than a marketing number."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you match a colour I already sell?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Send a physical swatch, a hex value, or a colour reference from your existing supplier. We produce three lab dips against it and you approve the closest one on real fabric before bulk dyeing starts."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What does GSM actually change?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "GSM is grams per square metre — the fabric's weight. Lower weights are lighter and more sheer with a fluid fall; higher weights are more opaque, warmer and hold their shape. Every base fabric in our range runs across a band rather than a single fixed weight, so you choose where in that band your product sits."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How long does production take?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Around 30 days from approved sample to finished goods for a standard order. Sampling and lab dips happen before that clock starts. If your deadline is tighter, tell us the date up front — we would rather say no than miss it."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What volume can you handle?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our capacity is about 500,000 pieces per month, so repeat programmes and seasonal peaks do not push your next order down the queue. Small first orders are welcome too — capacity is there for when you scale."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which countries do you ship to?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We currently export to the United States, Canada, the United Kingdom, the European Union, the United Arab Emirates, Oman, Australia, Singapore, Malaysia and Indonesia. If your market is not on that list, ask — it usually just means we have not shipped there yet, not that we cannot."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you supply roll goods or finished hijabs?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Both. We can ship fabric by the roll for your own cutting and sewing, or deliver finished pieces cut, hemmed, labelled and retail-packed under your brand."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can you produce our labels and packaging?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes — woven labels, care labels, hang tags, thank-you cards, retail sleeves and rigid gift boxes are all finished in-house. Upload your logo in the customization studio to see it placed on each one."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which certifications can you provide?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The mill holds OEKO-TEX Standard 100 and BSCI. Certification availability for a specific order still depends on the fabric and dye route, so tell us which standard your market requires and we will confirm in writing what we can supply for that order."
+                }
+              }
+            ]
+          }
+        ]
       }
     </script>
   </head>

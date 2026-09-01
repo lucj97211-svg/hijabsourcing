@@ -145,6 +145,18 @@ export function FactoryAbout() {
           </p>
           <ul className="about-spec mono">
             <li>
+              <span>Mill</span>
+              <span>Shaoxing, Zhejiang, China · established 2015</span>
+            </li>
+            <li>
+              <span>Scale</span>
+              <span>8,000 m² · 120 staff</span>
+            </li>
+            <li>
+              <span>Certification</span>
+              <span>OEKO-TEX Standard 100 · BSCI</span>
+            </li>
+            <li>
               <span>Capability</span>
               <span>Knitting · dyeing · finishing · cut &amp; sew</span>
             </li>

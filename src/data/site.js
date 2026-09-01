@@ -347,6 +347,6 @@ export const FAQ = [
   },
   {
     q: "Which certifications can you provide?",
-    a: "Certification availability depends on the specific fabric and dye route. Tell us which standard your market requires and we will confirm in writing what we can supply for that order — we would rather answer precisely than list logos.",
+    a: "The mill holds OEKO-TEX Standard 100 and BSCI. Beyond those, certification availability depends on the specific fabric and dye route, so tell us which standard your market requires and we will confirm in writing what we can supply for that order — we would rather answer precisely than list logos.",
   },
 ];
