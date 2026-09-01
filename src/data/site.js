@@ -223,12 +223,15 @@ export const SHADES = [
 ];
 
 export const CARRIERS = [
+  /* rect = the printable area, measured off each photo with a percentage
+     grid. rotate stays 0 everywhere: the shots are square-on, so an upright
+     logo reads as upright. */
   {
     id: "woven-label",
     label: "Woven Label",
-    caption: "Satin woven label, folded, sewn into the inside seam",
+    caption: "Satin woven label, printed and folded, sewn into the inside seam",
     image: "/assets/images/studio/carrier-woven-label.jpg",
-    rect: { x: 32, y: 40, w: 36, h: 14, rotate: 0 },
+    rect: { x: 20, y: 38, w: 60, h: 24, rotate: 0 },
     blend: "multiply",
     opacity: 0.92,
     filter: "contrast(0.92) saturate(0.85)",
@@ -236,9 +239,9 @@ export const CARRIERS = [
   {
     id: "packaging-bag",
     label: "Packaging",
-    caption: "Matte kraft flat pouch, one-colour print",
+    caption: "Frosted matte OPP zip pouch, one-colour print",
     image: "/assets/images/studio/carrier-packaging-bag.jpg",
-    rect: { x: 27, y: 32, w: 46, h: 22, rotate: 0 },
+    rect: { x: 30, y: 30, w: 40, h: 34, rotate: 0 },
     blend: "multiply",
     opacity: 0.88,
     filter: "none",
@@ -248,7 +251,7 @@ export const CARRIERS = [
     label: "Hang Tag",
     caption: "Textured cardstock, metal eyelet, cotton string",
     image: "/assets/images/studio/carrier-hang-tag.jpg",
-    rect: { x: 31, y: 26, w: 38, h: 22, rotate: -2 },
+    rect: { x: 34, y: 32, w: 32, h: 30, rotate: 0 },
     blend: "multiply",
     opacity: 0.94,
     filter: "none",
@@ -258,7 +261,7 @@ export const CARRIERS = [
     label: "Thank-You Card",
     caption: "Cotton card with a debossed border",
     image: "/assets/images/studio/carrier-thank-you-card.jpg",
-    rect: { x: 24, y: 36, w: 52, h: 20, rotate: 0 },
+    rect: { x: 26, y: 34, w: 48, h: 28, rotate: 0 },
     blend: "multiply",
     opacity: 0.95,
     filter: "none",
@@ -268,7 +271,7 @@ export const CARRIERS = [
     label: "Gift Box",
     caption: "Rigid board box, matte lamination",
     image: "/assets/images/studio/carrier-gift-box.jpg",
-    rect: { x: 33, y: 36, w: 34, h: 18, rotate: 0 },
+    rect: { x: 27, y: 32, w: 46, h: 32, rotate: 0 },
     blend: "multiply",
     opacity: 0.9,
     filter: "none",
