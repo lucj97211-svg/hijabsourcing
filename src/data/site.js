@@ -136,7 +136,8 @@ export const MODAL = [
   {
     id: "modal-30s",
     name: "30s Modal",
-    image: "/assets/images/fabrics/modal-30s.jpg",
+    image: "/assets/images/fabrics/modal-30s.webp",
+    hover: "/assets/images/fabrics/modal-30s-drape.webp",
     gsm: [70, 140],
     handFeel:
       "Coarser count with a visible soft grain and real body. It holds a rounded fold instead of collapsing — good for structured wraps.",
@@ -145,7 +146,8 @@ export const MODAL = [
   {
     id: "modal-40s",
     name: "40s Modal",
-    image: "/assets/images/fabrics/modal-40s.jpg",
+    image: "/assets/images/fabrics/modal-40s.webp",
+    hover: "/assets/images/fabrics/modal-40s-drape.webp",
     gsm: [65, 140],
     handFeel:
       "The middle count and our most-ordered base. Smooth low-lustre face, fluid enough to fall in two long folds without looking slippery.",
@@ -154,7 +156,8 @@ export const MODAL = [
   {
     id: "modal-50s",
     name: "50s Modal",
-    image: "/assets/images/fabrics/modal-50s.jpg",
+    image: "/assets/images/fabrics/modal-50s.webp",
+    hover: "/assets/images/fabrics/modal-50s-drape.webp",
     gsm: [60, 140],
     handFeel:
       "Yarn structure is effectively invisible. Glassy, feather-light and semi-sheer at the low end of its weight band.",
@@ -163,7 +166,8 @@ export const MODAL = [
   {
     id: "modal-bamboo",
     name: "Bamboo Modal",
-    image: "/assets/images/fabrics/modal-bamboo.jpg",
+    image: "/assets/images/fabrics/modal-bamboo.webp",
+    hover: "/assets/images/fabrics/modal-bamboo-drape.webp",
     gsm: [60, 140],
     handFeel:
       "A hybrid hand — dry matte bamboo across the face, a faint modal sheen only at the fold crests. Relaxed, heavy drape.",
@@ -190,7 +194,8 @@ export const MODAL = [
   {
     id: "modal-twill",
     name: "Twill Modal",
-    image: "/assets/images/fabrics/modal-twill.jpg",
+    image: "/assets/images/fabrics/modal-twill.webp",
+    hover: "/assets/images/fabrics/modal-twill-drape.webp",
     gsm: [60, 140],
     handFeel:
       "Clear diagonal twill ridges catch the light along their crests. The only structured weave in the range — it takes a crease and keeps it.",
