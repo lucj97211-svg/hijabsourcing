@@ -4,7 +4,6 @@ import Reveal from "../../components/Reveal.jsx";
 import { useCustomization } from "./CustomizationContext.jsx";
 import FabricPreview from "./FabricPreview.jsx";
 import GsmSlider from "./GsmSlider.jsx";
-import ShadeStudio from "./ShadeStudio.jsx";
 import LogoStudio from "./LogoStudio.jsx";
 
 export default function CustomizationStudio() {
@@ -40,8 +39,8 @@ export default function CustomizationStudio() {
           <span className="eyebrow">Customization studio</span>
           <h2>Build the spec before you write the email.</h2>
           <p className="lead">
-            Set the weight, match the shade and drop in your logo. Everything updates live, and the
-            finished configuration goes straight into your inquiry.
+            Set the weight and drop in your logo. Everything updates live, and the finished
+            configuration goes straight into your inquiry.
           </p>
         </Reveal>
 
@@ -65,7 +64,6 @@ export default function CustomizationStudio() {
         <div className="studio__grid">
           <div className="studio__controls">
             <GsmSlider />
-            <ShadeStudio />
             <LogoStudio />
           </div>
 

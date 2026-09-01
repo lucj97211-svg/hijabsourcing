@@ -80,12 +80,6 @@ export default function FabricPreview() {
           <dt>Opacity</dt>
           <dd>{zone.opacity}</dd>
         </div>
-        <div>
-          <dt>Shade</dt>
-          <dd>
-            {shade.code} {shade.hex}
-          </dd>
-        </div>
       </dl>
     </div>
   );

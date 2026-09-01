@@ -9,7 +9,6 @@ const DEFAULT_FABRIC = ALL_FABRICS.find((f) => f.id === "modal-40s") || ALL_FABR
 export function CustomizationProvider({ children }) {
   const [fabricId, setFabricId] = useState(DEFAULT_FABRIC.id);
   const [gsm, setGsm] = useState(120);
-  const [shade, setShade] = useState({ ...SHADES[0] });
   const [logo, setLogo] = useState(null); // { name, url, width, height }
   const [carriers, setCarriers] = useState(["woven-label", "hang-tag"]);
 
@@ -24,27 +23,23 @@ export function CustomizationProvider({ children }) {
     );
   }, []);
 
-  const setCustomShade = useCallback((hex) => {
-    const match = SHADES.find((s) => s.hex.toUpperCase() === hex.toUpperCase());
-    setShade(match ? { ...match } : { code: "CUSTOM", name: "Custom shade", hex });
-  }, []);
+  /* The shade picker was removed from the studio; the preview still renders a
+     dyed swatch, so it uses the mill's default shade. Colour is agreed with
+     the customer over the inquiry instead. */
+  const shade = SHADES[0];
 
   const specLine = useMemo(() => {
-    const parts = [
-      fabric.name.toUpperCase(),
-      `${gsm} GSM`,
-      `${shade.code} ${shade.name.toUpperCase()} ${shade.hex}`,
-    ];
+    const parts = [fabric.name.toUpperCase(), `${gsm} GSM`];
     if (logo) parts.push(`LOGO ON ${carriers.length || 0} CARRIER${carriers.length === 1 ? "" : "S"}`);
     return parts.join("  ·  ");
-  }, [fabric, gsm, shade, logo, carriers]);
+  }, [fabric, gsm, logo, carriers]);
 
   const specText = useMemo(() => {
     const zone = gsmZone(gsm);
     const lines = [
       `Fabric: ${fabric.name} (${fabric.gsm[0]}\u2013${fabric.gsm[1]} GSM range)`,
       `Target weight: ${gsm} GSM \u2014 ${zone.label.toLowerCase()} weight`,
-      `Shade: ${shade.name} (${shade.code}) ${shade.hex}`,
+      "Shade: to be confirmed \u2014 send a Pantone code or a physical swatch and we will lab-dip to match",
     ];
     if (logo) {
       const names = carriers.length ? carriers.join(", ") : "none selected yet";
@@ -53,7 +48,7 @@ export function CustomizationProvider({ children }) {
       lines.push("Branding: no logo uploaded yet");
     }
     return lines.join("\n");
-  }, [fabric, gsm, shade, logo, carriers]);
+  }, [fabric, gsm, logo, carriers]);
 
   const value = useMemo(
     () => ({
@@ -63,8 +58,6 @@ export function CustomizationProvider({ children }) {
       gsm,
       setGsm,
       shade,
-      setShade,
-      setCustomShade,
       logo,
       setLogo,
       carriers,
@@ -72,7 +65,7 @@ export function CustomizationProvider({ children }) {
       specLine,
       specText,
     }),
-    [fabric, fabricId, gsm, shade, setCustomShade, logo, carriers, toggleCarrier, specLine, specText]
+    [fabric, fabricId, gsm, shade, logo, carriers, toggleCarrier, specLine, specText]
   );
 
   return (
