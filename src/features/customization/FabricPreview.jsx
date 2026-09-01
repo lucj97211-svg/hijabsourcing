@@ -17,27 +17,38 @@ export default function FabricPreview() {
       >
         <div className="preview__grid" aria-hidden="true" />
 
+        {/* Each layer is its own tinted unit: a cut-out hijab plus a colour
+            wash masked to that same cut-out. Nothing outside the silhouette
+            is ever painted, so the stage background stays neutral. */}
         <div className="preview__cloth">
-          <img
-            className="preview__layer preview__layer--base"
-            src="/assets/images/studio/hijab-base-neutral.jpg"
-            alt={`Hijab preview at ${gsm} GSM in shade ${shade.code} ${shade.name}`}
-          />
-          <img
-            className="preview__layer preview__layer--drape2"
-            src="/assets/images/studio/hijab-base-drape-2.jpg"
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-          />
-          <img
-            className="preview__layer preview__layer--drape3"
-            src="/assets/images/studio/hijab-base-drape-3.jpg"
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-          />
-          <span className="preview__tint" aria-hidden="true" />
+          <span className="preview__piece preview__piece--base">
+            <img
+              className="preview__layer"
+              src="/assets/images/studio/hijab-cut-1.png"
+              alt={`Hijab preview at ${gsm} GSM in shade ${shade.code} ${shade.name}`}
+            />
+            <span className="preview__tint" aria-hidden="true" />
+          </span>
+          <span className="preview__piece preview__piece--drape2">
+            <img
+              className="preview__layer"
+              src="/assets/images/studio/hijab-cut-2.png"
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+            />
+            <span className="preview__tint preview__tint--2" aria-hidden="true" />
+          </span>
+          <span className="preview__piece preview__piece--drape3">
+            <img
+              className="preview__layer"
+              src="/assets/images/studio/hijab-cut-3.png"
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+            />
+            <span className="preview__tint preview__tint--3" aria-hidden="true" />
+          </span>
           <span className="preview__grain" aria-hidden="true" />
         </div>
       </div>

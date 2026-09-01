@@ -617,36 +617,64 @@
   transition: filter var(--motion-fast) var(--ease-standard);
 }
 
+/* One piece = cut-out photo + its colour wash, clipped to the same shape.
+   isolation:isolate keeps the multiply blend inside the piece so it can never
+   reach the stage background. */
+.preview__piece {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+  transition: opacity var(--motion-fast) var(--ease-standard);
+}
+
+.preview__piece--base {
+  opacity: var(--fabric-opacity, 1);
+}
+
+.preview__piece--drape2 {
+  opacity: calc(var(--drape-2-opacity, 0) * var(--fabric-opacity, 1));
+}
+
+.preview__piece--drape3 {
+  opacity: calc(var(--drape-3-opacity, 0) * var(--fabric-opacity, 1));
+}
+
 .preview__layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  opacity: var(--fabric-opacity, 1);
-  transition: opacity var(--motion-fast) var(--ease-standard);
+  object-fit: contain;
 }
 
-.preview__layer--drape2 {
-  opacity: calc(var(--drape-2-opacity, 0) * var(--fabric-opacity, 1));
-}
-
-.preview__layer--drape3 {
-  opacity: calc(var(--drape-3-opacity, 0) * var(--fabric-opacity, 1));
-}
-
+/* The wash is masked by the very cut-out it sits on, so only fabric is dyed.
+   The PNGs carry a real alpha channel — a JPEG mask would be fully opaque
+   and would flood the whole frame. */
 .preview__tint {
   position: absolute;
   inset: 0;
   background: var(--shade, #56896a);
   mix-blend-mode: multiply;
-  opacity: calc(var(--fabric-opacity, 1) * 0.92);
-  transition: background-color var(--motion-fast) var(--ease-standard),
-    opacity var(--motion-fast) var(--ease-standard);
-  -webkit-mask-image: url("/assets/images/studio/hijab-base-neutral.jpg");
-  mask-image: url("/assets/images/studio/hijab-base-neutral.jpg");
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  opacity: 0.92;
+  transition: background-color var(--motion-fast) var(--ease-standard);
+  -webkit-mask-image: url("/assets/images/studio/hijab-cut-1.png");
+  mask-image: url("/assets/images/studio/hijab-cut-1.png");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.preview__tint--2 {
+  -webkit-mask-image: url("/assets/images/studio/hijab-cut-2.png");
+  mask-image: url("/assets/images/studio/hijab-cut-2.png");
+}
+
+.preview__tint--3 {
+  -webkit-mask-image: url("/assets/images/studio/hijab-cut-3.png");
+  mask-image: url("/assets/images/studio/hijab-cut-3.png");
 }
 
 .preview__grain {
@@ -661,6 +689,15 @@
   mix-blend-mode: soft-light;
   opacity: var(--grain-opacity, 0.3);
   transition: opacity var(--motion-fast) var(--ease-standard);
+  /* Keep the weave texture on the cloth only, never on the backdrop. */
+  -webkit-mask-image: url("/assets/images/studio/hijab-cut-1.png");
+  mask-image: url("/assets/images/studio/hijab-cut-1.png");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
 .preview__stage.is-lightshade .preview__cloth {
