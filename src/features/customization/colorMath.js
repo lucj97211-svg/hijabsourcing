@@ -98,39 +98,4 @@ export function inkOn(hex) {
   return relativeLuminance(hex) > 0.45 ? "#2C2A26" : "#FFFDF8";
 }
 
-/**
- * Convert a hex colour into a CSS filter string that tints a white/near-white
- * image to the target colour.  Works by composing:
- *   sepia(1) → places us on the warm-brown axis
- *   hue-rotate(Xdeg) → rotates to the target hue
- *   saturate(Y) → sets the saturation
- *   brightness(Z) → sets the lightness
- *
- * The filter is applied directly to the <img> element, so the stage background,
- * grid, and any surrounding DOM are completely unaffected.
- */
-export function hexToImgFilter(hex) {
-  const rgb = hexToRgb(hex);
-  if (!rgb) return "none";
 
-  const { h, s, v } = rgbToHsv(rgb);
-
-  // sepia(1) puts the image at hue ≈ 35°.
-  // We need to rotate from 35° to the target hue.
-  const hueRotate = ((h - 35) + 360) % 360;
-
-  // Saturation: sepia gives ~0.85 base; scale to match target.
-  // At s=0 (grey/white/black) we want sat=0; at s=1 full chroma.
-  const saturate = s < 0.05 ? 0 : Math.max(0.1, s * 3.5);
-
-  // Brightness: v=1 (white target) → bright; v=0 (black) → dark.
-  // sepia(1) on white gives ~0.93 luminance, so scale relative to that.
-  const brightness = Math.max(0.05, v * 1.05);
-
-  return [
-    "sepia(1)",
-    `hue-rotate(${hueRotate.toFixed(1)}deg)`,
-    `saturate(${saturate.toFixed(2)})`,
-    `brightness(${brightness.toFixed(2)})`,
-  ].join(" ");
-}

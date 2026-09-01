@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useCustomization } from "./CustomizationContext.jsx";
 import { gsmStyleVars, gsmZone } from "./gsm.js";
-import { hexToImgFilter } from "./colorMath.js";
+import { useTintedFabric } from "./useTintedFabric.js";
 
 /* Two layers per GSM zone:
-   - base:   full photo (mannequin + backdrop) — NEVER tinted
-   - fabric: transparent cut-out of the hijab only — the ONLY tinted layer   */
+   - base:   full photo (charcoal mannequin + white backdrop) — NEVER tinted
+   - fabric: true-alpha cut-out of the hijab only — the ONLY tinted layer   */
 const ZONE_LAYERS = {
   ultralight: {
     base: "/assets/images/studio/hijab-ultralight.png",
@@ -35,9 +35,9 @@ export default function FabricPreview() {
   const vars = gsmStyleVars(gsm);
   const layers = ZONE_LAYERS[zone.id];
 
-  /* Colour filter — applied ONLY to the transparent fabric cut-out, so the
-     mannequin and backdrop underneath keep their original colour. */
-  const fabricFilter = useMemo(() => hexToImgFilter(shade.hex), [shade.hex]);
+  /* Per-pixel tint on a canvas — reproduces the exact hex, unlike a CSS
+     sepia/hue-rotate chain which washes out saturated hues on white. */
+  const tinted = useTintedFabric(layers.fabric, shade.hex);
 
   return (
     <div className="preview" data-component="studio-weight-preview">
@@ -55,13 +55,10 @@ export default function FabricPreview() {
           {/* Tinted layer: hijab fabric only */}
           <img
             className="preview__fabric"
-            src={layers.fabric}
+            src={tinted || layers.fabric}
             key={`fabric-${zone.id}`}
             alt={`Hijab preview at ${gsm} GSM in shade ${shade.code} ${shade.name}`}
-            style={{
-              filter: fabricFilter,
-              opacity: vars["--fabric-opacity"],
-            }}
+            style={{ opacity: vars["--fabric-opacity"] }}
           />
         </div>
       </div>
