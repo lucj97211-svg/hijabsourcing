@@ -607,6 +607,12 @@
   opacity: 1;
 }
 
+/* Tap-flip should land on the same visual state as hover, otherwise the two
+   routes into the drape shot look like different components. */
+.fabric-card-wrap.is-flipped .fabric-card__media img {
+  transform: scale(1.03);
+}
+
 .fabric-card__swap {
   position: absolute;
   left: 0;
