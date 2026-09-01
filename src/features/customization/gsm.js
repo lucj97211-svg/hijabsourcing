@@ -55,14 +55,21 @@ export function gsmVisuals(gsm) {
 
 export function gsmStyleVars(gsm) {
   const v = gsmVisuals(gsm);
+  // Light (60-110): slightly blurred + lower opacity = sheer/airy feel
+  // All-season (110-170): crisp, normal opacity
+  // Winter (170-240): high contrast + deep shadow = dense/heavy feel
+  const blurPx = gsm < 110 ? (1 - (gsm - 60) / 50) * 1.2 : 0;
+  const filterStr =
+    blurPx > 0
+      ? `blur(${blurPx.toFixed(2)}px) saturate(${v.saturate.toFixed(3)}) contrast(${v.contrast.toFixed(3)})`
+      : `saturate(${v.saturate.toFixed(3)}) contrast(${v.contrast.toFixed(3)})`;
+
   return {
     "--fabric-opacity": v.fabricOpacity.toFixed(3),
     "--grain-opacity": v.grainOpacity.toFixed(3),
-    "--drape-2-opacity": v.drapeLayers >= 2 ? "1" : "0",
-    "--drape-3-opacity": v.drapeLayers >= 3 ? "1" : "0",
     "--fabric-shadow": `0 ${v.shadowY.toFixed(1)}px ${v.shadowBlur.toFixed(
       1
     )}px rgba(27,42,34,${v.shadowAlpha.toFixed(3)})`,
-    "--fabric-filter": `saturate(${v.saturate.toFixed(3)}) contrast(${v.contrast.toFixed(3)})`,
+    "--fabric-filter": filterStr,
   };
 }

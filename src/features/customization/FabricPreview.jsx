@@ -3,11 +3,18 @@ import { useCustomization } from "./CustomizationContext.jsx";
 import { gsmStyleVars, gsmZone } from "./gsm.js";
 import { relativeLuminance } from "./colorMath.js";
 
+const ZONE_IMAGE = {
+  light: "/assets/images/studio/hijab-cut-1.png",
+  "all-season": "/assets/images/studio/hijab-cut-2.png",
+  winter: "/assets/images/studio/hijab-cut-3.png",
+};
+
 export default function FabricPreview() {
   const { gsm, shade, fabric } = useCustomization();
   const zone = gsmZone(gsm);
   const vars = gsmStyleVars(gsm);
   const light = relativeLuminance(shade.hex) > 0.86;
+  const imgSrc = ZONE_IMAGE[zone.id];
 
   return (
     <div className="preview" data-component="studio-weight-preview">
@@ -17,39 +24,38 @@ export default function FabricPreview() {
       >
         <div className="preview__grid" aria-hidden="true" />
 
-        {/* Each layer is its own tinted unit: a cut-out hijab plus a colour
-            wash masked to that same cut-out. Nothing outside the silhouette
-            is ever painted, so the stage background stays neutral. */}
         <div className="preview__cloth">
-          <span className="preview__piece preview__piece--base">
+          {/* Base hijab image — swaps by GSM zone */}
+          <span
+            className="preview__piece preview__piece--base"
+            style={{ "--zone-img": `url("${imgSrc}")` }}
+          >
             <img
               className="preview__layer"
-              src="/assets/images/studio/hijab-cut-1.png"
+              src={imgSrc}
               alt={`Hijab preview at ${gsm} GSM in shade ${shade.code} ${shade.name}`}
+              key={zone.id}
             />
-            <span className="preview__tint" aria-hidden="true" />
-          </span>
-          <span className="preview__piece preview__piece--drape2">
-            <img
-              className="preview__layer"
-              src="/assets/images/studio/hijab-cut-2.png"
-              alt=""
+            {/* Colour wash masked to exactly this image's silhouette */}
+            <span
+              className="preview__tint"
               aria-hidden="true"
-              loading="lazy"
+              style={{
+                WebkitMaskImage: `url("${imgSrc}")`,
+                maskImage: `url("${imgSrc}")`,
+              }}
             />
-            <span className="preview__tint preview__tint--2" aria-hidden="true" />
           </span>
-          <span className="preview__piece preview__piece--drape3">
-            <img
-              className="preview__layer"
-              src="/assets/images/studio/hijab-cut-3.png"
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-            />
-            <span className="preview__tint preview__tint--3" aria-hidden="true" />
-          </span>
-          <span className="preview__grain" aria-hidden="true" />
+
+          {/* Fabric grain texture, also masked to the active image */}
+          <span
+            className="preview__grain"
+            aria-hidden="true"
+            style={{
+              WebkitMaskImage: `url("${imgSrc}")`,
+              maskImage: `url("${imgSrc}")`,
+            }}
+          />
         </div>
       </div>
 
