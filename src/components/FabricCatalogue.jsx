@@ -5,6 +5,7 @@ import Reveal from "./Reveal.jsx";
 
 export default function FabricCatalogue() {
   const [activeId, setActiveId] = useState(COLLECTIONS[0].id);
+  const [flipped, setFlipped] = useState({});
   const { setFabricId, setGsm } = useCustomization();
   const tabRefs = useRef([]);
 
@@ -83,19 +84,45 @@ export default function FabricCatalogue() {
           >
             <ul className="fabric-grid">
               {collection.items.map((fabric, index) => (
-                <Reveal as="li" key={fabric.id} delay={index % 3} className="fabric-card-wrap">
+                <Reveal
+                  as="li"
+                  key={fabric.id}
+                  delay={index % 3}
+                  className={`fabric-card-wrap ${
+                    flipped[fabric.id] ? "is-flipped" : ""
+                  }`}
+                >
                   <a
                     className="fabric-card"
                     href="#customization"
                     onClick={configure(fabric)}
                     data-component="fabric-card"
                   >
-                    <span className="fabric-card__media">
+                    <span
+                      className={`fabric-card__media ${
+                        fabric.hover ? "fabric-card__media--dual" : ""
+                      }`}
+                    >
                       <img
+                        className="fabric-card__img fabric-card__img--primary"
                         src={fabric.image}
                         alt={`Macro detail of ${fabric.name} fabric`}
                         loading={isActive ? "eager" : "lazy"}
+                        draggable="false"
                       />
+                      {fabric.hover ? (
+                        <img
+                          className="fabric-card__img fabric-card__img--hover"
+                          src={fabric.hover}
+                          alt={`${fabric.name} shown as a finished hijab, hanging`}
+                          loading="lazy"
+                          draggable="false"
+                          aria-hidden="true"
+                        />
+                      ) : null}
+                      {fabric.hover ? (
+                        <span className="mono fabric-card__swap">Drape</span>
+                      ) : null}
                     </span>
                     <span className="fabric-card__head">
                       <span className="mono fabric-card__index">
@@ -116,6 +143,28 @@ export default function FabricCatalogue() {
                     </span>
                     <span className="fabric-card__cta mono">Configure this weight &rarr;</span>
                   </a>
+                  {fabric.hover ? (
+                    <button
+                      type="button"
+                      className="fabric-card__flip"
+                      aria-pressed={Boolean(flipped[fabric.id])}
+                      onClick={() =>
+                        setFlipped((prev) => ({
+                          ...prev,
+                          [fabric.id]: !prev[fabric.id],
+                        }))
+                      }
+                    >
+                      <span className="sr-only">
+                        {flipped[fabric.id]
+                          ? `Show fabric texture for ${fabric.name}`
+                          : `Show ${fabric.name} as a finished hijab`}
+                      </span>
+                      <span aria-hidden="true" className="mono">
+                        {flipped[fabric.id] ? "Texture" : "Drape"}
+                      </span>
+                    </button>
+                  ) : null}
                 </Reveal>
               ))}
             </ul>

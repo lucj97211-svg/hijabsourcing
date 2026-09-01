@@ -1,4 +1,4 @@
-/* Hijab Sourcing — site content.
+﻿/* Hijab Sourcing — site content.
    Real, client-confirmed facts only. Nothing here is an invented statistic. */
 
 export const CONTACT = {
@@ -73,7 +73,8 @@ export const JERSEY = [
   {
     id: "jersey-cotton",
     name: "Cotton Jersey",
-    image: "/assets/images/fabrics/jersey-cotton.jpg",
+    image: "/assets/images/fabrics/jersey-cotton.webp",
+    hover: "/assets/images/fabrics/jersey-cotton-drape.webp",
     gsm: [130, 220],
     handFeel:
       "Dense cotton loop with a matte face. It holds a pin, resists slipping and sits still all day — the workhorse of everyday wear.",
@@ -82,7 +83,8 @@ export const JERSEY = [
   {
     id: "jersey-premium",
     name: "Premium Jersey",
-    image: "/assets/images/fabrics/jersey-premium.jpg",
+    image: "/assets/images/fabrics/jersey-premium.webp",
+    hover: "/assets/images/fabrics/jersey-premium-drape.webp",
     gsm: [160, 200],
     handFeel:
       "Fine-gauge and compacted, with a faint mercerised sheen. The face stays smooth after washing where a coarser knit would fuzz.",
@@ -91,7 +93,8 @@ export const JERSEY = [
   {
     id: "jersey-modal",
     name: "Modal Jersey",
-    image: "/assets/images/fabrics/jersey-modal.jpg",
+    image: "/assets/images/fabrics/jersey-modal.webp",
+    hover: "/assets/images/fabrics/jersey-modal-drape.webp",
     gsm: [160, 200],
     handFeel:
       "Cool and fluid. The loop structure disappears into the drape, so it falls in long folds rather than breaking at the shoulder.",
@@ -100,7 +103,8 @@ export const JERSEY = [
   {
     id: "jersey-bamboo",
     name: "Bamboo Jersey",
-    image: "/assets/images/fabrics/jersey-bamboo.jpg",
+    image: "/assets/images/fabrics/jersey-bamboo.webp",
+    hover: "/assets/images/fabrics/jersey-bamboo-drape.webp",
     gsm: [150, 240],
     handFeel:
       "Dry, powdery finish with almost no sheen. Built for humid climates — it moves moisture instead of holding it against the skin.",
@@ -109,7 +113,8 @@ export const JERSEY = [
   {
     id: "jersey-liquid",
     name: "Liquid Jersey",
-    image: "/assets/images/fabrics/jersey-liquid.jpg",
+    image: "/assets/images/fabrics/jersey-liquid.webp",
+    hover: "/assets/images/fabrics/jersey-liquid-drape.webp",
     gsm: [150, 190],
     handFeel:
       "The most fluid knit we run. A long specular highlight travels across the surface as it moves, reading closer to poured silk than to jersey.",
@@ -118,7 +123,8 @@ export const JERSEY = [
   {
     id: "jersey-breathable",
     name: "Breathable Jersey",
-    image: "/assets/images/fabrics/jersey-breathable.jpg",
+    image: "/assets/images/fabrics/jersey-breathable.webp",
+    hover: "/assets/images/fabrics/jersey-breathable-drape.webp",
     gsm: [150, 190],
     handFeel:
       "An open loop with measurable air flow between the wales. Crisp and dry to the touch, semi-sheer when backlit.",

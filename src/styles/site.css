@@ -1,4 +1,4 @@
-/* Hijab Sourcing — component styles */
+﻿/* Hijab Sourcing — component styles */
 
 /* ── Utility strip ─────────────────────────────────────────────── */
 
@@ -485,6 +485,7 @@
 }
 
 .fabric-card__media {
+  position: relative;
   display: block;
   aspect-ratio: 3 / 4;
   overflow: hidden;
@@ -497,6 +498,77 @@
   height: 100%;
   object-fit: cover;
   transition: transform var(--motion-base) var(--ease-standard);
+}
+
+/* Dual-image swap: macro texture rests on top, drape shot sits underneath. */
+.fabric-card__img--hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.fabric-card__media--dual .fabric-card__img {
+  transition: opacity var(--motion-enter) var(--ease-standard),
+    transform var(--motion-enter) var(--ease-standard);
+}
+
+.fabric-card-wrap {
+  position: relative;
+}
+
+/* Tap-to-flip control for touch devices, where :hover never fires.
+   Sibling of the <a>, not a child — a button inside a link is invalid. */
+.fabric-card__flip {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  padding: 8px 12px;
+  font-size: 9px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--surface);
+  background: rgba(36, 56, 45, 0.86);
+  border: 0;
+  cursor: pointer;
+  min-height: 34px;
+}
+
+.fabric-card__flip:focus-visible {
+  outline: 2px solid var(--surface);
+  outline-offset: -4px;
+}
+
+@media (hover: hover) {
+  .fabric-card__flip {
+    display: none;
+  }
+}
+
+.fabric-card-wrap.is-flipped .fabric-card__img--primary {
+  opacity: 0;
+}
+
+.fabric-card-wrap.is-flipped .fabric-card__img--hover {
+  opacity: 1;
+}
+
+.fabric-card__swap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 6px 10px;
+  font-size: 9px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--surface);
+  background: rgba(36, 56, 45, 0.82);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity var(--motion-base) var(--ease-standard),
+    transform var(--motion-base) var(--ease-standard);
+  pointer-events: none;
 }
 
 .fabric-card__head {
@@ -579,6 +651,22 @@
   .fabric-card:hover .fabric-card__media img,
   .fabric-card:focus-visible .fabric-card__media img {
     transform: scale(1.03);
+  }
+
+  /* Cross-fade to the drape shot. Opacity only — no layout work, so it stays
+     smooth on a grid of six cards. */
+  .fabric-card:hover .fabric-card__media--dual .fabric-card__img--primary,
+  .fabric-card:focus-visible .fabric-card__media--dual .fabric-card__img--primary {
+    opacity: 0;
+  }
+  .fabric-card:hover .fabric-card__media--dual .fabric-card__img--hover,
+  .fabric-card:focus-visible .fabric-card__media--dual .fabric-card__img--hover {
+    opacity: 1;
+  }
+  .fabric-card:hover .fabric-card__swap,
+  .fabric-card:focus-visible .fabric-card__swap {
+    opacity: 1;
+    transform: none;
   }
   .fabric-card:hover .fabric-card__name,
   .fabric-card:focus-visible .fabric-card__name {
