@@ -4,9 +4,9 @@ import { gsmStyleVars, gsmZone } from "./gsm.js";
 import { relativeLuminance } from "./colorMath.js";
 
 const ZONE_IMAGE = {
-  light: "/assets/images/studio/hijab-cut-1.png",
-  "all-season": "/assets/images/studio/hijab-cut-2.png",
-  winter: "/assets/images/studio/hijab-cut-3.png",
+  light: "/assets/images/studio/hijab-light.png",
+  "all-season": "/assets/images/studio/hijab-allseason.png",
+  winter: "/assets/images/studio/hijab-winter.png",
 };
 
 export default function FabricPreview() {
