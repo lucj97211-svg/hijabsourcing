@@ -3,44 +3,63 @@ import { useCustomization } from "./CustomizationContext.jsx";
 import { gsmStyleVars, gsmZone } from "./gsm.js";
 import { hexToImgFilter } from "./colorMath.js";
 
-/* One image per GSM zone — swap as the slider crosses zone boundaries. */
-const ZONE_IMAGE = {
-  ultralight: "/assets/images/studio/hijab-ultralight.png",
-  light: "/assets/images/studio/hijab-light.png",
-  "all-season": "/assets/images/studio/hijab-allseason.png",
-  medheavy: "/assets/images/studio/hijab-medheavy.png",
-  winter: "/assets/images/studio/hijab-winter.png",
+/* Two layers per GSM zone:
+   - base:   full photo (mannequin + backdrop) — NEVER tinted
+   - fabric: transparent cut-out of the hijab only — the ONLY tinted layer   */
+const ZONE_LAYERS = {
+  ultralight: {
+    base: "/assets/images/studio/hijab-ultralight.png",
+    fabric: "/assets/images/studio/fabric-ultralight.png",
+  },
+  light: {
+    base: "/assets/images/studio/hijab-light.png",
+    fabric: "/assets/images/studio/fabric-light.png",
+  },
+  "all-season": {
+    base: "/assets/images/studio/hijab-allseason.png",
+    fabric: "/assets/images/studio/fabric-allseason.png",
+  },
+  medheavy: {
+    base: "/assets/images/studio/hijab-medheavy.png",
+    fabric: "/assets/images/studio/fabric-medheavy.png",
+  },
+  winter: {
+    base: "/assets/images/studio/hijab-winter.png",
+    fabric: "/assets/images/studio/fabric-winter.png",
+  },
 };
 
 export default function FabricPreview() {
   const { gsm, shade, fabric } = useCustomization();
   const zone = gsmZone(gsm);
   const vars = gsmStyleVars(gsm);
-  const imgSrc = ZONE_IMAGE[zone.id];
+  const layers = ZONE_LAYERS[zone.id];
 
-  /* CSS filter applied directly to the <img> — the stage background and every
-     other element in the DOM are completely unaffected. */
-  const colourFilter = useMemo(() => hexToImgFilter(shade.hex), [shade.hex]);
-
-  /* Combine colour tint with per-GSM contrast/saturate tweaks.
-     filter is applied to the img itself so it never bleeds outside. */
-  const imgFilter = [
-    colourFilter,
-    `saturate(var(--fabric-saturate, 1))`,
-    `contrast(var(--fabric-contrast, 1))`,
-  ].join(" ");
+  /* Colour filter — applied ONLY to the transparent fabric cut-out, so the
+     mannequin and backdrop underneath keep their original colour. */
+  const fabricFilter = useMemo(() => hexToImgFilter(shade.hex), [shade.hex]);
 
   return (
     <div className="preview" data-component="studio-weight-preview">
       <div className="preview__stage" style={vars}>
         <div className="preview__cloth">
+          {/* Untinted base: mannequin + backdrop */}
           <img
-            className="preview__hijab"
-            src={imgSrc}
-            key={zone.id}
+            className="preview__base"
+            src={layers.base}
+            key={`base-${zone.id}`}
+            alt=""
+            aria-hidden="true"
+          />
+
+          {/* Tinted layer: hijab fabric only */}
+          <img
+            className="preview__fabric"
+            src={layers.fabric}
+            key={`fabric-${zone.id}`}
             alt={`Hijab preview at ${gsm} GSM in shade ${shade.code} ${shade.name}`}
             style={{
-              filter: imgFilter,
+              filter: fabricFilter,
               opacity: vars["--fabric-opacity"],
             }}
           />

@@ -604,22 +604,28 @@
 .preview__cloth {
   position: relative;
   aspect-ratio: 4 / 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* The hijab image is the only coloured element.
-   filter is applied directly here so the stage background is never affected. */
-.preview__hijab {
-  display: block;
+/* Base photo — mannequin + backdrop. Never tinted. */
+.preview__base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Hijab cut-out — the ONLY layer that receives the colour filter.
+   Sits pixel-aligned on top of the base photo. */
+.preview__fabric {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
   transition:
     filter 0.25s ease,
     opacity 0.3s ease;
-  drop-shadow: var(--fabric-shadow, none);
 }
 
 .preview__specs {
