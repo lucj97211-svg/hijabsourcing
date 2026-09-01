@@ -137,7 +137,7 @@
 
 .gsm-zones {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1px;
   background: var(--border-soft);
   border: 1px solid var(--border-soft);
@@ -601,88 +601,25 @@
   overflow: hidden;
 }
 
-.preview__grid {
-  position: absolute;
-  inset: var(--space-6);
-  background-image: linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 26px 26px;
-  opacity: 0.75;
-}
-
 .preview__cloth {
   position: relative;
   aspect-ratio: 4 / 5;
-  filter: var(--fabric-filter, none) drop-shadow(var(--fabric-shadow, none));
-  transition: filter 0.35s var(--ease-standard);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Single piece = the active zone hijab image + its colour wash, isolated so
-   the multiply blend never bleeds onto the stage background. */
-.preview__piece {
-  position: absolute;
-  inset: 0;
-  isolation: isolate;
-}
-
-.preview__piece--base {
-  opacity: var(--fabric-opacity, 1);
-  transition: opacity 0.35s var(--ease-standard);
-}
-
-.preview__layer {
-  position: absolute;
-  inset: 0;
+/* The hijab image is the only coloured element.
+   filter is applied directly here so the stage background is never affected. */
+.preview__hijab {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* Smooth image swap between GSM zones */
-  transition: opacity 0.3s var(--ease-standard);
-}
-
-/* Colour wash — masked to exactly the hijab silhouette via inline style.
-   mix-blend-mode:multiply on a near-white PNG tints only the fabric area;
-   the transparent background is not affected. */
-.preview__tint {
-  position: absolute;
-  inset: 0;
-  background: var(--shade, #56896a);
-  mix-blend-mode: multiply;
-  opacity: 0.88;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  transition: background-color 0.2s var(--ease-standard);
-  pointer-events: none;
-}
-
-/* Fabric grain texture — masked to the active image via inline style. */
-.preview__grain {
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-      45deg,
-      rgba(0, 0, 0, 0.06) 0 1px,
-      transparent 1px 3px
-    ),
-    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px);
-  mix-blend-mode: soft-light;
-  opacity: var(--grain-opacity, 0.3);
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  transition: opacity 0.35s var(--ease-standard);
-  pointer-events: none;
-}
-
-.preview__stage.is-lightshade .preview__cloth {
-  outline: 1px solid var(--border);
+  transition:
+    filter 0.25s ease,
+    opacity 0.3s ease;
+  drop-shadow: var(--fabric-shadow, none);
 }
 
 .preview__specs {

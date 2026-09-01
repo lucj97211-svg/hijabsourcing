@@ -3,9 +3,11 @@ import { useCustomization } from "./CustomizationContext.jsx";
 import { GSM_MAX, GSM_MIN, GSM_STEP, gsmZone } from "./gsm.js";
 
 const ZONES = [
-  { id: "light", label: "Light", range: "60–110" },
-  { id: "all-season", label: "All-season", range: "110–170" },
-  { id: "winter", label: "Winter", range: "170–240" },
+  { id: "ultralight", label: "Ultra-light", range: "60–80" },
+  { id: "light", label: "Light", range: "80–110" },
+  { id: "all-season", label: "All-season", range: "110–150" },
+  { id: "medheavy", label: "Med-heavy", range: "150–180" },
+  { id: "winter", label: "Winter", range: "180–240" },
 ];
 
 export default function GsmSlider() {

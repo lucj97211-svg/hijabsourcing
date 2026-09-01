@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useCustomization } from "./CustomizationContext.jsx";
 import { gsmStyleVars, gsmZone } from "./gsm.js";
-import { relativeLuminance } from "./colorMath.js";
+import { hexToImgFilter } from "./colorMath.js";
 
+/* One image per GSM zone — swap as the slider crosses zone boundaries. */
 const ZONE_IMAGE = {
+  ultralight: "/assets/images/studio/hijab-ultralight.png",
   light: "/assets/images/studio/hijab-light.png",
   "all-season": "/assets/images/studio/hijab-allseason.png",
+  medheavy: "/assets/images/studio/hijab-medheavy.png",
   winter: "/assets/images/studio/hijab-winter.png",
 };
 
@@ -13,47 +16,32 @@ export default function FabricPreview() {
   const { gsm, shade, fabric } = useCustomization();
   const zone = gsmZone(gsm);
   const vars = gsmStyleVars(gsm);
-  const light = relativeLuminance(shade.hex) > 0.86;
   const imgSrc = ZONE_IMAGE[zone.id];
+
+  /* CSS filter applied directly to the <img> — the stage background and every
+     other element in the DOM are completely unaffected. */
+  const colourFilter = useMemo(() => hexToImgFilter(shade.hex), [shade.hex]);
+
+  /* Combine colour tint with per-GSM contrast/saturate tweaks.
+     filter is applied to the img itself so it never bleeds outside. */
+  const imgFilter = [
+    colourFilter,
+    `saturate(var(--fabric-saturate, 1))`,
+    `contrast(var(--fabric-contrast, 1))`,
+  ].join(" ");
 
   return (
     <div className="preview" data-component="studio-weight-preview">
-      <div
-        className={`preview__stage ${light ? "is-lightshade" : ""}`}
-        style={{ ...vars, "--shade": shade.hex }}
-      >
-        <div className="preview__grid" aria-hidden="true" />
-
+      <div className="preview__stage" style={vars}>
         <div className="preview__cloth">
-          {/* Base hijab image — swaps by GSM zone */}
-          <span
-            className="preview__piece preview__piece--base"
-            style={{ "--zone-img": `url("${imgSrc}")` }}
-          >
-            <img
-              className="preview__layer"
-              src={imgSrc}
-              alt={`Hijab preview at ${gsm} GSM in shade ${shade.code} ${shade.name}`}
-              key={zone.id}
-            />
-            {/* Colour wash masked to exactly this image's silhouette */}
-            <span
-              className="preview__tint"
-              aria-hidden="true"
-              style={{
-                WebkitMaskImage: `url("${imgSrc}")`,
-                maskImage: `url("${imgSrc}")`,
-              }}
-            />
-          </span>
-
-          {/* Fabric grain texture, also masked to the active image */}
-          <span
-            className="preview__grain"
-            aria-hidden="true"
+          <img
+            className="preview__hijab"
+            src={imgSrc}
+            key={zone.id}
+            alt={`Hijab preview at ${gsm} GSM in shade ${shade.code} ${shade.name}`}
             style={{
-              WebkitMaskImage: `url("${imgSrc}")`,
-              maskImage: `url("${imgSrc}")`,
+              filter: imgFilter,
+              opacity: vars["--fabric-opacity"],
             }}
           />
         </div>
