@@ -267,19 +267,38 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 40%;
+  object-position: 70% 45%;
 }
 
+/* Split banner: a solid dark panel carries the copy on the left and fades
+   into the photograph on the right, so the type always sits on flat colour
+   instead of over busy fabric. */
 .hero__scrim {
   position: absolute;
   inset: 0;
   z-index: -1;
   background: linear-gradient(
     to bottom,
-    rgba(28, 42, 34, 0.36) 0%,
-    rgba(28, 42, 34, 0.58) 60%,
-    rgba(28, 42, 34, 0.72) 100%
+    rgba(28, 42, 34, 0.42) 0%,
+    rgba(28, 42, 34, 0.6) 60%,
+    rgba(28, 42, 34, 0.74) 100%
   );
+}
+
+@media (min-width: 900px) {
+  /* Hold near-solid past the longest text line (title ends ~55%), then fade.
+     Dropping to 0.24 by 54% let fabric texture show through the headline. */
+  .hero__scrim {
+    background: linear-gradient(
+      to right,
+      rgba(31, 41, 27, 0.97) 0%,
+      rgba(31, 41, 27, 0.96) 46%,
+      rgba(31, 41, 27, 0.9) 55%,
+      rgba(31, 41, 27, 0.5) 64%,
+      rgba(31, 41, 27, 0.22) 74%,
+      rgba(31, 41, 27, 0.12) 100%
+    );
+  }
 }
 
 .hero__inner {
@@ -293,14 +312,49 @@
 .hero__title {
   color: var(--surface);
   max-width: 18ch;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
+}
+
+.hero__rule {
+  width: min(360px, 60%);
+  height: 1px;
+  margin: 0 0 var(--space-5);
+  background: rgba(255, 253, 248, 0.34);
+}
+
+.hero__lede {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.2vw, 27px);
+  font-weight: 300;
+  color: rgba(255, 253, 248, 0.92);
+  margin-bottom: var(--space-5);
 }
 
 .hero__sub {
-  max-width: 54ch;
-  font-size: var(--text-lg);
-  color: rgba(255, 253, 248, 0.9);
+  max-width: 46ch;
+  font-size: var(--text-base);
+  color: rgba(255, 253, 248, 0.82);
   margin-bottom: var(--space-8);
+}
+
+@media (min-width: 900px) {
+  /* Keep copy clear of the photograph. Buttons are excluded so the flex row
+     is never squeezed into a wrap. */
+  .hero__eyebrow,
+  .hero__title,
+  .hero__lede,
+  .hero__sub {
+    max-width: 50%;
+  }
+  .hero__title {
+    max-width: 14ch;
+  }
+  .hero__rule {
+    width: min(320px, 46%);
+  }
+  .hero__sub {
+    max-width: 42ch;
+  }
 }
 
 .hero__actions {

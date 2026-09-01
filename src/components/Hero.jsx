@@ -16,25 +16,31 @@ export default function Hero() {
         />
         <img
           src="/assets/images/hero/hero-fabric-daylight.jpg"
-          alt="Folded lengths of neutral hijab fabric in cream, oat and sage tones under raking morning daylight"
+          alt="Folded lengths of hijab fabric in cream, oat, terracotta, olive and teal beside colour reference cards and a blank hang tag"
           fetchpriority="high"
         />
       </picture>
       <div className="hero__scrim" aria-hidden="true" />
 
       <div className="container hero__inner">
-        <span className="eyebrow hero__eyebrow">OEM &amp; ODM hijab fabric mill</span>
-        <h1 className="hero__title">Jersey and modal, woven to your weight.</h1>
+        <span className="eyebrow hero__eyebrow">OEM · Private label · Bulk production</span>
+        <h1 className="hero__title">
+          Your hijab brand,
+          <br />
+          built from fabric up.
+        </h1>
+        <p className="hero__rule" aria-hidden="true" />
+        <p className="hero__lede">Modal · Jersey</p>
         <p className="hero__sub">
           Thirteen base fabrics from 60 to 240 GSM. Choose the weight, match the shade, add your
           label — we knit, dye and finish it in one mill.
         </p>
         <div className="hero__actions">
           <a className="btn btn--solid" href="#contact" onClick={go("contact")}>
-            Request a Quote
+            Start your OEM project
           </a>
           <a className="btn btn--inverse" href="#fabrics" onClick={go("fabrics")}>
-            Explore 13 Fabrics
+            View fabric range
           </a>
         </div>
       </div>
