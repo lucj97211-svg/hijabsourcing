@@ -176,7 +176,8 @@ export const MODAL = [
   {
     id: "modal-lenzing",
     name: "Lenzing Modal",
-    image: "/assets/images/fabrics/modal-lenzing.jpg",
+    image: "/assets/images/fabrics/modal-lenzing.webp",
+    hover: "/assets/images/fabrics/modal-lenzing-drape.webp",
     gsm: [60, 140],
     handFeel:
       "Beech-derived modal fibre. Exceptionally uniform face with a refined pearlescent sheen, folding into deep vertical pleats.",
