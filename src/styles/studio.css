@@ -606,26 +606,13 @@
   aspect-ratio: 4 / 5;
 }
 
-/* Base photo — mannequin + backdrop. Never tinted. */
-.preview__base {
+/* Drape photo for the active weight band. */
+.preview__drape {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-/* Hijab cut-out — the ONLY layer that receives the colour filter.
-   Sits pixel-aligned on top of the base photo. */
-.preview__fabric {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition:
-    filter 0.25s ease,
-    opacity 0.3s ease;
 }
 
 .preview__specs {

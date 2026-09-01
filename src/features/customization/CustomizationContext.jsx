@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
-import { ALL_FABRICS, SHADES } from "../../data/site.js";
+import { ALL_FABRICS } from "../../data/site.js";
 import { gsmZone } from "./gsm.js";
 
 const CustomizationContext = createContext(null);
@@ -22,11 +22,6 @@ export function CustomizationProvider({ children }) {
       prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
     );
   }, []);
-
-  /* The shade picker was removed from the studio; the preview still renders a
-     dyed swatch, so it uses the mill's default shade. Colour is agreed with
-     the customer over the inquiry instead. */
-  const shade = SHADES[0];
 
   const specLine = useMemo(() => {
     const parts = [fabric.name.toUpperCase(), `${gsm} GSM`];
@@ -57,7 +52,6 @@ export function CustomizationProvider({ children }) {
       setFabricId,
       gsm,
       setGsm,
-      shade,
       logo,
       setLogo,
       carriers,
@@ -65,7 +59,7 @@ export function CustomizationProvider({ children }) {
       specLine,
       specText,
     }),
-    [fabric, fabricId, gsm, shade, logo, carriers, toggleCarrier, specLine, specText]
+    [fabric, fabricId, gsm, logo, carriers, toggleCarrier, specLine, specText]
   );
 
   return (
