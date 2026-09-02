@@ -17,7 +17,7 @@ import BlogPostPage from "./pages/BlogPostPage.jsx";
 
 function HomePage() {
   return (
-    <CustomizationProvider>
+    <>
       <SiteHeader />
       <main>
         <Hero />
@@ -26,22 +26,25 @@ function HomePage() {
         <InquiryForm />
       </main>
       <SiteFooter />
-    </CustomizationProvider>
+    </>
   );
 }
 
-/* Router (BrowserRouter / StaticRouter) is provided by the entry point
-   so that server-side rendering can inject StaticRouter instead. */
+/* CustomizationProvider wraps the whole tree so InquiryForm (which reads
+   specText / fabric / logo from context) works on every page. Router is
+   injected by the entry point (BrowserRouter in client, StaticRouter in SSR). */
 export default function App() {
   return (
-    <Routes>
-      <Route path="/"               element={<HomePage />} />
-      <Route path="/customization"  element={<CustomizationPage />} />
-      <Route path="/process"        element={<ProcessPage />} />
-      <Route path="/about"          element={<AboutPage />} />
-      <Route path="/contact"        element={<ContactPage />} />
-      <Route path="/blog"           element={<BlogPage />} />
-      <Route path="/blog/:slug"     element={<BlogPostPage />} />
-    </Routes>
+    <CustomizationProvider>
+      <Routes>
+        <Route path="/"               element={<HomePage />} />
+        <Route path="/customization"  element={<CustomizationPage />} />
+        <Route path="/process"        element={<ProcessPage />} />
+        <Route path="/about"          element={<AboutPage />} />
+        <Route path="/contact"        element={<ContactPage />} />
+        <Route path="/blog"           element={<BlogPage />} />
+        <Route path="/blog/:slug"     element={<BlogPostPage />} />
+      </Routes>
+    </CustomizationProvider>
   );
 }
