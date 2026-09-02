@@ -1,35 +1,49 @@
 /* ── Shared page hero banner ─────────────────────────────────────
-   Used on all sub-pages (Customization, Process, About, Contact, Blog).
-   Variants: --dark (dark green), --tint (warm off-white).
-   Default is brand forest green.
+   Each page sets --page-hero-img via an inline style or a
+   page-specific modifier class. A dark scrim is applied via
+   ::before so text is always legible.
 ─────────────────────────────────────────────────────────────────── */
 
 .page-hero {
-  padding-top: calc(var(--space-20) + 48px); /* clear the fixed header */
+  position: relative;
+  padding-top: calc(var(--space-20) + 48px);
   padding-bottom: var(--space-16);
-  background: var(--brand-700, #2c3e30);
+  overflow: hidden;
+  /* Fallback solid colour when the image hasn't loaded */
+  background-color: var(--brand-800, #1f2c23);
+  background-image: var(--page-hero-img);
+  background-size: cover;
+  background-position: center 40%;
 }
 
-.page-hero--dark {
-  background: var(--brand-800, #1f2c23);
-}
-
-.page-hero--tint {
-  background: var(--surface-tint, #f5f0eb);
+/* Scrim: dark gradient over the image so text stays readable */
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right,
+      rgba(18, 28, 20, 0.82) 0%,
+      rgba(18, 28, 20, 0.70) 50%,
+      rgba(18, 28, 20, 0.40) 100%),
+    linear-gradient(to bottom,
+      rgba(18, 28, 20, 0.30) 0%,
+      rgba(18, 28, 20, 0.00) 40%,
+      rgba(18, 28, 20, 0.50) 100%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .page-hero__inner {
+  position: relative;
+  z-index: 1;
   max-width: 72ch;
 }
 
 .page-hero__eyebrow {
-  color: var(--brand-300, #8db59a);
+  color: var(--brand-200, #b8d4c2);
   display: block;
   margin-bottom: var(--space-3);
-}
-
-.page-hero--tint .page-hero__eyebrow {
-  color: var(--brand-600, #4a7058);
 }
 
 .page-hero__title {
@@ -41,20 +55,12 @@
   margin-bottom: var(--space-5);
 }
 
-.page-hero--tint .page-hero__title {
-  color: var(--ink, #2c2a28);
-}
-
 .page-hero__lede {
   font-size: clamp(1rem, 1.6vw, 1.2rem);
   font-weight: 300;
   line-height: 1.65;
   color: rgba(255, 253, 248, 0.78);
   max-width: 54ch;
-}
-
-.page-hero--tint .page-hero__lede {
-  color: var(--muted, #5c5a57);
 }
 
 /* ── Blog list ──────────────────────────────────────────────────── */
@@ -139,9 +145,36 @@
 /* ── Blog post ──────────────────────────────────────────────────── */
 
 .post-header {
+  position: relative;
   padding-top: calc(var(--space-20) + 48px);
   padding-bottom: var(--space-14);
-  background: var(--brand-700, #2c3e30);
+  overflow: hidden;
+  background-color: var(--brand-800, #1f2c23);
+  background-image: var(--page-hero-img);
+  background-size: cover;
+  background-position: center 40%;
+}
+
+.post-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right,
+      rgba(18, 28, 20, 0.85) 0%,
+      rgba(18, 28, 20, 0.72) 55%,
+      rgba(18, 28, 20, 0.45) 100%),
+    linear-gradient(to bottom,
+      rgba(18, 28, 20, 0.30) 0%,
+      rgba(18, 28, 20, 0.00) 40%,
+      rgba(18, 28, 20, 0.55) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.post-header .container-narrow {
+  position: relative;
+  z-index: 1;
 }
 
 .post-header__back {

@@ -17,7 +17,7 @@ export default function BlogPage() {
     <>
       <SiteHeader />
       <main>
-        <div className="page-hero">
+        <div className="page-hero" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-blog.png)' }}>
           <div className="container page-hero__inner">
             <span className="eyebrow page-hero__eyebrow">Knowledge</span>
             <h1 className="page-hero__title">Blog</h1>

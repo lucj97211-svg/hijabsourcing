@@ -9,7 +9,7 @@ export default function AboutPage() {
     <>
       <SiteHeader />
       <main>
-        <div className="page-hero page-hero--tint">
+        <div className="page-hero" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-about.png)' }}>
           <div className="container page-hero__inner">
             <span className="eyebrow page-hero__eyebrow">The mill</span>
             <h1 className="page-hero__title">About Us</h1>

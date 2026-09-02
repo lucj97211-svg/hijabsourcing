@@ -57,7 +57,7 @@ export default function BlogPostPage() {
       <SiteHeader />
       <main>
         <article className="post" data-component="blog-post">
-          <header className="post-header">
+          <header className="post-header" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-blog.png)' }}>
             <div className="container-narrow">
               <Link to="/blog" className="post-header__back mono">&larr; Blog</Link>
               <span className="post-header__meta mono">

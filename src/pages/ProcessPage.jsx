@@ -9,7 +9,7 @@ export default function ProcessPage() {
     <>
       <SiteHeader />
       <main>
-        <div className="page-hero page-hero--dark">
+        <div className="page-hero" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-process.png)' }}>
           <div className="container page-hero__inner">
             <span className="eyebrow page-hero__eyebrow">How it works</span>
             <h1 className="page-hero__title">Production Process</h1>
