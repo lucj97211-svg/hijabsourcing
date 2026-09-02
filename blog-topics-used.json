@@ -1,0 +1,53 @@
+{
+  "_comment": "Permanent deduplication record for SEO blog posts. Never delete entries.",
+  "topics": [
+    {
+      "slug": "cotton-bamboo-liquid-premium-jersey-hijab-comparison",
+      "title": "Jersey Hijab Fabrics Compared: Cotton, Bamboo, Liquid & Premium",
+      "primaryKeyword": "jersey hijab fabric types comparison",
+      "intent": "commercial investigation / sourcing decision",
+      "pillar": "Different Jersey fabric types and GSM comparison",
+      "publishedDate": "2026-09-02",
+      "status": "published",
+      "qualityScore": 94
+    },
+    {
+      "slug": "how-to-choose-hijab-fabric-gsm",
+      "title": "How to Choose the Right GSM for Your Hijab Fabric",
+      "primaryKeyword": "hijab fabric GSM",
+      "intent": "educational / buyer guide",
+      "pillar": "Modal vs Jersey fabric sourcing guides",
+      "publishedDate": "2026-08-20",
+      "status": "published"
+    },
+    {
+      "slug": "oem-vs-odm-hijab-what-is-the-difference",
+      "title": "OEM vs ODM for Hijab Production: What Is the Difference?",
+      "primaryKeyword": "OEM ODM hijab production",
+      "intent": "educational / sourcing decision",
+      "pillar": "Private Label MOQ sampling and lead time",
+      "publishedDate": "2026-08-10",
+      "status": "published"
+    }
+  ],
+  "usedKeywords": [
+    "hijab fabric GSM",
+    "GSM hijab",
+    "fabric weight hijab",
+    "OEM hijab",
+    "ODM hijab",
+    "OEM vs ODM hijab",
+    "jersey hijab fabric types comparison",
+    "cotton jersey hijab",
+    "bamboo jersey hijab",
+    "liquid jersey hijab",
+    "premium jersey hijab",
+    "jersey hijab comparison manufacturer"
+  ],
+  "usedPillars": {
+    "Modal vs Jersey fabric sourcing guides": 1,
+    "Private Label MOQ sampling and lead time": 1,
+    "Different Jersey fabric types and GSM comparison": 1
+  },
+  "lastUpdated": "2026-09-02"
+}

@@ -85,7 +85,142 @@ We handle both, and most clients use a mix. A brand might start on ODM while the
 
 The main thing that changes is what you bring to the first conversation. OEM needs a spec or at least a reference sample. ODM needs a clear brief: who is the customer, what climate, what occasion, what price point.
 
-Either way, we post physical swatches before anything goes into production. The approval happens on real fabric.`,
+    Either way, we post physical swatches before anything goes into production. The approval happens on real fabric.`,
+  },
+  {
+    slug: "cotton-bamboo-liquid-premium-jersey-hijab-comparison",
+    title: "Jersey Hijab Fabrics Compared: Cotton, Bamboo, Liquid & Premium",
+    date: "2026-09-02",
+    category: "Fabric Guide",
+    excerpt:
+      "Cotton, bamboo, liquid and premium jersey hijabs differ in hand, drape, opacity and price point. A manufacturer's breakdown to help wholesale buyers source the right base.",
+    body: `If you are sourcing jersey hijabs for wholesale or private label, the label "jersey" covers four distinct fabric constructions that behave differently on the head, in production, and on your customer. Cotton jersey is the everyday workhorse. Bamboo jersey adds breathability with a softer hand. Liquid jersey is a finer, high-sheen knit that drapes like woven fabric. Premium jersey refers to higher-weight, tighter constructions designed for opacity and shape retention. Which one fits your brand depends on your target climate, retail price point, order volume, and whether you need a base compatible with print. This guide covers each type from the factory floor up.
+
+## What All Jersey Hijabs Have in Common
+
+Jersey is a single-knit construction: loops are formed in one direction, giving the fabric horizontal stretch and a characteristic curl at the cut edge. For hijabs, this stretch means the piece stays where it is placed without pins in many styles, and the fabric recovers its shape after wear.
+
+The knitting machine gauge, fibre content, and yarn weight together determine the final GSM. Changing any one of these variables changes the hand of the finished fabric even if the label still reads "jersey."
+
+## Cotton Jersey Hijab
+
+Fibre content: 92–95% cotton, 5–8% elastane. Typical GSM range: 160–220 GSM. Stretch: four-way (with elastane); two-way if 100% cotton.
+
+Cotton jersey is the most widely produced jersey hijab base globally. The cotton content makes it machine washable, colourfast, and comfortable against the skin for extended wear. At 160–180 GSM it is opaque enough to wear without an underscarf in most shades, though very light colours may still require one.
+
+Where it works well: everyday casual wear; boutique basics ranges; markets where customers hand-wash or machine-wash hijabs regularly; moderate climates.
+
+Where buyers encounter problems: pure cotton knits can pill at lower GSM. At 220 GSM+ the fabric becomes warm in summer markets. Dyeing consistency requires careful batch control — cotton absorbs reactive dyes unevenly if the process is not tightly managed.
+
+## Bamboo Jersey Hijab
+
+Fibre content: typically 65–70% bamboo viscose, 28–30% polyester or cotton, 3–5% elastane. Typical GSM range: 140–200 GSM. Stretch: four-way.
+
+Bamboo viscose is derived from bamboo cellulose through a chemical dissolution process. The result is a fibre that is noticeably softer than cotton at the same GSM, with natural moisture-wicking properties.
+
+For hijab production, bamboo jersey sits between cotton and modal in hand: softer than cotton jersey, with more body than modal. The moisture-wicking characteristic is relevant for buyers targeting hot or humid climates — Gulf states, Southeast Asia, or summer collections for European and North American markets.
+
+Where it works well: summer collections; warm-climate markets; brands positioning on comfort or breathability; customers who wear hijabs for long periods.
+
+Where buyers encounter problems: dark shades — particularly navy and black — require longer dye cycles to achieve even saturation because bamboo viscose and polyester or cotton components absorb dye at different rates. Colourfastness testing is essential before bulk approval.
+
+Note on bamboo claims: bamboo viscose can be processed using closed-loop methods or conventional viscose methods. Confirm with your manufacturer which process is used before making any sustainability claims in your product copy.
+
+## Liquid Jersey Hijab
+
+Fibre content: typically 92–96% polyester (microfibre), 4–8% elastane. Typical GSM range: 110–160 GSM. Stretch: four-way.
+
+"Liquid jersey" is a trade and retail name, not a fibre category. It refers to a fine microfibre knit — usually high-grade polyester — finished to produce a smooth, almost silky surface with a distinctive fluid drape. The weight is lower than cotton or bamboo jersey, which is part of why it moves the way it does.
+
+This is the jersey type that gets compared to satin or crepe by retail customers. The drape is controlled rather than casual. It does not bulk at the knot and holds a clean fold.
+
+Where it works well: dressier everyday wear; event and occasion collections; markets where customers want the look of a woven or satin hijab with the ease of a jersey knit; brands at a mid-premium price point.
+
+Where buyers encounter problems: because the GSM is lower, opacity is reduced. A liquid jersey hijab in a pale shade will often need an underscarf. The microfibre surface also picks up static in dry climates. Pilling resistance needs to be tested: lower-grade polyester microfibre pills faster than cotton at equivalent GSM.
+
+Printability: liquid jersey is not well suited to reactive dye or pigment printing. Digital sublimation can work on high-polyester liquid jersey, but the result is a different aesthetic to sublimation on woven fabrics.
+
+## Premium Jersey Hijab
+
+Fibre content: varies — 60s or 40s combed cotton; or cotton-modal blends; or bamboo blends at higher yarn counts. Typical GSM range: 200–260 GSM. Stretch: four-way.
+
+"Premium jersey" in the hijab market generally means a heavier, tighter jersey construction using higher-count yarn — producing a denser hand, greater opacity, and better shape retention than standard cotton jersey at 160–180 GSM.
+
+The higher yarn count means the surface is smoother, pilling resistance is better, and the fabric holds its shape on the head without the lightweight drape of liquid jersey. The trade-off is weight: at 240–260 GSM, a premium jersey hijab is noticeably warmer, which limits its year-round suitability in hot climates.
+
+Where it works well: autumn and winter collections; UK, Canadian, and Northern European markets; brands positioning on weight, opacity, and durability over lightweight comfort.
+
+## Side-by-Side Comparison
+
+| Property | Cotton Jersey | Bamboo Jersey | Liquid Jersey | Premium Jersey |
+|---|---|---|---|---|
+| Typical GSM | 160–220 | 140–200 | 110–160 | 200–260 |
+| Hand | Firm, textured | Soft, smooth | Silky, fluid | Dense, smooth |
+| Breathability | Moderate | High | Low–moderate | Low–moderate |
+| Opacity at mid-GSM | Good | Good | Moderate | Excellent |
+| Print suitability | Reactive dye / pigment | Reactive dye (longer cycle) | Digital sublimation only | Reactive dye / pigment |
+| Typical use case | Everyday basics | Warm climate / summer | Dressier / occasion | Autumn-winter |
+| Relative price | Lower | Mid | Mid | Higher |
+
+Note: price ranges vary by order volume, dye complexity, and finishing specifications. Request factory quotes for your specific GSM and colour.
+
+## Factory Perspective: What Changes Between These Fabrics in Production
+
+The fabric choice affects more than the finished product — it changes the production timeline and what needs to be confirmed at lab dip stage.
+
+Dye cycle length: Cotton jersey is the most straightforward to dye. Bamboo jersey blends take longer because the bamboo viscose and the synthetic or cotton component absorb dye differently. Getting an even, saturated result on navy or black bamboo jersey typically requires a longer dye bath and temperature control that a less experienced mill may skip.
+
+Shrinkage pre-treatment: All jersey fabrics shrink. Before cutting, the fabric is washed and tumble-dried to pre-shrink it. The shrinkage rate differs by fibre: bamboo viscose shrinks more than cotton; premium jersey with higher elastane content recovers better. A factory that skips pre-treatment saves time but delivers hijabs that shrink in the customer's first wash.
+
+Edge finishing: Jersey curls at cut edges. The finishing method — overlock, rolled hem, or chain-stitch — affects how the edge looks and wears. Premium jersey at 240 GSM holds an overlock stitch cleanly. Liquid jersey at 120 GSM is more prone to edge distortion if the machine tension is not adjusted.
+
+Shade consistency across batches: Cotton jersey dyed with reactive dyes has well-established colour standards. Bamboo jersey blends are harder to match precisely across batches because the bamboo content percentage can shift slightly between fabric rolls. Buyers planning to reorder the same shade across seasons should request a physical colour standard and batch-matched samples.
+
+## What Buyers Should Confirm Before Placing a Jersey Hijab Order
+
+Exact fibre breakdown: ask for the fabric composition certificate, not just the label description. "Bamboo jersey" can mean 65% bamboo or 30% bamboo depending on the supplier.
+
+GSM specification and tolerance: confirm the target GSM and the acceptable tolerance (typically plus or minus 5%). A 180 GSM fabric delivered at 165 GSM looks and behaves differently.
+
+Pre-shrinkage treatment: ask whether the fabric is pre-washed before cutting, and request the shrinkage rate in the spec sheet.
+
+Colourfastness test results: for bamboo jersey especially, request wash and rub colourfastness results before approving bulk production.
+
+Edge finishing method and specification: ask for a physical sample of the hem finish on the specific fabric you have chosen, not a general sample.
+
+Print process compatibility: confirm that the factory's printing process is compatible with your fabric choice before requesting artwork.
+
+Reorder batch-matching procedure: if you plan to reorder, ask how the factory controls colour consistency across batches.
+
+## Frequently Asked Questions
+
+Which jersey type is best for a warm-climate hijab brand? Bamboo jersey at 150–170 GSM is the most commonly sourced option for warm climates because of its moisture-wicking properties. Liquid jersey is lighter but less breathable. Cotton jersey works well if the GSM is kept at the lower end of the range (160–170).
+
+Can I get printed designs on all jersey types? Reactive dye printing and pigment printing work well on cotton and bamboo jersey. Liquid jersey (high-polyester) is better suited to digital sublimation, which gives a different visual result. Ask your factory to confirm print process compatibility with the specific fabric before finalising artwork.
+
+What is the minimum order for a custom jersey hijab? This varies by factory and fabric type. Contact us with your fabric specification and quantity for a direct quote.
+
+How do I choose between cotton and bamboo jersey for a private label launch? Cotton jersey is the lower-risk starting point: it is easier to dye consistently, less expensive, and well understood by customers. Bamboo jersey adds a point of difference for brands positioning on comfort or breathability, but requires more attention to dye consistency and batch matching.
+
+Does premium jersey mean premium price? Higher GSM and higher yarn count do increase the fabric cost. In the UK and Canada, buyers report that heavier jersey sells well in autumn-winter at a higher retail price point. In summer-dominant markets, the weight works against the product.
+
+How long does it take to produce custom jersey hijabs after sample approval? Standard production runs around 30 days from approved sample to finished goods at our mill. Lab dip and sampling typically add 10–15 days for lab dip approval and 7–10 days for a physical sample.
+
+## Request a Sample or Quote
+
+If you are deciding between jersey types for a new collection or private label launch, the most reliable approach is to hold physical swatches side by side. We can send cotton, bamboo, liquid, and premium jersey samples in your target weight range so you can compare hand and drape before committing to a production run.
+
+Contact us at sofia@wennuanfactory.com or use the inquiry form at hijabsourcing.com/contact.
+
+## References
+
+Sewport. "What is Jersey Fabric: Properties, How it's Made and Where." sewport.com/fabrics-directory/jersey-fabric. Accessed 2 September 2026.
+
+Global Fabric Wholesale. "2026 Guide to the Best Types of Bamboo Fabric for Apparel." globalfabricwholesale.com. Accessed 2 September 2026.
+
+MFG Merch. "2026 Guide to the Best Types of Bamboo Fabric for Apparel." mfgmerch.com/types-of-bamboo-fabric/. Accessed 2 September 2026.
+
+Wikipedia. "Jersey (fabric)." en.wikipedia.org/wiki/Jersey_(fabric). Accessed 2 September 2026.`,
   },
 ];
 

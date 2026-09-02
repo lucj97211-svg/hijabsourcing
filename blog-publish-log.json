@@ -1,0 +1,45 @@
+{
+  "_comment": "Daily execution log for SEO auto-publishing agent.",
+  "runs": [
+    {
+      "runDate": "2026-09-02",
+      "status": "published",
+      "slug": "cotton-bamboo-liquid-premium-jersey-hijab-comparison",
+      "title": "Jersey Hijab Fabrics Compared: Cotton, Bamboo, Liquid & Premium",
+      "primaryKeyword": "jersey hijab fabric types comparison",
+      "pillar": "Different Jersey fabric types and GSM comparison",
+      "wordCount": 1450,
+      "qualityScore": 94,
+      "imagesUsed": 0,
+      "internalLinks": 3,
+      "note": "Inaugural auto-generated article. Draft-mode first run, published after 94/100 quality score. Images: placeholder descriptions included in body (real fabric swatches recommended for next iteration).",
+      "revisions": 0
+    },
+    {
+      "runDate": "2026-08-20",
+      "status": "published",
+      "slug": "how-to-choose-hijab-fabric-gsm",
+      "title": "How to Choose the Right GSM for Your Hijab Fabric",
+      "primaryKeyword": "hijab fabric GSM",
+      "pillar": "Modal vs Jersey fabric sourcing guides",
+      "wordCount": 650,
+      "qualityScore": null,
+      "imagesUsed": 0,
+      "internalLinks": 0,
+      "note": "Pre-existing article, migrated to log."
+    },
+    {
+      "runDate": "2026-08-10",
+      "status": "published",
+      "slug": "oem-vs-odm-hijab-what-is-the-difference",
+      "title": "OEM vs ODM for Hijab Production: What Is the Difference?",
+      "primaryKeyword": "OEM ODM hijab production",
+      "pillar": "Private Label MOQ sampling and lead time",
+      "wordCount": 530,
+      "qualityScore": null,
+      "imagesUsed": 0,
+      "internalLinks": 0,
+      "note": "Pre-existing article, migrated to log."
+    }
+  ]
+}
