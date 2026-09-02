@@ -1,41 +1,77 @@
 import React from "react";
-import { CAPABILITIES } from "../data/site.js";
+import { CAPABILITIES, PROCESS } from "../data/site.js";
+
+/* The first four process steps become the timed captions.
+   Background images are the four factory storyboard stills. */
+const SLIDES = [
+  {
+    img: "https://sc02.alicdn.com/kf/A9f8b1ec96a604536845ac26e659de6d8W.png",
+    step: PROCESS[0],
+  },
+  {
+    img: "https://sc02.alicdn.com/kf/A3a771797d07f4df68959704d29689ac3n.png",
+    step: PROCESS[1],
+  },
+  {
+    img: "https://sc02.alicdn.com/kf/A3819c36cf6af4412a45fb625e8fa22599.png",
+    step: PROCESS[2],
+  },
+  {
+    img: "https://sc02.alicdn.com/kf/A601cdcc2a0844e6a8dea636c65c5e32bv.png",
+    step: PROCESS[3],
+  },
+];
 
 export default function Hero() {
-  const go = (id) => (event) => {
-    event.preventDefault();
+  const go = (id) => (e) => {
+    e.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <section className="hero" id="top" data-component="hero">
-      <picture className="hero__media">
-        <source
-          media="(max-width: 767px)"
-          srcSet="/assets/images/hero/hero-fabric-daylight-mobile.jpg"
+
+      {/* ── Background slideshow ── */}
+      {SLIDES.map((s, i) => (
+        <div
+          key={i}
+          className="hero__poster"
+          style={{ backgroundImage: `url('${s.img}')` }}
+          aria-hidden="true"
         />
-        <img
-          src="/assets/images/hero/hero-fabric-daylight.jpg"
-          alt="Folded lengths of hijab fabric in cream, oat, terracotta, olive and teal beside colour reference cards and a blank hang tag"
-          fetchpriority="high"
-        />
-      </picture>
+      ))}
+
+      {/* ── Cinematic scrim ── */}
       <div className="hero__scrim" aria-hidden="true" />
 
-      <div className="container hero__inner">
-        <span className="eyebrow hero__eyebrow">OEM · Private label · Bulk production</span>
-        <h1 className="hero__title">
+      {/* ── Subtle film grain ── */}
+      <div className="hero__grain" aria-hidden="true" />
+
+      {/* ── Timed captions ── */}
+      <div className="hero__captions" aria-hidden="true">
+        {SLIDES.map((s, i) => (
+          <div key={i} className="hero__caption">
+            <span className="hero__caption-step">Step {s.step.no}</span>
+            <p className="hero__caption-title">{s.step.name}</p>
+            <p className="hero__caption-note">{s.step.body}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Final lockup (visible in last quarter of the cycle) ── */}
+      <div className="hero__lockup">
+        <span className="hero__lockup-eyebrow">OEM · Private label · Bulk production</span>
+        <h1 className="hero__lockup-title">
           Your hijab brand,
           <br />
           built from fabric up.
         </h1>
-        <p className="hero__rule" aria-hidden="true" />
-        <p className="hero__lede">Modal · Jersey</p>
-        <p className="hero__sub">
-          Thirteen base fabrics from 60 to 240 GSM. Choose the weight, match the shade, add your
-          label — we knit, dye and finish it in one mill.
+        <div className="hero__lockup-rule" aria-hidden="true" />
+        <p className="hero__lockup-sub">
+          Thirteen base fabrics from 60 to 240 GSM —
+          choose the weight, match the shade, add your label.
         </p>
-        <div className="hero__actions">
+        <div className="hero__lockup-actions">
           <a className="btn btn--solid" href="#contact" onClick={go("contact")}>
             Start your OEM project
           </a>
@@ -45,16 +81,23 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="container hero__caps">
-        <ul className="cap-grid">
-          {CAPABILITIES.map((cap) => (
-            <li className="cap-card" key={cap.label} data-component="hero-capability-card">
-              <span className="mono cap-card__label">{cap.label}</span>
-              <p className="cap-card__line">{cap.line}</p>
-            </li>
-          ))}
-        </ul>
+      {/* ── Progress track ── */}
+      <div className="hero__track" aria-hidden="true">
+        {SLIDES.map((_, i) => (
+          <div key={i} className="hero__track-seg" />
+        ))}
       </div>
+
+      {/* ── Metric strip ── */}
+      <ul className="hero__metrics">
+        {CAPABILITIES.map((cap) => (
+          <li key={cap.label} className="hero__metric">
+            <span className="hero__metric-label">{cap.label}</span>
+            <span className="hero__metric-desc">{cap.line}</span>
+          </li>
+        ))}
+      </ul>
+
     </section>
   );
 }
