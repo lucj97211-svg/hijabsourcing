@@ -17,11 +17,76 @@ export const SOCIAL = [
 ];
 
 export const NAV = [
-  { id: "fabrics", label: "Fabrics" },
-  { id: "customization", label: "Customization" },
-  { id: "process", label: "Process" },
-  { id: "about", label: "About" },
-  { id: "contact", label: "Contact" },
+  { id: "fabrics",        label: "Fabrics",        type: "anchor", href: "/#fabrics" },
+  { id: "customization",  label: "Customization",  type: "route",  href: "/customization" },
+  { id: "process",        label: "Process",         type: "route",  href: "/process" },
+  { id: "about",          label: "About",           type: "route",  href: "/about" },
+  { id: "blog",           label: "Blog",            type: "route",  href: "/blog" },
+  { id: "contact",        label: "Contact",         type: "route",  href: "/contact" },
+];
+
+/* ── Blog posts ─────────────────────────────────────────────────── */
+/* Add new posts here. slug must be URL-safe (lowercase, hyphens only). */
+export const BLOG_POSTS = [
+  {
+    slug: "how-to-choose-hijab-fabric-gsm",
+    title: "How to Choose the Right GSM for Your Hijab Fabric",
+    date: "2026-08-20",
+    category: "Fabric Guide",
+    excerpt:
+      "GSM — grams per square metre — is the single number that controls how your hijab feels, drapes and performs. Here is how to read it, pick the right band and avoid the most common mistakes.",
+    body: `GSM stands for grams per square metre. It is the weight of the fabric, not its thickness — a dense weave can be lighter than a loose one of the same fibre. For hijabs, GSM matters because it determines opacity, drape, warmth and how the fabric behaves on the head throughout the day.
+
+## The practical bands
+
+**60 – 100 GSM — sheer, fluid, summer**
+These weights flow and drape easily. They are popular in warmer climates and for chiffon-style modal pieces where movement is the point. The trade-off is opacity: anything below 80 GSM will show through unless layered or lined.
+
+**100 – 160 GSM — all-season, most popular**
+This is the range most hijab brands land on for their core range. Enough weight to hold its shape on the head, opaque without being heavy, and comfortable across most climates.
+
+**160 – 240 GSM — structured, winter, premium**
+Higher GSM fabrics have a noticeable hand. They feel substantial, hold creases, and work well for structured styles or cold-weather pieces. They also tend to photograph better because they drape in controlled folds rather than soft waves.
+
+## Fibre matters as much as weight
+
+A 120 GSM jersey and a 120 GSM modal feel quite different. Jersey is more elastic and recovers its shape; modal is softer with a finer drape. Both run across the same GSM band in our range, so you are choosing two variables at once.
+
+## How we handle it
+
+We do not sell fabric at a fixed GSM. Every base in our range can be produced across a band, and you specify where in that band your order sits. We send physical swatches from the target weight before bulk starts, so you are approving the real hand, not a number on a sheet.
+
+If you are not sure where to start, send us a reference garment or describe the end use — we will recommend a starting point for the lab dip.`,
+  },
+  {
+    slug: "oem-vs-odm-hijab-what-is-the-difference",
+    title: "OEM vs ODM for Hijab Production: What Is the Difference?",
+    date: "2026-08-10",
+    category: "Production",
+    excerpt:
+      "OEM and ODM get used interchangeably but they mean different things. If you are building a hijab brand, knowing which model you are using changes what you need to bring to the factory.",
+    body: `OEM — Original Equipment Manufacturing — means you provide the design and the factory produces it. ODM — Original Design Manufacturing — means the factory designs and you brand the result.
+
+## OEM in practice
+
+You arrive with a spec: fabric type, GSM target, shade reference, dimensions, hem style, label placement. The factory builds to that spec. You own the design; the factory owns the manufacturing process.
+
+OEM suits brands that already know what they want — perhaps they have an existing range they want to move to a new mill, or a designer who has produced a detailed tech pack.
+
+## ODM in practice
+
+You describe the end result you want — a summer-weight hijab that feels like silk, an opaque cold-weather piece in a muted palette — and the factory proposes a fabric, weight and construction. You approve, brand it, and sell it.
+
+ODM suits brands that are starting out, launching a new category, or want to move faster than their in-house design process allows.
+
+## What we do
+
+We handle both, and most clients use a mix. A brand might start on ODM while their first range is being developed, then move to OEM once they have a spec they trust and want to repeat.
+
+The main thing that changes is what you bring to the first conversation. OEM needs a spec or at least a reference sample. ODM needs a clear brief: who is the customer, what climate, what occasion, what price point.
+
+Either way, we post physical swatches before anything goes into production. The approval happens on real fabric.`,
+  },
 ];
 
 export const CAPABILITIES = [

@@ -1,16 +1,20 @@
 import React from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/site.css";
 import "./styles/studio.css";
 import "./styles/content.css";
+import "./styles/pages.css";
 
 const container = document.getElementById("root");
 const tree = (
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 

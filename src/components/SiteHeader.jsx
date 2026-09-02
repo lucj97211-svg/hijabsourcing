@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { CONTACT, NAV } from "../data/site.js";
 import BrandMark from "./BrandMark.jsx";
 
 export default function SiteHeader() {
   const [condensed, setCondensed] = useState(false);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("");
   const triggerRef = useRef(null);
   const drawerRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setCondensed(window.scrollY > 40);
@@ -16,21 +19,20 @@ export default function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    const sections = NAV.map((n) => document.getElementById(n.id)).filter(Boolean);
-    if (!sections.length || typeof IntersectionObserver === "undefined") return undefined;
-    const io = new IntersectionObserver(
-      (entries) => {
-        const shown = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (shown) setActive(shown.target.id);
-      },
-      { rootMargin: "-30% 0px -55% 0px", threshold: [0.01, 0.2] }
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, []);
+  /* Close drawer and scroll to section when on the home page */
+  const goAnchor = (id) => (event) => {
+    event.preventDefault();
+    setOpen(false);
+    if (isHome) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.history.replaceState(null, "", `#${id}`);
+      }
+    } else {
+      navigate(`/#${id}`);
+    }
+  };
 
   useEffect(() => {
     if (!open) return undefined;
@@ -65,15 +67,24 @@ export default function SiteHeader() {
     };
   }, [open]);
 
-  const go = (id) => (event) => {
-    event.preventDefault();
-    setOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      window.history.replaceState(null, "", `#${id}`);
+  function NavItem({ item, onClick }) {
+    if (item.type === "anchor") {
+      return (
+        <a href={item.href} onClick={goAnchor(item.id)}>
+          {item.label}
+        </a>
+      );
     }
-  };
+    return (
+      <NavLink
+        to={item.href}
+        className={({ isActive }) => (isActive ? "is-active" : undefined)}
+        onClick={onClick}
+      >
+        {item.label}
+      </NavLink>
+    );
+  }
 
   return (
     <>
@@ -99,31 +110,24 @@ export default function SiteHeader() {
         data-component="site-header"
       >
         <div className="container site-header__inner">
-          <a className="wordmark" href="#top" onClick={go("top")} aria-label={`${CONTACT.brand} home`}>
+          <Link className="wordmark" to="/" aria-label={`${CONTACT.brand} home`}>
             <BrandMark />
             <span className="wordmark__text">
               <strong>Hijab Sourcing</strong>
               <span className="mono wordmark__sub">Jersey &amp; Modal Mill</span>
             </span>
-          </a>
+          </Link>
 
           <nav className="site-nav" aria-label="Main">
             {NAV.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={go(item.id)}
-                className={active === item.id ? "is-active" : ""}
-              >
-                {item.label}
-              </a>
+              <NavItem key={item.id} item={item} onClick={() => setOpen(false)} />
             ))}
           </nav>
 
           <div className="site-header__actions">
-            <a className="btn btn--solid btn--sm site-header__cta" href="#contact" onClick={go("contact")}>
+            <NavLink className="btn btn--solid btn--sm site-header__cta" to="/contact">
               Request a Quote
-            </a>
+            </NavLink>
             <button
               ref={triggerRef}
               type="button"
@@ -157,9 +161,7 @@ export default function SiteHeader() {
       >
         <nav className="mobile-drawer__nav">
           {NAV.map((item) => (
-            <a key={item.id} href={`#${item.id}`} onClick={go(item.id)}>
-              {item.label}
-            </a>
+            <NavItem key={item.id} item={item} onClick={() => setOpen(false)} />
           ))}
         </nav>
         <div className="mobile-drawer__contact">
@@ -169,9 +171,13 @@ export default function SiteHeader() {
             WhatsApp {CONTACT.phone}
           </a>
         </div>
-        <a className="btn btn--solid btn--block" href="#contact" onClick={go("contact")}>
+        <NavLink
+          className="btn btn--solid btn--block"
+          to="/contact"
+          onClick={() => setOpen(false)}
+        >
           Request a Quote
-        </a>
+        </NavLink>
       </div>
     </>
   );
