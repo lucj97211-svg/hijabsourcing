@@ -66,7 +66,7 @@ export default function LogoStudio() {
   return (
     <div className="studio-block" data-component="studio-logo-uploader">
       <div className="studio-block__head">
-        <span className="mono studio-step">02 — Branding</span>
+        <span className="mono studio-step">03 — Branding</span>
         <h3>Put your logo on it</h3>
         <p className="muted studio-block__hint">
           Upload your mark and see it placed on the label, packaging, hang tag, thank-you card and

@@ -9,6 +9,7 @@ const DEFAULT_FABRIC = ALL_FABRICS.find((f) => f.id === "modal-40s") || ALL_FABR
 export function CustomizationProvider({ children }) {
   const [fabricId, setFabricId] = useState(DEFAULT_FABRIC.id);
   const [gsm, setGsm] = useState(120);
+  const [shade, setShade] = useState(null); // { code, hex, name } | null = natural
   const [logo, setLogo] = useState(null); // { name, url, width, height }
   const [carriers, setCarriers] = useState(["woven-label", "hang-tag"]);
 
@@ -25,16 +26,20 @@ export function CustomizationProvider({ children }) {
 
   const specLine = useMemo(() => {
     const parts = [fabric.name.toUpperCase(), `${gsm} GSM`];
+    if (shade) parts.push(shade.code);
     if (logo) parts.push(`LOGO ON ${carriers.length || 0} CARRIER${carriers.length === 1 ? "" : "S"}`);
     return parts.join("  ·  ");
-  }, [fabric, gsm, logo, carriers]);
+  }, [fabric, gsm, shade, logo, carriers]);
 
   const specText = useMemo(() => {
     const zone = gsmZone(gsm);
+    const shadeDesc = shade
+      ? `${shade.code} — ${shade.name} (hex ${shade.hex})`
+      : "to be confirmed — send a Pantone code or a physical swatch and we will lab-dip to match";
     const lines = [
       `Fabric: ${fabric.name} (${fabric.gsm[0]}\u2013${fabric.gsm[1]} GSM range)`,
       `Target weight: ${gsm} GSM \u2014 ${zone.label.toLowerCase()} weight`,
-      "Shade: to be confirmed \u2014 send a Pantone code or a physical swatch and we will lab-dip to match",
+      `Shade: ${shadeDesc}`,
     ];
     if (logo) {
       const names = carriers.length ? carriers.join(", ") : "none selected yet";
@@ -52,6 +57,8 @@ export function CustomizationProvider({ children }) {
       setFabricId,
       gsm,
       setGsm,
+      shade,
+      setShade,
       logo,
       setLogo,
       carriers,
@@ -59,7 +66,7 @@ export function CustomizationProvider({ children }) {
       specLine,
       specText,
     }),
-    [fabric, fabricId, gsm, logo, carriers, toggleCarrier, specLine, specText]
+    [fabric, fabricId, gsm, shade, logo, carriers, toggleCarrier, specLine, specText]
   );
 
   return (

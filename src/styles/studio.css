@@ -591,6 +591,112 @@
   line-height: 1.6;
 }
 
+/* ── Colour picker ──────────────────────────────────────────────── */
+
+.color-families {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--space-4);
+}
+
+.color-family-tab {
+  padding: 5px 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--fg-2);
+  cursor: pointer;
+  transition: background-color .15s, color .15s, border-color .15s;
+}
+
+.color-family-tab.is-active,
+.color-family-tab:hover {
+  background: var(--brand-600);
+  border-color: var(--brand-600);
+  color: #fff;
+}
+
+.color-swatches {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scroll-behavior: smooth;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin-bottom: var(--space-4);
+}
+.color-swatches::-webkit-scrollbar { display: none; }
+
+.color-swatch {
+  flex: 0 0 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: var(--sw-hex);
+  cursor: pointer;
+  position: relative;
+  transition: transform .12s, box-shadow .12s;
+  outline: none;
+}
+
+.color-swatch:focus-visible {
+  box-shadow: 0 0 0 3px var(--brand-600);
+}
+
+.color-swatch:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,.22);
+  z-index: 1;
+}
+
+.color-swatch.is-selected {
+  border-color: var(--fg);
+  transform: scale(1.18);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--fg);
+}
+
+.color-readout {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 28px;
+  font-size: var(--text-sm);
+}
+
+.color-readout__dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.12);
+  flex-shrink: 0;
+}
+
+.color-readout__code {
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--fg-2);
+}
+
+.color-readout__name {
+  color: var(--fg);
+  font-size: 13px;
+}
+
+.color-readout__clear {
+  margin-left: auto;
+  font-size: 10px;
+}
+
+.color-readout__prompt {
+  font-size: 12px;
+}
+
 /* ── Preview stage ─────────────────────────────────────────────── */
 
 .preview__stage {
@@ -613,6 +719,33 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+/* Colour tint overlay — multiply blend keeps the fabric drape texture visible.
+   The overlay covers only .preview__cloth, not the surrounding stage. */
+.preview__tint {
+  position: absolute;
+  inset: 0;
+  background: var(--tint-color);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: background .25s;
+}
+
+/* Shade chip inside the specs row */
+.preview__shade-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.preview__shade-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.18);
+  flex-shrink: 0;
 }
 
 .preview__specs {

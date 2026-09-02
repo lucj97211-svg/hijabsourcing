@@ -4,6 +4,7 @@ import Reveal from "../../components/Reveal.jsx";
 import { useCustomization } from "./CustomizationContext.jsx";
 import FabricPreview from "./FabricPreview.jsx";
 import GsmSlider from "./GsmSlider.jsx";
+import ColorPicker from "./ColorPicker.jsx";
 import LogoStudio from "./LogoStudio.jsx";
 
 export default function CustomizationStudio() {
@@ -64,6 +65,7 @@ export default function CustomizationStudio() {
         <div className="studio__grid">
           <div className="studio__controls">
             <GsmSlider />
+            <ColorPicker />
             <LogoStudio />
           </div>
 
