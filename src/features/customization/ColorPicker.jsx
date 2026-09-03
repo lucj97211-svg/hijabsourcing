@@ -145,17 +145,62 @@ const FAMILIES = [
 
 // Background colour sampled from the source image (top-left corner)
 const BG_R = 242, BG_G = 240, BG_B = 237;
-
-// bgDist below this → pure background (weight 0)
-const BG_NEAR = 12;
-// bgDist above this → pure hijab  (weight 1)
-const BG_FAR  = 42;
+const BG_NEAR = 12;   // bgDist < this → pure background
+const BG_FAR  = 42;   // bgDist > this → pure hijab pixel
 
 function smoothstep(edge0, edge1, x) {
   const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
   return t * t * (3 - 2 * t);
 }
 
+/* RGB ↔ HSL helpers (all values 0-1) */
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  if (max === min) return [0, 0, l];
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h;
+  switch (max) {
+    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+    case g: h = (b - r) / d + 2; break;
+    default: h = (r - g) / d + 4;
+  }
+  return [h / 6, s, l];
+}
+
+function hue2rgb(p, q, t) {
+  if (t < 0) t += 1;
+  if (t > 1) t -= 1;
+  if (t < 1/6) return p + (q - p) * 6 * t;
+  if (t < 1/2) return q;
+  if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+  return p;
+}
+
+function hslToRgb(h, s, l) {
+  if (s === 0) { const v = Math.round(l * 255); return [v, v, v]; }
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+  return [
+    Math.round(hue2rgb(p, q, h + 1/3) * 255),
+    Math.round(hue2rgb(p, q, h)       * 255),
+    Math.round(hue2rgb(p, q, h - 1/3) * 255),
+  ];
+}
+
+/*
+  HSL-based recolour:
+  - Keep the PIXEL's own lightness (L) → preserves fabric drape & fold structure
+  - Replace H and S with the target colour's H and S
+  - Blend by weight (background pixels pass through unchanged)
+
+  This means:
+    - A dark target (Cayenne L≈0.25) maps dark → stays dark on hijab
+    - A mid target (Dusty Rose L≈0.55) maps mid → lighter result
+  No luminance-ratio amplification → no accidental bright-red blowout.
+*/
 function applyShade(srcCanvas, dstCanvas, targetHex) {
   const ctx    = srcCanvas.getContext("2d");
   const dstCtx = dstCanvas.getContext("2d");
@@ -167,12 +212,14 @@ function applyShade(srcCanvas, dstCanvas, targetHex) {
   const dst = dstCtx.createImageData(width, height);
   const d = src.data, o = dst.data;
 
-  let tR = 0, tG = 0, tB = 0;
+  // Pre-parse target colour into HSL
+  let tH = 0, tS = 0, tL = 0;
   if (targetHex) {
     const n = parseInt(targetHex.slice(1), 16);
-    tR = (n >> 16) & 255;
-    tG = (n >> 8)  & 255;
-    tB =  n        & 255;
+    const tR = (n >> 16) & 255;
+    const tG = (n >> 8)  & 255;
+    const tB =  n        & 255;
+    [tH, tS, tL] = rgbToHsl(tR, tG, tB);
   }
 
   for (let i = 0; i < d.length; i += 4) {
@@ -183,31 +230,24 @@ function applyShade(srcCanvas, dstCanvas, targetHex) {
       continue;
     }
 
-    // Distance from background colour in RGB space
+    // Distance from background colour → blend weight
     const dr = r - BG_R, dg = g - BG_G, db = b - BG_B;
     const bgDist = Math.sqrt(dr*dr + dg*dg + db*db);
-
-    // weight: 0 = background pixel, 1 = hijab pixel
     const w = smoothstep(BG_NEAR, BG_FAR, bgDist);
 
     if (w < 0.001) {
-      // Pure background — write through
+      // Pure background — pass through
       o[i] = r; o[i+1] = g; o[i+2] = b; o[i+3] = a;
       continue;
     }
 
-    // Luminance of this pixel (for structure preservation)
-    const lum = 0.299*r + 0.587*g + 0.114*b;
-    // Luminance of the target colour (for calibration)
-    const tLum = 0.299*tR + 0.587*tG + 0.114*tB || 1;
+    // Get the pixel's own HSL — we keep its L (luminance/lightness)
+    const [, , pL] = rgbToHsl(r, g, b);
 
-    // Recoloured version: preserve luminance ratio, apply target hue
-    const ratio = lum / (tLum * 1.4);   // 1.4 keeps highlights bright
-    const cR = Math.min(255, Math.round(tR * ratio));
-    const cG = Math.min(255, Math.round(tG * ratio));
-    const cB = Math.min(255, Math.round(tB * ratio));
+    // Build recoloured pixel: target H+S, pixel's own L
+    const [cR, cG, cB] = hslToRgb(tH, tS, pL);
 
-    // Blend between original and recoloured by weight
+    // Blend: w=1 → fully recoloured; w<1 → partially (edge pixels)
     o[i]   = Math.round(r + w * (cR - r));
     o[i+1] = Math.round(g + w * (cG - g));
     o[i+2] = Math.round(b + w * (cB - b));
