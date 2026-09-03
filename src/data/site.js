@@ -222,6 +222,117 @@ MFG Merch. "2026 Guide to the Best Types of Bamboo Fabric for Apparel." mfgmerch
 
 Wikipedia. "Jersey (fabric)." en.wikipedia.org/wiki/Jersey_(fabric). Accessed 2 September 2026.`,
   },
+  {
+    slug: "modal-vs-viscose-hijab-fabric-buyers-guide",
+    title: "Modal vs Viscose Hijab Fabric: What Buyers Must Know",
+    date: "2026-09-03",
+    category: "Fabric Guide",
+    excerpt:
+      "Modal and viscose are both regenerated cellulose fibres, but they wash and wear very differently. A hijab manufacturer explains what to verify before bulk.",
+    body: `Modal and viscose are both regenerated cellulose fibres made from wood pulp, but in a finished hijab they are not interchangeable. Modal is made by a modified process that gives it higher wet strength — the property that decides how a hijab survives weekly washing, pinning and wear. A genuine modal piece stays softer, keeps its drape and holds its shape longer than an equivalent viscose piece, which is why modal costs more and why the label deserves verification: when a quote for "modal" arrives at viscose prices, the fibre or the blend is worth a second look. This guide explains the difference and what to confirm before bulk.
+
+## What Modal and Viscose Actually Are
+
+[Image placeholder — lead visual: a side-by-side studio flat lay of two plain hijabs at the same weight (around 120 GSM), one labelled standard viscose and one labelled modal, shot in identical lighting so the difference in surface sheen and fold sharpness is visible. Source material: real fabric swatches from the mill's own production, not stock photos.]
+
+Both fibres start the same way. Cellulose is extracted from wood pulp — beech, eucalyptus and other fast-growing species are common sources — dissolved into a viscous spinning solution, then regenerated into fibre that is spun into yarn. The fibre family is usually called rayon in the United States and viscose in Europe and Asia, and it includes viscose, modal, lyocell and bamboo-based fibres.
+
+Standard viscose is the first generation of this process. It is inexpensive, takes dye well and drapes pleasantly when new. Its known weakness is low wet strength: the fibre weakens noticeably when wet, which is why viscose garments distort, stretch or stiffen after washing.
+
+Modal is a second-generation development of the same chemistry, sometimes described as high-wet-modulus viscose. The spinning and regeneration stages are modified so the cellulose chains are better aligned, giving a fibre that is markedly stronger when wet. The most widely recognised modal is produced by the Austrian company Lenzing and sold as Lenzing Modal, using beechwood pulp from certified sustainable forestry; other mills produce modal under their own names with varying process standards.
+
+The naming does not travel cleanly across markets. A US label commonly reads "rayon" for any fibre in this family, while European and Asian labels normally say "viscose" or "modal". The same yarn can legally carry different names in different markets. That is a labelling convention, not a quality claim — and it is one reason fibre names cause so much confusion in sourcing conversations.
+
+## Side by Side: What Differs Between Modal and Viscose
+
+Wet strength — the core difference. Modal keeps most of its strength when wet; standard viscose loses a significant share. In practical terms this decides how a hijab behaves in the wash and how long it keeps its shape.
+
+Softness and hand — modal yarn is typically finer and rounder in cross-section, which reads as a softer, smoother surface against skin and hair. Viscose can be finished to feel soft, but the softness is less durable.
+
+Drape — both drape well when new. Modal holds a longer, cleaner fold and keeps it after laundering; viscose drape tends to degrade as the fabric relaxes and distorts over time.
+
+Washing behaviour — modal resists the shrinkage, edge distortion and stiffening that lower wet strength produces. This matters for hijabs, which many wearers wash weekly or more often.
+
+Pilling — surface fuzz depends on yarn quality and finishing at least as much as on the fibre name. Neither fibre is immune; judge pilling on wash-tested samples rather than on the label.
+
+Price — modal yarn and processing cost more than standard viscose. The gap is real but varies with yarn count, order volume and fibre source. A supplier quoting modal at viscose prices is either unusually efficient or worth questioning.
+
+Certified fibre — branded modal such as Lenzing Modal carries a documented supply chain from forestry to yarn. Generic viscose and generic modal do not, which is not a defect — but it means verification falls on the buyer.
+
+## Why the Fibre Difference Shows Up in Wear
+
+Headwear is a punishing use case for fabric. A hijab is wrapped tight, pinned, exposed to sun and often machine washed weekly. Every cycle of wetting, agitation and drying is a stress test for fibre strength.
+
+With standard viscose, the failure mode appears after several washes: an edge that was cut straight starts to wave, the fabric loses its clean fold and takes on a washed-out hand, and the piece slowly relaxes out of shape. These problems are not visible at the sample stage — the fabric looks fine on day one. They are properties of the fibre itself.
+
+Modal's higher wet strength delays all of this. A modal hijab at the same GSM will typically come out of ten washes closer to its original hand, drape and dimensions than a viscose equivalent. For a brand, that difference shows up in returns, reviews and repeat purchases more than any marketing claim about softness.
+
+[Image placeholder — wash test: the same two swatches photographed flat after ten home-wash cycles, showing the distortion and edge curl of the viscose piece next to the modal piece. Source material: wash-test samples from the mill's QC lab at identical GSM.]
+
+This is also why modal has become the default quality base for private-label hijab programmes. Major sourcing platforms now list dozens of dedicated modal suppliers, and new B2B manufacturers launched dedicated modal private-label programmes through 2026. Buyers are converging on modal as the safe premium base — which is exactly why fibre verification matters at the inquiry stage.
+
+## Factory Perspective: Verifying Fibre Before It Becomes Fabric
+
+Our mill knits and dyes in house, and the fibre decision happens before yarn ever reaches the knitting machine. When a buyer asks for modal, we order yarn against a written specification: fibre type, fibre source where relevant, yarn count and twist. If the order calls for a branded fibre such as Lenzing Modal, the yarn arrives with its chain documented and we keep batch records against it. Nothing in dyeing or finishing can upgrade a viscose yarn into a modal one, so verification happens at yarn intake, not at the end of the line.
+
+The modal side of our range runs from a structured 30s count through the 40s middle count — our most ordered base — to a fine 50s, across a 60 to 140 GSM band. At the same GSM you feel the count difference more than the fibre difference: coarser counts hold a rounded fold, finer counts fall almost glassy. Weight choice and fibre choice are separate decisions, and both only become real in the physical swatch.
+
+[Image placeholder — modal range drape: 40s modal swatches from 60 to 140 GSM hung as vertical drapes with no model, the mill shade card in frame, showing how weight progression changes fold sharpness and opacity. Source material: real drape shots from the mill's fabric range, following the site's no-model presentation style.]
+
+Dyeing is the other place fibre honesty shows. Modal accepts dye evenly, which is why deep shades and large colour programmes run reliably on it. Our lab-dip step matches a buyer's reference across three shade options before any bulk commitment, and physical batch standards are kept for reorders.
+
+What we can document for a buyer: the composition statement on the yarn, the fibre source when a branded fibre is used, wash-test data at the agreed GSM, and physical swatches cut from the actual production yarn — not a generic sample from another line.
+
+## What Buyers Should Confirm Before Ordering Modal Hijabs
+
+Ask for the fibre composition in writing — a yarn specification or certificate, not just the label on a polybag. Confirm the percentage: "modal blend" and "100% modal" are different products with different costs.
+
+If a branded fibre is part of your marketing, ask whether the supplier can evidence it. Branded modal moves with a documented supply chain; if the claim cannot be supported, decide whether it matters for your story.
+
+Request wash-test data at your target GSM — dimensional change and hand after a defined number of washes. Five washes tell you little; ask what the fabric does at ten to twenty.
+
+Confirm the GSM and the tolerance as you would for any base. Modal runs across weight bands — 60 to 140 GSM is typical for woven-style modal scarves — and the weight changes opacity and drape more than the fibre name does.
+
+Ask for colourfastness results, especially for deep shades such as navy, charcoal and black, where dye loading is highest.
+
+Hold the physical swatch before bulk. Hand, drape and sheen cannot be assessed from a photo, and they are the properties your customer will judge.
+
+Ask the supplier to explain the price: what the fibre costs, what a blend costs, and where the difference sits between their modal and their viscose programme. A straight answer here predicts the rest of the relationship.
+
+## Frequently Asked Questions
+
+Is modal the same as viscose? Modal is a modified viscose process with higher wet strength and typically a softer hand. Both are regenerated cellulose fibres from wood pulp, but they perform differently in washing and wear.
+
+Why does my fabric say rayon instead of modal? In the United States, rayon is the umbrella term for these fibres, so modal is commonly labelled rayon. In Europe and Asia the labels usually read viscose or modal. The same yarn can carry different names in different markets.
+
+How can I tell if a fabric is really modal? By paperwork and testing, not by feel. Request the yarn composition specification, wash-test data and, where claimed, the branded fibre documentation, then compare physical samples of both fibre types at the same GSM.
+
+Is 100% modal better than a modal blend for hijabs? Not automatically. Blends exist for a reason — polyester or elastane can improve shape retention, opacity or cost. What matters is that the composition you are quoted is the composition you receive.
+
+Does modal hijab shrink or fade? Like any cellulosic fibre, modal can shrink if not pre-treated and can fade under harsh washing or prolonged sun. Its advantage over viscose is a smaller dimensional change and better colour retention under the same conditions. Ask for the mill's pre-treatment and wash-test data.
+
+Is the price difference between modal and viscose worth it? For a brand positioning on softness, durability and repeat purchases, generally yes — the difference shows up in how the product survives its first season of wear. For a disposable price-point line, viscose may be the honest choice. The answer is commercial as much as technical.
+
+## Related Reading and Requesting Samples
+
+Choosing the right weight is the next decision after the fibre: our guide to GSM for hijab fabric covers the practical weight bands and how opacity and hand change across them — hijabsourcing.com/blog/how-to-choose-hijab-fabric-gsm.
+
+If you are comparing constructions, our breakdown of cotton, bamboo, liquid and premium jersey explains where modal jersey sits against the other knit bases — hijabsourcing.com/blog/cotton-bamboo-liquid-premium-jersey-hijab-comparison.
+
+Custom shade matching and branding options are described on the Customization page — hijabsourcing.com/customization.
+
+For a modal project, the reliable next step is to hold physical swatches at your target weight and shade. We can send the modal range at the GSM you are considering so you can judge hand and drape before any commitment. Email sofia@wennuanfactory.com or use the inquiry form at hijabsourcing.com/contact.
+
+## References
+
+SustainYourStyle. "Rayon, Viscose, Modal." sustainyourstyle.org/en/rayon-viscose-modal. Accessed 3 September 2026.
+
+Grand View Research. "Islamic Clothing Market Size And Share Report, 2026-2033." grandviewresearch.com/industry-analysis/islamic-clothing-market. Accessed 3 September 2026.
+
+CBI — Netherlands Ministry of Foreign Affairs. "The European market potential for Islamic wear." cbi.eu/market-information/apparel/islamic-wear-0/market-potential. Published December 2023. Accessed 3 September 2026.
+
+Market Research Future. "Islamic Clothing Market Size, Share, Report, Forecast 2035." marketresearchfuture.com/reports/islamic-clothing-market-31373. Published August 2026. Accessed 3 September 2026.`,
+  },
 ];
 
 export const CAPABILITIES = [

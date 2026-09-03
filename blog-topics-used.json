@@ -28,6 +28,16 @@
       "pillar": "Private Label MOQ sampling and lead time",
       "publishedDate": "2026-08-10",
       "status": "published"
+    },
+    {
+      "slug": "modal-vs-viscose-hijab-fabric-buyers-guide",
+      "title": "Modal vs Viscose Hijab Fabric: What Buyers Must Know",
+      "primaryKeyword": "modal vs viscose hijab fabric",
+      "intent": "educational / sourcing verification",
+      "pillar": "Modal vs Jersey fabric sourcing guides",
+      "publishedDate": "2026-09-03",
+      "status": "published",
+      "qualityScore": 91
     }
   ],
   "usedKeywords": [
@@ -42,12 +52,20 @@
     "bamboo jersey hijab",
     "liquid jersey hijab",
     "premium jersey hijab",
-    "jersey hijab comparison manufacturer"
+    "jersey hijab comparison manufacturer",
+    "modal vs viscose hijab fabric",
+    "modal vs rayon",
+    "viscose vs modal",
+    "what is modal fabric",
+    "modal hijab fabric",
+    "lenzing modal hijab",
+    "real modal fabric",
+    "regenerated cellulose hijab fabric"
   ],
   "usedPillars": {
-    "Modal vs Jersey fabric sourcing guides": 1,
+    "Modal vs Jersey fabric sourcing guides": 2,
     "Private Label MOQ sampling and lead time": 1,
     "Different Jersey fabric types and GSM comparison": 1
   },
-  "lastUpdated": "2026-09-02"
+  "lastUpdated": "2026-09-03"
 }
