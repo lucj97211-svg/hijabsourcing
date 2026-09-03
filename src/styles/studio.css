@@ -5,31 +5,88 @@
   max-width: 460px;
 }
 
-/* ── Three-column horizontal layout ───────────────────────────── */
+/* ── Three-row stack ───────────────────────────────────────────── */
 
-.studio__row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-6);
-  align-items: start;
-}
-
-/* Each column stacks its block + optional preview vertically */
-.studio__col {
+.studio__stack {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 0;                      /* blocks share a common border */
+}
+
+/* Each block is a horizontal row: label-col | content-col */
+.studio-block--row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  padding: 0;                  /* padding lives inside srow__ children */
+  border: 1px solid var(--border);
+  border-bottom: none;         /* merge borders between rows */
+}
+
+/* Last row keeps its bottom border */
+.studio__stack > :last-child.studio-block--row {
+  border-bottom: 1px solid var(--border);
+}
+
+/* Label column — left side */
+.srow__label {
+  padding: var(--space-8);
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--space-2);
+}
+
+/* Content column — right side: controls + preview side-by-side */
+.srow__content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-6);
+  padding: var(--space-8);
+  align-items: start;
+  background: var(--bg);
   min-width: 0;
 }
 
-/* FabricPreview sits below the GSM block inside col 1 */
-.studio__col-preview {
+/* Controls take available width */
+.srow__controls {
   min-width: 0;
 }
 
-@media (max-width: 900px) {
-  .studio__row {
+/* Preview column — fixed width, vertically fills */
+.srow__preview {
+  width: 180px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+  .studio-block--row {
+    grid-template-columns: 180px 1fr;
+  }
+  .srow__preview {
+    width: 140px;
+  }
+}
+
+@media (max-width: 860px) {
+  .studio-block--row {
     grid-template-columns: 1fr;
+  }
+  .srow__label {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-6);
+  }
+  .srow__content {
+    grid-template-columns: 1fr;
+    padding: var(--space-6);
+  }
+  .srow__preview {
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
   }
 }
 
@@ -601,24 +658,16 @@
 
 /* ── Colour picker ──────────────────────────────────────────────── */
 
-/* Two-column layout inside the colour picker block */
-.cp-layout {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
+/* Two-column layout inside the colour picker block — now handled by srow__ */
+.cp-layout { display: contents; }   /* dissolve into srow__content grid */
+.cp-controls { min-width: 0; }
 
-/* Left: tabs + swatches + readout */
-.cp-controls {
-  min-width: 0;
-}
-
-/* Right: fixed hijab colour preview — sits above controls in narrow col */
 .cp-preview {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
   align-items: center;
+  width: 100%;
 }
 
 .cp-preview__stage {

@@ -64,143 +64,129 @@ export default function LogoStudio() {
   const focused = CARRIERS.find((c) => c.id === focusCarrier) || CARRIERS[0];
 
   return (
-    <div className="studio-block" data-component="studio-logo-uploader">
-      <div className="studio-block__head">
+    <div className="studio-block studio-block--row" data-component="studio-logo-uploader">
+      {/* LEFT — label */}
+      <div className="srow__label">
         <span className="mono studio-step">03 — Branding</span>
         <h3>Put your logo on it</h3>
         <p className="muted studio-block__hint">
-          Upload your mark and see it placed on the label, packaging, hang tag, thank-you card and
-          gift box. Everything runs in your browser — the file is never sent to us until you attach
-          it to an email yourself.
+          Upload your mark and see it placed on the label, packaging, hang tag, thank-you
+          card and gift box. Everything runs in your browser.
         </p>
       </div>
 
-      {!logo ? (
-        <div
-          className={`dropzone ${dragging ? "is-dragging" : ""}`}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDragging(true);
-          }}
-          onDragLeave={() => setDragging(false)}
-          onDrop={(e) => {
-            e.preventDefault();
-            setDragging(false);
-            accept(e.dataTransfer.files?.[0]);
-          }}
-        >
-          <button type="button" className="btn btn--outline" onClick={() => inputRef.current?.click()}>
-            Upload your logo
-          </button>
-          <p className="mono dropzone__hint">
-            PNG or SVG · transparent background preferred · max 5 MB
-          </p>
-        </div>
-      ) : (
-        <div className="logo-loaded">
-          <span className="logo-loaded__thumb">
-            <img src={logo.url} alt={`Uploaded logo: ${logo.name}`} />
-          </span>
-          <span className="logo-loaded__meta">
-            <span className="logo-loaded__name">{logo.name}</span>
-            <span className="logo-loaded__actions">
-              <button type="button" className="linkish" onClick={() => inputRef.current?.click()}>
-                Replace
+      {/* RIGHT — upload + carrier preview */}
+      <div className="srow__content">
+        <div className="srow__controls">
+          {!logo ? (
+            <div
+              className={`dropzone ${dragging ? "is-dragging" : ""}`}
+              onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+              onDragLeave={() => setDragging(false)}
+              onDrop={(e) => { e.preventDefault(); setDragging(false); accept(e.dataTransfer.files?.[0]); }}
+            >
+              <button type="button" className="btn btn--outline" onClick={() => inputRef.current?.click()}>
+                Upload your logo
               </button>
-              <button type="button" className="linkish" onClick={clear}>
-                Remove
+              <p className="mono dropzone__hint">
+                PNG or SVG · transparent background preferred · max 5 MB
+              </p>
+            </div>
+          ) : (
+            <div className="logo-loaded">
+              <span className="logo-loaded__thumb">
+                <img src={logo.url} alt={`Uploaded logo: ${logo.name}`} />
+              </span>
+              <span className="logo-loaded__meta">
+                <span className="logo-loaded__name">{logo.name}</span>
+                <span className="logo-loaded__actions">
+                  <button type="button" className="linkish" onClick={() => inputRef.current?.click()}>Replace</button>
+                  <button type="button" className="linkish" onClick={clear}>Remove</button>
+                </span>
+              </span>
+            </div>
+          )}
+
+          <input
+            ref={inputRef}
+            type="file"
+            className="sr-only"
+            accept=".png,.svg,.jpg,.jpeg,.webp"
+            onChange={(e) => accept(e.target.files?.[0])}
+          />
+
+          {error && <p className="field__error" role="alert">{error}</p>}
+          {warn  && <p className="field__warn">{warn}</p>}
+
+          <div className="carrier-block" data-component="studio-logo-carriers">
+            <div className="carrier-toolbar">
+              <span className="mono muted">Carriers</span>
+              <ul className="carrier-picks">
+                {CARRIERS.map((carrier) => {
+                  const on = carriers.includes(carrier.id);
+                  return (
+                    <li key={carrier.id}>
+                      <button
+                        type="button"
+                        className={`chip ${on ? "is-on" : ""}`}
+                        aria-pressed={on}
+                        onClick={() => { toggleCarrier(carrier.id); setFocusCarrier(carrier.id); }}
+                      >
+                        {carrier.label}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div className="carrier-controls">
+              <label className="field field--inline">
+                <span className="field__label">Logo scale</span>
+                <input
+                  type="range" min={60} max={140} step={5} value={scale}
+                  className="gsm-range gsm-range--slim"
+                  onChange={(e) => setScale(Number(e.target.value))}
+                  style={{ "--range-pct": `${((scale - 60) / 80) * 100}%` }}
+                />
+                <span className="mono">{scale}%</span>
+              </label>
+              <button
+                type="button"
+                className={`chip ${darkCarrier ? "is-on" : ""}`}
+                aria-pressed={darkCarrier}
+                onClick={() => setDarkCarrier((v) => !v)}
+              >
+                {darkCarrier ? "Dark carrier" : "Light carrier"}
               </button>
-            </span>
-          </span>
-        </div>
-      )}
+            </div>
 
-      <input
-        ref={inputRef}
-        type="file"
-        className="sr-only"
-        accept=".png,.svg,.jpg,.jpeg,.webp"
-        onChange={(e) => accept(e.target.files?.[0])}
-      />
-
-      {error && (
-        <p className="field__error" role="alert">
-          {error}
-        </p>
-      )}
-      {warn && <p className="field__warn">{warn}</p>}
-
-      <div className="carrier-block" data-component="studio-logo-carriers">
-        <div className="carrier-toolbar">
-          <span className="mono muted">Carriers</span>
-          <ul className="carrier-picks">
-            {CARRIERS.map((carrier) => {
-              const on = carriers.includes(carrier.id);
-              return (
+            <ul className="carrier-thumbs">
+              {CARRIERS.map((carrier) => (
                 <li key={carrier.id}>
                   <button
                     type="button"
-                    className={`chip ${on ? "is-on" : ""}`}
-                    aria-pressed={on}
-                    onClick={() => {
-                      toggleCarrier(carrier.id);
-                      setFocusCarrier(carrier.id);
-                    }}
+                    className={`carrier-thumb ${focusCarrier === carrier.id ? "is-active" : ""}`}
+                    aria-pressed={focusCarrier === carrier.id}
+                    onClick={() => setFocusCarrier(carrier.id)}
                   >
-                    {carrier.label}
+                    <CarrierTile carrier={carrier} logo={logo} scale={scale} dark={darkCarrier} />
+                    <span className="mono carrier-thumb__label">{carrier.label}</span>
                   </button>
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
+
+            <p className="mono muted carrier-note">
+              Preview only — we send a physical sample for approval before anything is produced.
+            </p>
+          </div>
         </div>
 
-        <CarrierTile carrier={focused} logo={logo} scale={scale} dark={darkCarrier} large />
-
-        <div className="carrier-controls">
-          <label className="field field--inline">
-            <span className="field__label">Logo scale</span>
-            <input
-              type="range"
-              min={60}
-              max={140}
-              step={5}
-              value={scale}
-              className="gsm-range gsm-range--slim"
-              onChange={(e) => setScale(Number(e.target.value))}
-              style={{ "--range-pct": `${((scale - 60) / 80) * 100}%` }}
-            />
-            <span className="mono">{scale}%</span>
-          </label>
-          <button
-            type="button"
-            className={`chip ${darkCarrier ? "is-on" : ""}`}
-            aria-pressed={darkCarrier}
-            onClick={() => setDarkCarrier((v) => !v)}
-          >
-            {darkCarrier ? "Dark carrier" : "Light carrier"}
-          </button>
+        {/* Large carrier preview on the right */}
+        <div className="srow__preview">
+          <CarrierTile carrier={focused} logo={logo} scale={scale} dark={darkCarrier} large />
         </div>
-
-        <ul className="carrier-thumbs">
-          {CARRIERS.map((carrier) => (
-            <li key={carrier.id}>
-              <button
-                type="button"
-                className={`carrier-thumb ${focusCarrier === carrier.id ? "is-active" : ""}`}
-                aria-pressed={focusCarrier === carrier.id}
-                onClick={() => setFocusCarrier(carrier.id)}
-              >
-                <CarrierTile carrier={carrier} logo={logo} scale={scale} dark={darkCarrier} />
-                <span className="mono carrier-thumb__label">{carrier.label}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mono muted carrier-note">
-          Preview only — we send a physical sample for approval before anything is produced.
-        </p>
       </div>
     </div>
   );

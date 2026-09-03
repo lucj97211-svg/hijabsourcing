@@ -274,8 +274,9 @@ export default function ColorPicker() {
   };
 
   return (
-    <div className="studio-block color-picker" data-component="studio-color-picker">
-      <div className="studio-block__head">
+    <div className="studio-block studio-block--row color-picker" data-component="studio-color-picker">
+      {/* LEFT — label */}
+      <div className="srow__label">
         <span className="mono studio-step">02 — Colour</span>
         <h3>Choose a shade</h3>
         <p className="muted studio-block__hint">
@@ -284,14 +285,12 @@ export default function ColorPicker() {
         </p>
       </div>
 
-      {/* Hidden source canvas — never rendered visibly */}
+      {/* Hidden source canvas */}
       <canvas ref={srcCanvasRef} style={{ display: "none" }} aria-hidden="true" />
 
-      {/* ── Layout: controls left, preview right ── */}
-      <div className="cp-layout">
-
-        {/* LEFT: tabs + swatches + readout */}
-        <div className="cp-controls">
+      {/* RIGHT — swatches + preview side by side */}
+      <div className="srow__content">
+        <div className="srow__controls">
           <div className="color-families" role="tablist" aria-label="Colour families">
             {FAMILIES.map((fam) => (
               <button
@@ -351,8 +350,7 @@ export default function ColorPicker() {
           </div>
         </div>
 
-        {/* RIGHT: canvas colour preview */}
-        <div className="cp-preview" aria-label="Colour preview">
+        <div className="srow__preview cp-preview" aria-label="Colour preview">
           <div className="cp-preview__stage">
             <canvas
               ref={dstCanvasRef}
