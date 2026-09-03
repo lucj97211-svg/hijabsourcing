@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useId } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import { useCustomization } from "./CustomizationContext.jsx";
 
 /* ── Pantone-inspired colour library ────────────────────────────── */
@@ -117,54 +117,61 @@ const FAMILIES = [
   },
 ];
 
-/* Parse "#RRGGBB" → { r, g, b } in 0-1 range */
-function hexToRgb(hex) {
+/* Parse "#RRGGBB" → [r, g, b] in 0-255 range */
+function hexToRgb255(hex) {
   const n = parseInt(hex.slice(1), 16);
-  return { r: ((n >> 16) & 255) / 255, g: ((n >> 8) & 255) / 255, b: (n & 255) / 255 };
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
 /*
-  Build an SVG feColorMatrix that recolours a near-neutral-grey image
-  to the target colour while leaving near-white pixels (the background)
-  untouched.
+  Render the hijab image onto a canvas, recolouring only the hijab
+  pixels while leaving background pixels untouched.
 
-  The source hijab image is a light silvery grey (#B8B8B8 ≈ 0.72 luma)
-  on a near-white background (#F2F0ED ≈ 0.95 luma).
-
-  Strategy:
-    1. Convert RGB to luminance-based grey (standard coefficients).
-    2. Remap that single channel to the target hue using a
-       feColorMatrix in "matrix" mode:
-         out_R = luma * tR
-         out_G = luma * tG
-         out_B = luma * tB
-       where tR/tG/tB are the target colour components.
-    3. The background at luma ≈ 0.95 maps to a very light tint of the
-       target colour, which blends back toward the original white —
-       visually the background stays neutral.
-
-  We apply a luminance-preserving trick: scale the target by 1/maxChannel
-  so the lightest fabric highlights reproduce at maximum brightness.
+  Algorithm (pixel-level):
+  - Compute luminance L = 0.299R + 0.587G + 0.114B  (0-255)
+  - Background pixels: L > BG_THRESH (near-white) → write original pixel unchanged
+  - Hijab pixels: L ≤ BG_THRESH → remap to target hue:
+      outR = targetR * (L / MID_L)
+      outG = targetG * (L / MID_L)
+      outB = targetB * (L / MID_L)
+    where MID_L is the median hijab luminance (calibrated to the source image).
+    This preserves the fold/shadow structure while applying the chosen colour.
+  - Alpha channel is always preserved unchanged.
 */
-function buildMatrix(hex) {
-  if (!hex) return null;
-  const { r, g, b } = hexToRgb(hex);
+const BG_THRESH = 210;   // pixels brighter than this are background
+const MID_L     = 175;   // reference luminance for the mid-tone hijab area
 
-  // Luminance weights
-  const lr = 0.2126, lg = 0.7152, lb = 0.0722;
+function applyShade(srcCanvas, dstCanvas, targetHex) {
+  const ctx = srcCanvas.getContext("2d");
+  const dstCtx = dstCanvas.getContext("2d");
+  const { width, height } = srcCanvas;
+  dstCanvas.width  = width;
+  dstCanvas.height = height;
 
-  // Scale so the brightest channel hits 1.0 at full brightness
-  const maxC = Math.max(r, g, b) || 1;
-  const sr = r / maxC, sg = g / maxC, sb = b / maxC;
+  const src = ctx.getImageData(0, 0, width, height);
+  const dst = dstCtx.createImageData(width, height);
+  const d = src.data;
+  const o = dst.data;
 
-  // Each output channel = luminance * scaled_target_channel
-  // matrix row: [R_coeff, G_coeff, B_coeff, A_coeff, constant]
-  const rRow = [lr * sr, lg * sr, lb * sr, 0, 0];
-  const gRow = [lr * sg, lg * sg, lb * sg, 0, 0];
-  const bRow = [lr * sb, lg * sb, lb * sb, 0, 0];
-  const aRow = [0, 0, 0, 1, 0];
+  const [tR, tG, tB] = targetHex ? hexToRgb255(targetHex) : [null, null, null];
 
-  return [...rRow, ...gRow, ...bRow, ...aRow].join(" ");
+  for (let i = 0; i < d.length; i += 4) {
+    const r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
+    const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+
+    if (!tR || lum > BG_THRESH) {
+      // Background or no colour selected — write through unchanged
+      o[i] = r; o[i+1] = g; o[i+2] = b; o[i+3] = a;
+    } else {
+      // Hijab pixel — recolour preserving luminance structure
+      const ratio = lum / MID_L;
+      o[i]   = Math.min(255, Math.round(tR * ratio));
+      o[i+1] = Math.min(255, Math.round(tG * ratio));
+      o[i+2] = Math.min(255, Math.round(tB * ratio));
+      o[i+3] = a;
+    }
+  }
+  dstCtx.putImageData(dst, 0, 0);
 }
 
 /* ── Component ───────────────────────────────────────────────────── */
@@ -173,17 +180,43 @@ export default function ColorPicker() {
   const { shade, setShade } = useCustomization();
   const [activeFamily, setActiveFamily] = useState("neutrals");
   const swatchesRef = useRef(null);
-  const filterId = useId().replace(/:/g, "");  // valid XML id
+
+  // Two canvases: source (hidden, holds original pixels) + display
+  const srcCanvasRef = useRef(null);
+  const dstCanvasRef = useRef(null);
+  const imgLoadedRef = useRef(false);
 
   const family = FAMILIES.find((f) => f.id === activeFamily) || FAMILIES[0];
-  const matrix = buildMatrix(shade?.hex ?? null);
+
+  /* Load source image once into the hidden canvas */
+  useEffect(() => {
+    const src = srcCanvasRef.current;
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = "/assets/images/studio/color-base.png";
+    img.onload = () => {
+      src.width  = img.naturalWidth;
+      src.height = img.naturalHeight;
+      src.getContext("2d").drawImage(img, 0, 0);
+      imgLoadedRef.current = true;
+      // Render initial state
+      applyShade(src, dstCanvasRef.current, shade?.hex ?? null);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /* Re-render whenever shade changes */
+  useEffect(() => {
+    if (!imgLoadedRef.current) return;
+    applyShade(srcCanvasRef.current, dstCanvasRef.current, shade?.hex ?? null);
+  }, [shade]);
 
   const select = useCallback(
     (sw) => setShade(shade?.code === sw.code ? null : sw),
     [shade, setShade]
   );
 
-  /* Horizontal drag-scroll */
+  /* Drag-scroll */
   const drag = useRef({ on: false, x0: 0, sl0: 0 });
   const onMD = (e) => {
     drag.current = { on: true, x0: e.clientX, sl0: swatchesRef.current.scrollLeft };
@@ -209,12 +242,14 @@ export default function ColorPicker() {
         </p>
       </div>
 
-      {/* ── Layout: controls left, hijab preview right ── */}
+      {/* Hidden source canvas — never rendered visibly */}
+      <canvas ref={srcCanvasRef} style={{ display: "none" }} aria-hidden="true" />
+
+      {/* ── Layout: controls left, preview right ── */}
       <div className="cp-layout">
 
         {/* LEFT: tabs + swatches + readout */}
         <div className="cp-controls">
-          {/* Family tabs */}
           <div className="color-families" role="tablist" aria-label="Colour families">
             {FAMILIES.map((fam) => (
               <button
@@ -229,7 +264,6 @@ export default function ColorPicker() {
             ))}
           </div>
 
-          {/* Swatch strip */}
           <div
             ref={swatchesRef}
             className="color-swatches"
@@ -257,7 +291,6 @@ export default function ColorPicker() {
             })}
           </div>
 
-          {/* Readout */}
           <div className="color-readout" aria-live="polite">
             {shade ? (
               <>
@@ -276,29 +309,15 @@ export default function ColorPicker() {
           </div>
         </div>
 
-        {/* RIGHT: independent hijab colour preview */}
+        {/* RIGHT: canvas colour preview */}
         <div className="cp-preview" aria-label="Colour preview">
-          {/* Hidden SVG filter definition */}
-          {matrix && (
-            <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-              <defs>
-                <filter id={filterId} colorInterpolationFilters="sRGB" x="0" y="0" width="1" height="1">
-                  <feColorMatrix type="matrix" values={matrix} />
-                </filter>
-              </defs>
-            </svg>
-          )}
-
           <div className="cp-preview__stage">
-            <img
-              key={shade?.code ?? "natural"}
-              className="cp-preview__img"
-              src="/assets/images/studio/color-base.png"
-              alt={shade ? `Hijab in ${shade.name} (${shade.code})` : "Hijab in natural grey"}
-              style={matrix ? { filter: `url(#${filterId})` } : undefined}
+            <canvas
+              ref={dstCanvasRef}
+              className="cp-preview__canvas"
+              aria-label={shade ? `Hijab preview in ${shade.name}` : "Hijab preview in natural colour"}
             />
           </div>
-
           <p className="cp-preview__label mono">
             {shade ? `${shade.code} · ${shade.name}` : "Natural — select a shade above"}
           </p>
