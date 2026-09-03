@@ -564,7 +564,7 @@
 
 /* When inside the srow preview area, tile fills full height */
 .srow__preview .carrier-tile {
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -578,11 +578,11 @@
   background: var(--surface-warm);
 }
 
-/* In srow preview, let the frame fill available height instead */
+/* In srow preview, keep aspect-ratio so full carrier is always visible */
 .srow__preview .carrier-tile__frame {
-  flex: 1;
-  aspect-ratio: unset;
-  min-height: 200px;
+  aspect-ratio: 4 / 3;
+  min-height: unset;
+  max-height: 340px;
 }
 
 .carrier-tile__base {
