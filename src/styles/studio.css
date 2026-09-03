@@ -593,15 +593,65 @@
 
 /* ── Colour picker ──────────────────────────────────────────────── */
 
+/* Two-column layout inside the colour picker block */
+.cp-layout {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Left: tabs + swatches + readout */
+.cp-controls {
+  min-width: 0;
+}
+
+/* Right: fixed hijab colour preview */
+.cp-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.cp-preview__stage {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #F2F0ED;   /* fixed neutral background — never changes */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp-preview__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  /* CSS filter applied inline via React when a shade is active */
+}
+
+.cp-preview__label {
+  font-size: 10px;
+  letter-spacing: .06em;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.4;
+  padding: 0 4px;
+}
+
+/* Family tab strip */
 .color-families {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
   margin-bottom: var(--space-4);
 }
 
 .color-family-tab {
-  padding: 5px 12px;
+  padding: 4px 10px;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: .08em;
@@ -620,22 +670,17 @@
   color: #fff;
 }
 
+/* Swatch strip */
 .color-swatches {
   display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  scroll-behavior: smooth;
-  cursor: grab;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  gap: 7px;
+  flex-wrap: wrap;          /* wrap into rows instead of scrolling */
   margin-bottom: var(--space-4);
 }
-.color-swatches::-webkit-scrollbar { display: none; }
 
 .color-swatch {
-  flex: 0 0 36px;
-  height: 36px;
+  flex: 0 0 32px;
+  height: 32px;
   border-radius: 50%;
   border: 2px solid transparent;
   background: var(--sw-hex);
@@ -661,6 +706,7 @@
   box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--fg);
 }
 
+/* Readout row */
 .color-readout {
   display: flex;
   align-items: center;
@@ -670,8 +716,8 @@
 }
 
 .color-readout__dot {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   border: 1px solid rgba(0,0,0,.12);
   flex-shrink: 0;
@@ -697,7 +743,18 @@
   font-size: 12px;
 }
 
-/* ── Preview stage ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .cp-layout {
+    grid-template-columns: 1fr;
+  }
+  .cp-preview {
+    order: -1;            /* preview above controls on mobile */
+    max-width: 200px;
+    margin: 0 auto;
+  }
+}
+
+/* ── Preview stage (GSM weight preview) ────────────────────────── */
 
 .preview__stage {
   position: relative;
@@ -712,40 +769,12 @@
   aspect-ratio: 4 / 5;
 }
 
-/* Drape photo for the active weight band. */
 .preview__drape {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-/* Colour tint overlay — multiply blend keeps the fabric drape texture visible.
-   The overlay covers only .preview__cloth, not the surrounding stage. */
-.preview__tint {
-  position: absolute;
-  inset: 0;
-  background: var(--tint-color);
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  border-radius: inherit;
-  transition: background .25s;
-}
-
-/* Shade chip inside the specs row */
-.preview__shade-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.preview__shade-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 1px solid rgba(0,0,0,.18);
-  flex-shrink: 0;
 }
 
 .preview__specs {

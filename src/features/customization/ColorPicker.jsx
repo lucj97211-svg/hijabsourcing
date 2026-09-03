@@ -1,11 +1,7 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useId } from "react";
 import { useCustomization } from "./CustomizationContext.jsx";
 
-/* ── Pantone-inspired colour library ───────────────────────────────
-   Colours are grouped by family. Each swatch has a Pantone-style
-   code, a display name, and the closest printable hex.
-   These are representative colour references — actual production
-   shades are confirmed via physical lab dip. */
+/* ── Pantone-inspired colour library ────────────────────────────── */
 const FAMILIES = [
   {
     id: "neutrals",
@@ -121,39 +117,84 @@ const FAMILIES = [
   },
 ];
 
-const ALL_SWATCHES = FAMILIES.flatMap((f) => f.swatches);
+/* Parse "#RRGGBB" → { r, g, b } in 0-1 range */
+function hexToRgb(hex) {
+  const n = parseInt(hex.slice(1), 16);
+  return { r: ((n >> 16) & 255) / 255, g: ((n >> 8) & 255) / 255, b: (n & 255) / 255 };
+}
+
+/*
+  Build an SVG feColorMatrix that recolours a near-neutral-grey image
+  to the target colour while leaving near-white pixels (the background)
+  untouched.
+
+  The source hijab image is a light silvery grey (#B8B8B8 ≈ 0.72 luma)
+  on a near-white background (#F2F0ED ≈ 0.95 luma).
+
+  Strategy:
+    1. Convert RGB to luminance-based grey (standard coefficients).
+    2. Remap that single channel to the target hue using a
+       feColorMatrix in "matrix" mode:
+         out_R = luma * tR
+         out_G = luma * tG
+         out_B = luma * tB
+       where tR/tG/tB are the target colour components.
+    3. The background at luma ≈ 0.95 maps to a very light tint of the
+       target colour, which blends back toward the original white —
+       visually the background stays neutral.
+
+  We apply a luminance-preserving trick: scale the target by 1/maxChannel
+  so the lightest fabric highlights reproduce at maximum brightness.
+*/
+function buildMatrix(hex) {
+  if (!hex) return null;
+  const { r, g, b } = hexToRgb(hex);
+
+  // Luminance weights
+  const lr = 0.2126, lg = 0.7152, lb = 0.0722;
+
+  // Scale so the brightest channel hits 1.0 at full brightness
+  const maxC = Math.max(r, g, b) || 1;
+  const sr = r / maxC, sg = g / maxC, sb = b / maxC;
+
+  // Each output channel = luminance * scaled_target_channel
+  // matrix row: [R_coeff, G_coeff, B_coeff, A_coeff, constant]
+  const rRow = [lr * sr, lg * sr, lb * sr, 0, 0];
+  const gRow = [lr * sg, lg * sg, lb * sg, 0, 0];
+  const bRow = [lr * sb, lg * sb, lb * sb, 0, 0];
+  const aRow = [0, 0, 0, 1, 0];
+
+  return [...rRow, ...gRow, ...bRow, ...aRow].join(" ");
+}
+
+/* ── Component ───────────────────────────────────────────────────── */
 
 export default function ColorPicker() {
   const { shade, setShade } = useCustomization();
   const [activeFamily, setActiveFamily] = useState("neutrals");
   const swatchesRef = useRef(null);
+  const filterId = useId().replace(/:/g, "");  // valid XML id
 
   const family = FAMILIES.find((f) => f.id === activeFamily) || FAMILIES[0];
+  const matrix = buildMatrix(shade?.hex ?? null);
 
   const select = useCallback(
-    (swatch) => {
-      if (shade && shade.code === swatch.code) {
-        setShade(null); // deselect = natural
-      } else {
-        setShade(swatch);
-      }
-    },
+    (sw) => setShade(shade?.code === sw.code ? null : sw),
     [shade, setShade]
   );
 
-  /* Drag-scroll the swatch strip horizontally */
-  const dragState = useRef({ dragging: false, startX: 0, scrollX: 0 });
-  const onMouseDown = (e) => {
-    dragState.current = { dragging: true, startX: e.clientX, scrollX: swatchesRef.current.scrollLeft };
+  /* Horizontal drag-scroll */
+  const drag = useRef({ on: false, x0: 0, sl0: 0 });
+  const onMD = (e) => {
+    drag.current = { on: true, x0: e.clientX, sl0: swatchesRef.current.scrollLeft };
     swatchesRef.current.style.cursor = "grabbing";
   };
-  const onMouseMove = (e) => {
-    if (!dragState.current.dragging) return;
-    const dx = e.clientX - dragState.current.startX;
-    swatchesRef.current.scrollLeft = dragState.current.scrollX - dx;
+  const onMM = (e) => {
+    if (!drag.current.on) return;
+    swatchesRef.current.scrollLeft = drag.current.sl0 - (e.clientX - drag.current.x0);
   };
-  const onMouseUp = () => {
-    dragState.current.dragging = false;
+  const onMU = () => {
+    drag.current.on = false;
     if (swatchesRef.current) swatchesRef.current.style.cursor = "";
   };
 
@@ -163,78 +204,105 @@ export default function ColorPicker() {
         <span className="mono studio-step">02 — Colour</span>
         <h3>Choose a shade</h3>
         <p className="muted studio-block__hint">
-          Select a Pantone reference. The preview updates live — final shades are confirmed
+          Select a Pantone reference. The preview updates live — actual shades are confirmed
           via physical lab dip before bulk production.
         </p>
       </div>
 
-      {/* Family tabs */}
-      <div className="color-families" role="tablist" aria-label="Colour families">
-        {FAMILIES.map((fam) => (
-          <button
-            key={fam.id}
-            role="tab"
-            aria-selected={fam.id === activeFamily}
-            className={`color-family-tab ${fam.id === activeFamily ? "is-active" : ""}`}
-            onClick={() => setActiveFamily(fam.id)}
+      {/* ── Layout: controls left, hijab preview right ── */}
+      <div className="cp-layout">
+
+        {/* LEFT: tabs + swatches + readout */}
+        <div className="cp-controls">
+          {/* Family tabs */}
+          <div className="color-families" role="tablist" aria-label="Colour families">
+            {FAMILIES.map((fam) => (
+              <button
+                key={fam.id}
+                role="tab"
+                aria-selected={fam.id === activeFamily}
+                className={`color-family-tab${fam.id === activeFamily ? " is-active" : ""}`}
+                onClick={() => setActiveFamily(fam.id)}
+              >
+                {fam.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Swatch strip */}
+          <div
+            ref={swatchesRef}
+            className="color-swatches"
+            onMouseDown={onMD}
+            onMouseMove={onMM}
+            onMouseUp={onMU}
+            onMouseLeave={onMU}
+            role="group"
+            aria-label={`${family.label} swatches`}
           >
-            {fam.label}
-          </button>
-        ))}
-      </div>
+            {family.swatches.map((sw) => {
+              const sel = shade?.code === sw.code;
+              return (
+                <button
+                  key={sw.code}
+                  className={`color-swatch${sel ? " is-selected" : ""}`}
+                  style={{ "--sw-hex": sw.hex }}
+                  onClick={() => select(sw)}
+                  aria-pressed={sel}
+                  title={`${sw.name} · ${sw.code}`}
+                >
+                  <span className="sr-only">{sw.name} — {sw.code}</span>
+                </button>
+              );
+            })}
+          </div>
 
-      {/* Swatch strip — drag-scrollable */}
-      <div
-        ref={swatchesRef}
-        className="color-swatches"
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseUp}
-        role="group"
-        aria-label={`${family.label} swatches`}
-      >
-        {family.swatches.map((sw) => {
-          const isSelected = shade?.code === sw.code;
-          return (
-            <button
-              key={sw.code}
-              className={`color-swatch ${isSelected ? "is-selected" : ""}`}
-              style={{ "--sw-hex": sw.hex }}
-              onClick={() => select(sw)}
-              aria-pressed={isSelected}
-              title={`${sw.name} (${sw.code})`}
-            >
-              <span className="sr-only">{sw.name} — {sw.code}</span>
-            </button>
-          );
-        })}
-      </div>
+          {/* Readout */}
+          <div className="color-readout" aria-live="polite">
+            {shade ? (
+              <>
+                <span className="color-readout__dot" style={{ background: shade.hex }} aria-hidden="true" />
+                <span className="color-readout__code mono">{shade.code}</span>
+                <span className="color-readout__name">{shade.name}</span>
+                <button className="color-readout__clear linkish" onClick={() => setShade(null)}>
+                  Clear
+                </button>
+              </>
+            ) : (
+              <span className="color-readout__prompt muted">
+                Select a swatch to preview the shade
+              </span>
+            )}
+          </div>
+        </div>
 
-      {/* Selected info or prompt */}
-      <div className="color-readout" aria-live="polite">
-        {shade ? (
-          <>
-            <span
-              className="color-readout__dot"
-              style={{ background: shade.hex }}
-              aria-hidden="true"
+        {/* RIGHT: independent hijab colour preview */}
+        <div className="cp-preview" aria-label="Colour preview">
+          {/* Hidden SVG filter definition */}
+          {matrix && (
+            <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+              <defs>
+                <filter id={filterId} colorInterpolationFilters="sRGB" x="0" y="0" width="1" height="1">
+                  <feColorMatrix type="matrix" values={matrix} />
+                </filter>
+              </defs>
+            </svg>
+          )}
+
+          <div className="cp-preview__stage">
+            <img
+              key={shade?.code ?? "natural"}
+              className="cp-preview__img"
+              src="/assets/images/studio/color-base.png"
+              alt={shade ? `Hijab in ${shade.name} (${shade.code})` : "Hijab in natural grey"}
+              style={matrix ? { filter: `url(#${filterId})` } : undefined}
             />
-            <span className="color-readout__code mono">{shade.code}</span>
-            <span className="color-readout__name">{shade.name}</span>
-            <button
-              className="color-readout__clear linkish"
-              onClick={() => setShade(null)}
-              aria-label="Clear colour selection"
-            >
-              Clear
-            </button>
-          </>
-        ) : (
-          <span className="color-readout__prompt muted">
-            No colour selected — tap a swatch to preview
-          </span>
-        )}
+          </div>
+
+          <p className="cp-preview__label mono">
+            {shade ? `${shade.code} · ${shade.name}` : "Natural — select a shade above"}
+          </p>
+        </div>
       </div>
     </div>
   );
