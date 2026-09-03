@@ -834,54 +834,34 @@
 
 /* ── Preview stage (GSM weight preview) ────────────────────────── */
 
-/* When inside srow__preview, stage fills edge-to-edge */
-.srow__preview .preview__stage {
-  border: none;
-  padding: var(--space-4) var(--space-5);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-.preview__stage {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: var(--space-6);
-  overflow: hidden;
-}
-
-.preview__cloth {
-  position: relative;
-  flex: 1;                     /* fills available height in srow context */
-  aspect-ratio: unset;
-  min-height: 160px;
-}
-
-/* standalone fallback aspect-ratio */
-.preview__stage:not(.srow__preview .preview__stage) .preview__cloth {
-  aspect-ratio: 4 / 5;
-  flex: none;
-}
-
-.preview__drape {
-  position: absolute;
-  inset: 0;
+/* Full-bleed drape wrapper — fills srow__preview edge-to-edge */
+.preview__drape-wrap {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center top;
+  min-height: 280px;
+  background: var(--surface);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
+.preview__drape-wrap .preview__drape {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* ── Spec table (moved into controls column) ────────────────────── */
 .preview__specs {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1px;
   background: var(--border-soft);
   border: 1px solid var(--border);
-  border-top: 0;
-  margin: 0;
+  margin: var(--space-5) 0 0;
 }
 
 .preview__specs > div {
@@ -902,6 +882,30 @@
   color: var(--fg);
   overflow-wrap: anywhere;
 }
+
+/* Legacy standalone preview (fallback) */
+.preview__stage {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: var(--space-6);
+  overflow: hidden;
+}
+
+.preview__cloth {
+  position: relative;
+  aspect-ratio: 4 / 5;
+}
+
+.preview__drape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+}
+
 
 /* ── Spec bar ──────────────────────────────────────────────────── */
 

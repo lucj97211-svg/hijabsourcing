@@ -1,7 +1,7 @@
 import React from "react";
 import { useCustomization } from "./CustomizationContext.jsx";
 import { GSM_MAX, GSM_MIN, GSM_STEP, gsmZone } from "./gsm.js";
-import FabricPreview from "./FabricPreview.jsx";
+import { FabricDrape, FabricSpecs } from "./FabricPreview.jsx";
 
 const ZONES = [
   { id: "ultralight", label: "Ultra-light", range: "60–80" },
@@ -68,10 +68,12 @@ export default function GsmSlider() {
               ? `Within the ${fabric.name} band (${fabric.gsm[0]}–${fabric.gsm[1]} GSM)`
               : `Outside the standard ${fabric.name} band — ask us if it can be run`}
           </p>
+
+          <FabricSpecs />
         </div>
 
         <div className="srow__preview">
-          <FabricPreview />
+          <FabricDrape />
         </div>
       </div>
     </div>
