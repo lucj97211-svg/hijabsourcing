@@ -184,7 +184,7 @@ export default function LogoStudio() {
         </div>
 
         {/* Large carrier preview on the right */}
-        <div className="srow__preview">
+        <div className="srow__preview srow__preview--carrier">
           <CarrierTile carrier={focused} logo={logo} scale={scale} dark={darkCarrier} large />
         </div>
       </div>

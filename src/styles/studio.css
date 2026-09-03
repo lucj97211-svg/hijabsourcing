@@ -57,8 +57,13 @@
 
 /* Preview column — fixed width, vertically fills */
 .srow__preview {
-  width: 180px;
+  width: 260px;
   flex-shrink: 0;
+}
+
+/* Row 3 branding preview is larger */
+.srow__preview--carrier {
+  width: 300px;
 }
 
 @media (max-width: 1100px) {
@@ -66,7 +71,10 @@
     grid-template-columns: 180px 1fr;
   }
   .srow__preview {
-    width: 140px;
+    width: 200px;
+  }
+  .srow__preview--carrier {
+    width: 220px;
   }
 }
 
@@ -672,6 +680,8 @@
 
 .cp-preview__stage {
   width: 100%;
+  max-width: 220px;      /* cap canvas width so hijab doesn't bleed out */
+  margin: 0 auto;
   aspect-ratio: 3 / 4;
   background: #F2F0ED;
   overflow: hidden;
