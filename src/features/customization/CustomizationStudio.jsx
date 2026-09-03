@@ -62,16 +62,24 @@ export default function CustomizationStudio() {
           </label>
         </div>
 
-        <div className="studio__grid">
-          <div className="studio__controls">
+        <div className="studio__row">
+          {/* Column 1 — Weight */}
+          <div className="studio__col">
             <GsmSlider />
-            <ColorPicker />
-            <LogoStudio />
+            <div className="studio__col-preview">
+              <FabricPreview />
+            </div>
           </div>
 
-          <aside className="studio__preview">
-            <FabricPreview />
-          </aside>
+          {/* Column 2 — Colour */}
+          <div className="studio__col">
+            <ColorPicker />
+          </div>
+
+          {/* Column 3 — Branding */}
+          <div className="studio__col">
+            <LogoStudio />
+          </div>
         </div>
 
         <div className="spec-bar" data-component="studio-spec-bar">

@@ -5,24 +5,32 @@
   max-width: 460px;
 }
 
-.studio__grid {
+/* ── Three-column horizontal layout ───────────────────────────── */
+
+.studio__row {
   display: grid;
-  grid-template-columns: 46fr 54fr;
-  gap: var(--space-12);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
   align-items: start;
 }
 
-.studio__controls {
+/* Each column stacks its block + optional preview vertically */
+.studio__col {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: var(--space-4);
   min-width: 0;
 }
 
-.studio__preview {
-  position: sticky;
-  top: calc(var(--header-h) + 24px);
+/* FabricPreview sits below the GSM block inside col 1 */
+.studio__col-preview {
   min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .studio__row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .studio-block {
@@ -595,10 +603,9 @@
 
 /* Two-column layout inside the colour picker block */
 .cp-layout {
-  display: grid;
-  grid-template-columns: 1fr 200px;
-  gap: var(--space-6);
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
 }
 
 /* Left: tabs + swatches + readout */
@@ -606,7 +613,7 @@
   min-width: 0;
 }
 
-/* Right: fixed hijab colour preview */
+/* Right: fixed hijab colour preview — sits above controls in narrow col */
 .cp-preview {
   display: flex;
   flex-direction: column;
@@ -617,7 +624,7 @@
 .cp-preview__stage {
   width: 100%;
   aspect-ratio: 3 / 4;
-  background: #F2F0ED;   /* fixed neutral background — never changes */
+  background: #F2F0ED;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -743,11 +750,8 @@
 }
 
 @media (max-width: 640px) {
-  .cp-layout {
-    grid-template-columns: 1fr;
-  }
+  /* cp-layout is already column; just constrain preview width on mobile */
   .cp-preview {
-    order: -1;            /* preview above controls on mobile */
     max-width: 200px;
     margin: 0 auto;
   }
@@ -840,14 +844,6 @@
 /* ── Studio responsive ─────────────────────────────────────────── */
 
 @media (max-width: 1023px) {
-  .studio__grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
-  }
-  .studio__preview {
-    position: static;
-    order: -1;
-  }
   .carrier-thumbs {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
