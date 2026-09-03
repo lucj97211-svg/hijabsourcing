@@ -42,7 +42,7 @@
 /* Content column — right side: controls + preview side-by-side */
 .srow__content {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 240px;
   gap: var(--space-6);
   padding: var(--space-8);
   align-items: start;
@@ -55,26 +55,23 @@
   min-width: 0;
 }
 
-/* Preview column — fixed width, vertically fills */
+/* Preview column — fills the fixed 240px column */
 .srow__preview {
-  width: 260px;
+  width: 100%;
   flex-shrink: 0;
 }
 
-/* Row 3 branding preview is larger */
+/* Row 3 branding preview is larger — override grid column inline */
 .srow__preview--carrier {
-  width: 300px;
+  width: 100%;
 }
 
 @media (max-width: 1100px) {
   .studio-block--row {
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 160px 1fr;
   }
-  .srow__preview {
-    width: 200px;
-  }
-  .srow__preview--carrier {
-    width: 220px;
+  .srow__content {
+    grid-template-columns: 1fr 180px;
   }
 }
 
@@ -680,8 +677,6 @@
 
 .cp-preview__stage {
   width: 100%;
-  max-width: 220px;      /* cap canvas width so hijab doesn't bleed out */
-  margin: 0 auto;
   aspect-ratio: 3 / 4;
   background: #F2F0ED;
   overflow: hidden;
