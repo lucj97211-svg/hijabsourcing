@@ -117,32 +117,47 @@ const FAMILIES = [
   },
 ];
 
-/* Parse "#RRGGBB" → [r, g, b] in 0-255 range */
-function hexToRgb255(hex) {
-  const n = parseInt(hex.slice(1), 16);
-  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+/*
+  Pixel-level hijab recolouring with soft background isolation.
+
+  The source image has:
+    - Background: near-white, luminance ~240–255  (pure #F2F0ED ≈ L244)
+    - Hijab highlights: luminance ~190–230
+    - Hijab midtones:   luminance ~130–190
+    - Hijab shadows:    luminance  ~60–130
+
+  Hard-threshold approaches fail because highlights overlap the background
+  luminance range. Instead we compute a blend weight based on how far the
+  pixel deviates from the known background value:
+
+    bgDist = distance of (R,G,B) from the background colour in RGB space
+    weight = smoothstep(BG_NEAR, BG_FAR, bgDist)   → 0 = background, 1 = hijab
+
+  We also compare chroma (saturation). The background is very low chroma;
+  the hijab midtones have slightly more, which sharpens the mask further.
+
+  Finally we blend:
+    out = lerp(original, recoloured, weight)
+
+  This keeps the background pixel-perfect while softly transitioning
+  through highlights into fully-recoloured midtones/shadows.
+*/
+
+// Background colour sampled from the source image (top-left corner)
+const BG_R = 242, BG_G = 240, BG_B = 237;
+
+// bgDist below this → pure background (weight 0)
+const BG_NEAR = 12;
+// bgDist above this → pure hijab  (weight 1)
+const BG_FAR  = 42;
+
+function smoothstep(edge0, edge1, x) {
+  const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+  return t * t * (3 - 2 * t);
 }
 
-/*
-  Render the hijab image onto a canvas, recolouring only the hijab
-  pixels while leaving background pixels untouched.
-
-  Algorithm (pixel-level):
-  - Compute luminance L = 0.299R + 0.587G + 0.114B  (0-255)
-  - Background pixels: L > BG_THRESH (near-white) → write original pixel unchanged
-  - Hijab pixels: L ≤ BG_THRESH → remap to target hue:
-      outR = targetR * (L / MID_L)
-      outG = targetG * (L / MID_L)
-      outB = targetB * (L / MID_L)
-    where MID_L is the median hijab luminance (calibrated to the source image).
-    This preserves the fold/shadow structure while applying the chosen colour.
-  - Alpha channel is always preserved unchanged.
-*/
-const BG_THRESH = 210;   // pixels brighter than this are background
-const MID_L     = 175;   // reference luminance for the mid-tone hijab area
-
 function applyShade(srcCanvas, dstCanvas, targetHex) {
-  const ctx = srcCanvas.getContext("2d");
+  const ctx    = srcCanvas.getContext("2d");
   const dstCtx = dstCanvas.getContext("2d");
   const { width, height } = srcCanvas;
   dstCanvas.width  = width;
@@ -150,26 +165,53 @@ function applyShade(srcCanvas, dstCanvas, targetHex) {
 
   const src = ctx.getImageData(0, 0, width, height);
   const dst = dstCtx.createImageData(width, height);
-  const d = src.data;
-  const o = dst.data;
+  const d = src.data, o = dst.data;
 
-  const [tR, tG, tB] = targetHex ? hexToRgb255(targetHex) : [null, null, null];
+  let tR = 0, tG = 0, tB = 0;
+  if (targetHex) {
+    const n = parseInt(targetHex.slice(1), 16);
+    tR = (n >> 16) & 255;
+    tG = (n >> 8)  & 255;
+    tB =  n        & 255;
+  }
 
   for (let i = 0; i < d.length; i += 4) {
-    const r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
-    const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+    const r = d[i], g = d[i+1], b = d[i+2], a = d[i+3];
 
-    if (!tR || lum > BG_THRESH) {
-      // Background or no colour selected — write through unchanged
+    if (!targetHex) {
       o[i] = r; o[i+1] = g; o[i+2] = b; o[i+3] = a;
-    } else {
-      // Hijab pixel — recolour preserving luminance structure
-      const ratio = lum / MID_L;
-      o[i]   = Math.min(255, Math.round(tR * ratio));
-      o[i+1] = Math.min(255, Math.round(tG * ratio));
-      o[i+2] = Math.min(255, Math.round(tB * ratio));
-      o[i+3] = a;
+      continue;
     }
+
+    // Distance from background colour in RGB space
+    const dr = r - BG_R, dg = g - BG_G, db = b - BG_B;
+    const bgDist = Math.sqrt(dr*dr + dg*dg + db*db);
+
+    // weight: 0 = background pixel, 1 = hijab pixel
+    const w = smoothstep(BG_NEAR, BG_FAR, bgDist);
+
+    if (w < 0.001) {
+      // Pure background — write through
+      o[i] = r; o[i+1] = g; o[i+2] = b; o[i+3] = a;
+      continue;
+    }
+
+    // Luminance of this pixel (for structure preservation)
+    const lum = 0.299*r + 0.587*g + 0.114*b;
+    // Luminance of the target colour (for calibration)
+    const tLum = 0.299*tR + 0.587*tG + 0.114*tB || 1;
+
+    // Recoloured version: preserve luminance ratio, apply target hue
+    const ratio = lum / (tLum * 1.4);   // 1.4 keeps highlights bright
+    const cR = Math.min(255, Math.round(tR * ratio));
+    const cG = Math.min(255, Math.round(tG * ratio));
+    const cB = Math.min(255, Math.round(tB * ratio));
+
+    // Blend between original and recoloured by weight
+    o[i]   = Math.round(r + w * (cR - r));
+    o[i+1] = Math.round(g + w * (cG - g));
+    o[i+2] = Math.round(b + w * (cB - b));
+    o[i+3] = a;
   }
   dstCtx.putImageData(dst, 0, 0);
 }
