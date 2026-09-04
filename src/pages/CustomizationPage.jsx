@@ -11,7 +11,7 @@ export default function CustomizationPage() {
       <main>
         <div
           className="page-hero page-hero--custom"
-          style={{ '--page-hero-img': 'url(/assets/images/hero/hero-customization.png?v=3)' }}
+          style={{ '--page-hero-img': 'url(/assets/images/hero/hero-customization.png?v=4)' }}
         >
           <div className="container page-hero__inner">
             <div className="custom-hero-text">
@@ -20,8 +20,7 @@ export default function CustomizationPage() {
               <div className="custom-hero-rule" />
               <p className="custom-hero-lede">
                 Set your fabric weight, match a shade on physical lab dip,
-                and preview your logo across every label and packaging piece â€”
-                all before committing to a sample.
+                and preview your logo across every label and packaging piece â€?                all before committing to a sample.
               </p>
             </div>
           </div>
@@ -33,3 +32,4 @@ export default function CustomizationPage() {
     </>
   );
 }
+
