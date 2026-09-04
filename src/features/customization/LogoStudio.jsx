@@ -43,7 +43,7 @@ export default function LogoStudio() {
       const probe = new Image();
       probe.onload = () => {
         if (Math.max(probe.naturalWidth, probe.naturalHeight) < 600) {
-          setWarn("Low resolution â€” fine for this preview, but we will ask for vector before sampling.");
+          setWarn("Low resolution â€?fine for this preview, but we will ask for vector before sampling.");
         }
       };
       probe.src = url;
@@ -65,9 +65,9 @@ export default function LogoStudio() {
 
   return (
     <div className="studio-block studio-block--row" data-component="studio-logo-uploader">
-      {/* LEFT â€” label */}
+      {/* LEFT â€?label */}
       <div className="srow__label">
-        <span className="mono studio-step">03 â€” Branding</span>
+        <span className="mono studio-step">03 â€?Branding</span>
         <h3>Put your logo on it</h3>
         <p className="muted studio-block__hint">
           Upload your mark and see it placed on the label, packaging, hang tag, thank-you
@@ -75,7 +75,7 @@ export default function LogoStudio() {
         </p>
       </div>
 
-      {/* RIGHT â€” upload + carrier preview */}
+      {/* RIGHT â€?upload + carrier preview */}
       <div className="srow__content">
         <div className="srow__controls">
           {!logo ? (
@@ -178,7 +178,7 @@ export default function LogoStudio() {
             </ul>
 
             <p className="mono muted carrier-note">
-              Preview only â€” we send a physical sample for approval before anything is produced.
+              Preview only â€?we send a physical sample for approval before anything is produced.
             </p>
           </div>
         </div>
@@ -210,7 +210,7 @@ function CarrierTile({ carrier, logo, scale, dark, large = false }) {
         <img
           className="carrier-tile__base"
           src={carrier.image}
-          alt={`${carrier.label} â€” blank base`}
+          alt={`${carrier.label} â€?blank base`}
           loading="lazy"
         />
         <span
@@ -243,3 +243,4 @@ function CarrierTile({ carrier, logo, scale, dark, large = false }) {
     </span>
   );
 }
+

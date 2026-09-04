@@ -121,17 +121,17 @@ const FAMILIES = [
   Pixel-level hijab recolouring with soft background isolation.
 
   The source image has:
-    - Background: near-white, luminance ~240â€“255  (pure #F2F0ED â‰ˆ L244)
-    - Hijab highlights: luminance ~190â€“230
-    - Hijab midtones:   luminance ~130â€“190
-    - Hijab shadows:    luminance  ~60â€“130
+    - Background: near-white, luminance ~240â€?55  (pure #F2F0ED â‰?L244)
+    - Hijab highlights: luminance ~190â€?30
+    - Hijab midtones:   luminance ~130â€?90
+    - Hijab shadows:    luminance  ~60â€?30
 
   Hard-threshold approaches fail because highlights overlap the background
   luminance range. Instead we compute a blend weight based on how far the
   pixel deviates from the known background value:
 
     bgDist = distance of (R,G,B) from the background colour in RGB space
-    weight = smoothstep(BG_NEAR, BG_FAR, bgDist)   â†’ 0 = background, 1 = hijab
+    weight = smoothstep(BG_NEAR, BG_FAR, bgDist)   â†?0 = background, 1 = hijab
 
   We also compare chroma (saturation). The background is very low chroma;
   the hijab midtones have slightly more, which sharpens the mask further.
@@ -145,15 +145,15 @@ const FAMILIES = [
 
 // Background colour sampled from the source image (top-left corner)
 const BG_R = 242, BG_G = 240, BG_B = 237;
-const BG_NEAR = 12;   // bgDist < this â†’ pure background
-const BG_FAR  = 42;   // bgDist > this â†’ pure hijab pixel
+const BG_NEAR = 12;   // bgDist < this â†?pure background
+const BG_FAR  = 42;   // bgDist > this â†?pure hijab pixel
 
 function smoothstep(edge0, edge1, x) {
   const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
   return t * t * (3 - 2 * t);
 }
 
-/* RGB â†” HSL helpers (all values 0-1) */
+/* RGB â†?HSL helpers (all values 0-1) */
 function rgbToHsl(r, g, b) {
   r /= 255; g /= 255; b /= 255;
   const max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -192,14 +192,14 @@ function hslToRgb(h, s, l) {
 
 /*
   HSL-based recolour:
-  - Keep the PIXEL's own lightness (L) â†’ preserves fabric drape & fold structure
+  - Keep the PIXEL's own lightness (L) â†?preserves fabric drape & fold structure
   - Replace H and S with the target colour's H and S
   - Blend by weight (background pixels pass through unchanged)
 
   This means:
-    - A dark target (Cayenne Lâ‰ˆ0.25) maps dark â†’ stays dark on hijab
-    - A mid target (Dusty Rose Lâ‰ˆ0.55) maps mid â†’ lighter result
-  No luminance-ratio amplification â†’ no accidental bright-red blowout.
+    - A dark target (Cayenne Lâ‰?.25) maps dark â†?stays dark on hijab
+    - A mid target (Dusty Rose Lâ‰?.55) maps mid â†?lighter result
+  No luminance-ratio amplification â†?no accidental bright-red blowout.
 */
 function applyShade(srcCanvas, dstCanvas, targetHex) {
   const ctx    = srcCanvas.getContext("2d");
@@ -230,24 +230,24 @@ function applyShade(srcCanvas, dstCanvas, targetHex) {
       continue;
     }
 
-    // Distance from background colour â†’ blend weight
+    // Distance from background colour â†?blend weight
     const dr = r - BG_R, dg = g - BG_G, db = b - BG_B;
     const bgDist = Math.sqrt(dr*dr + dg*dg + db*db);
     const w = smoothstep(BG_NEAR, BG_FAR, bgDist);
 
     if (w < 0.001) {
-      // Pure background â€” pass through
+      // Pure background â€?pass through
       o[i] = r; o[i+1] = g; o[i+2] = b; o[i+3] = a;
       continue;
     }
 
-    // Get the pixel's own HSL â€” we keep its L (luminance/lightness)
+    // Get the pixel's own HSL â€?we keep its L (luminance/lightness)
     const [, , pL] = rgbToHsl(r, g, b);
 
     // Build recoloured pixel: target H+S, pixel's own L
     const [cR, cG, cB] = hslToRgb(tH, tS, pL);
 
-    // Blend: w=1 â†’ fully recoloured; w<1 â†’ partially (edge pixels)
+    // Blend: w=1 â†?fully recoloured; w<1 â†?partially (edge pixels)
     o[i]   = Math.round(r + w * (cR - r));
     o[i+1] = Math.round(g + w * (cG - g));
     o[i+2] = Math.round(b + w * (cB - b));
@@ -315,12 +315,12 @@ export default function ColorPicker() {
 
   return (
     <div className="studio-block studio-block--row color-picker" data-component="studio-color-picker">
-      {/* LEFT â€” label */}
+      {/* LEFT â€?label */}
       <div className="srow__label">
-        <span className="mono studio-step">02 â€” Colour</span>
+        <span className="mono studio-step">02 â€?Colour</span>
         <h3>Choose a shade</h3>
         <p className="muted studio-block__hint">
-          Select a Pantone reference. The preview updates live â€” actual shades are confirmed
+          Select a Pantone reference. The preview updates live â€?actual shades are confirmed
           via physical lab dip before bulk production.
         </p>
       </div>
@@ -328,7 +328,7 @@ export default function ColorPicker() {
       {/* Hidden source canvas */}
       <canvas ref={srcCanvasRef} style={{ display: "none" }} aria-hidden="true" />
 
-      {/* RIGHT â€” swatches + preview side by side */}
+      {/* RIGHT â€?swatches + preview side by side */}
       <div className="srow__content">
         <div className="srow__controls">
           <div className="color-families" role="tablist" aria-label="Colour families">
@@ -366,7 +366,7 @@ export default function ColorPicker() {
                   aria-pressed={sel}
                   title={`${sw.name} Â· ${sw.code}`}
                 >
-                  <span className="sr-only">{sw.name} â€” {sw.code}</span>
+                  <span className="sr-only">{sw.name} â€?{sw.code}</span>
                 </button>
               );
             })}
@@ -399,10 +399,11 @@ export default function ColorPicker() {
             />
           </div>
           <p className="cp-preview__label mono">
-            {shade ? `${shade.code} Â· ${shade.name}` : "Natural â€” select a shade above"}
+            {shade ? `${shade.code} Â· ${shade.name}` : "Natural â€?select a shade above"}
           </p>
         </div>
       </div>
     </div>
   );
 }
+
