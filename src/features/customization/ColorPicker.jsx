@@ -144,9 +144,7 @@ const FAMILIES = [
 */
 
 // Background colour sampled from the source image (top-left corner)
-const BG_R = 242, BG_G = 240, BG_B = 237;
-const BG_NEAR = 12;   // bgDist < this �?pure background
-const BG_FAR  = 42;   // bgDist > this �?pure hijab pixel
+// NOTE: constants are declared once, just above applyShade().
 
 function smoothstep(edge0, edge1, x) {
   const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
@@ -191,16 +189,42 @@ function hslToRgb(h, s, l) {
 }
 
 /*
-  HSL-based recolour with luminance scaling:
-  - Replace H and S with the target colour's H and S
-  - Scale the pixel's L by (tL / SRC_MID_L) so dark targets darken
-    the whole hijab and light targets brighten it, while preserving
-    the relative fold/drape structure.
-  - SRC_MID_L ≈ 0.65 is the approximate lightness of the hijab midtones
-    in the source image (neutral grey drape).
-  - Blend by bg-distance weight so background pixels pass through.
+  ── Hijab recolouring — measured-constant HSL remap ─────────────────
+
+  Source image facts (measured from color-base.png, 1024x1536, via
+  scripts/analyse-source.py — do NOT guess these values):
+
+    background RGB          = (229, 228, 226)
+    hijab pixel coverage    = 28.2% of frame
+    hijab HSL-L  p1  = 0.390   (deepest shadow)
+                 p50 = 0.700   (midtone — the reference point)
+                 p95 = 0.786   (highlight)
+    hijab HSL-S  mean = 0.047  (near-neutral grey)
+
+  Algorithm:
+    1. Compute per-pixel distance from the background colour and derive
+       a blend weight w via smoothstep. w=0 → untouched background.
+    2. Normalise the pixel's lightness against the measured midtone:
+         shade = (pL - MID_L)            // signed deviation, ±0.31 range
+       This separates "how much lighter/darker than midtone" from the
+       absolute brightness of the source photo.
+    3. Rebuild lightness around the TARGET colour's lightness:
+         outL = tL + shade * CONTRAST
+       The target's own tL sets the base tone (dark target → dark cloth),
+       while `shade` reintroduces the fold structure. CONTRAST < 1 keeps
+       dark shades from crushing to pure black.
+    4. Emit hslToRgb(tH, tS, outL) blended by w.
+
+  This makes the midtone land exactly on the selected swatch colour
+  (shade=0 → outL=tL) for every colour in the palette, dark or light,
+  with no per-colour special-casing.
 */
-const SRC_MID_L = 0.65;
+const BG_R = 229, BG_G = 228, BG_B = 226;   // measured, not assumed
+const BG_NEAR = 12;
+const BG_FAR  = 42;
+
+const MID_L    = 0.700;   // measured p50 lightness of hijab midtones
+const CONTRAST = 0.62;    // fold contrast retained (0 = flat, 1 = full)
 
 function applyShade(srcCanvas, dstCanvas, targetHex) {
   const ctx    = srcCanvas.getContext("2d");
@@ -242,20 +266,18 @@ function applyShade(srcCanvas, dstCanvas, targetHex) {
       continue;
     }
 
-    // Get the pixel's own HSL �?we keep its L (luminance/lightness)
+    // Pixel's own lightness
     const [, , pL] = rgbToHsl(r, g, b);
 
-    // Get the pixel's own HSL lightness
-    const [, , pL] = rgbToHsl(r, g, b);
+    // Signed deviation from the measured midtone. This is the fold
+    // structure, independent of the source photo's absolute brightness.
+    const shade = pL - MID_L;               // roughly -0.31 .. +0.09
 
-    // Scale pixel L proportionally to target's lightness:
-    // dark target (tL=0.17) → ratio≈0.26 → hijab darkens significantly
-    // mid  target (tL=0.65) → ratio≈1.00 → hijab stays similar
-    // pale target (tL=0.90) → ratio≈1.38 → hijab brightens
-    const ratio = tL / SRC_MID_L;
-    const outL  = Math.min(0.97, Math.max(0.01, pL * ratio));
+    // Rebuild around the TARGET lightness so the midtone lands exactly
+    // on the selected swatch, dark or light.
+    const outL = Math.min(0.97, Math.max(0.02, tL + shade * CONTRAST));
 
-    // Build recoloured pixel: target H+S, scaled L
+    // Build recoloured pixel: target H+S, remapped L
     const [cR, cG, cB] = hslToRgb(tH, tS, outL);
 
     // Blend: w=1 �?fully recoloured; w<1 �?partially (edge pixels)
