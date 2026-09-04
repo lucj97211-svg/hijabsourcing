@@ -36,6 +36,32 @@ export default function CustomizationStudio() {
       data-component="customization-studio"
     >
       <div className="container">
+        <Reveal className="section-header">
+          <span className="eyebrow">Customization studio</span>
+          <h2>Build the spec before you write the email.</h2>
+          <p className="lead">
+            Set the weight and drop in your logo. Everything updates live, and the finished
+            configuration goes straight into your inquiry.
+          </p>
+        </Reveal>
+
+        <div className="studio__base">
+          <label className="field field--inline">
+            <span className="field__label">Base fabric</span>
+            <select
+              className="field__input"
+              value={fabricId}
+              onChange={(e) => setFabricId(e.target.value)}
+            >
+              {ALL_FABRICS.map((f) => (
+                <option key={f.id} value={f.id}>
+                  {f.name} ({f.gsm[0]}–{f.gsm[1]} GSM)
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
         <div className="studio__stack">
           <GsmSlider />
           <ColorPicker />
