@@ -9,7 +9,7 @@ export default function CustomizationPage() {
     <>
       <SiteHeader />
       <main>
-        <div className="page-hero page-hero--light" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-customization.png)' }}>
+        <div className="page-hero page-hero--light" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-customization.png?v=2)' }}>
           <div className="container page-hero__inner">
             <span className="eyebrow page-hero__eyebrow">Studio</span>
             <h1 className="page-hero__title">Customization</h1>
