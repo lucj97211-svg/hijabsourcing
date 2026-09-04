@@ -1,79 +1,98 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useCustomization } from "./CustomizationContext.jsx";
-import { GSM_MAX, GSM_MIN, GSM_STEP, gsmZone } from "./gsm.js";
-import { FabricDrape, FabricSpecs } from "./FabricPreview.jsx";
 
-const ZONES = [
-  { id: "ultralight", label: "Ultra-light", range: "60–80" },
-  { id: "light",      label: "Light",       range: "80–110" },
-  { id: "all-season", label: "All-season",  range: "110–150" },
-  { id: "medheavy",   label: "Med-heavy",   range: "150–180" },
-  { id: "winter",     label: "Winter",      range: "180–240" },
+/* 5 reference images with their GSM anchor values */
+const GSM_IMAGES = [
+  { gsm: 60,  src: "/assets/images/studio/gsm/gsm-60.jpg",  label: "60 GSM — Ultra-light, sheer drape" },
+  { gsm: 90,  src: "/assets/images/studio/gsm/gsm-90.jpg",  label: "90 GSM — Lightweight, airy feel" },
+  { gsm: 105, src: "/assets/images/studio/gsm/gsm-105.jpg", label: "105 GSM — Light, soft body" },
+  { gsm: 120, src: "/assets/images/studio/gsm/gsm-120.jpg", label: "120 GSM — All-season, balanced drape" },
+  { gsm: 140, src: "/assets/images/studio/gsm/gsm-140.jpg", label: "140 GSM — Med-heavy, opaque" },
 ];
 
+const GSM_MIN = 60;
+const GSM_MAX = 140;
+const GSM_STEP = 5;
+
+/* Find the closest image anchor for the current GSM value */
+function closestImage(gsm) {
+  return GSM_IMAGES.reduce((best, img) =>
+    Math.abs(img.gsm - gsm) < Math.abs(best.gsm - gsm) ? img : best
+  );
+}
+
 export default function GsmSlider() {
-  const { gsm, setGsm, fabric } = useCustomization();
-  const zone = gsmZone(gsm);
+  const { gsm, setGsm } = useCustomization();
+
+  const active = useMemo(() => closestImage(gsm), [gsm]);
+
+  /* Slider fill percentage for the green track */
   const pct = ((gsm - GSM_MIN) / (GSM_MAX - GSM_MIN)) * 100;
-  const inBand = gsm >= fabric.gsm[0] && gsm <= fabric.gsm[1];
 
   return (
-    <div className="studio-block studio-block--row" data-component="studio-gsm-slider">
+    <div className="studio-block studio-block--row" data-component="studio-gsm">
       {/* LEFT — label */}
       <div className="srow__label">
         <span className="mono studio-step">01 — Weight</span>
         <h3>Fabric weight</h3>
         <p className="muted studio-block__hint">
-          Drag to set GSM. The drape preview updates as the fabric gets heavier.
+          Drag to set GSM. The fabric preview updates as the weight changes.
         </p>
       </div>
 
-      {/* RIGHT — controls + preview */}
+      {/* CENTRE — controls */}
       <div className="srow__content">
         <div className="srow__controls">
+          {/* GSM readout */}
           <div className="gsm-readout">
             <span className="gsm-readout__value">{gsm}</span>
-            <span className="mono gsm-readout__unit">GSM</span>
+            <span className="gsm-readout__unit">GSM</span>
           </div>
 
-          <label className="sr-only" htmlFor="gsm-range">
-            Fabric weight in grams per square metre
-          </label>
-          <input
-            id="gsm-range"
-            className="gsm-range"
-            type="range"
-            min={GSM_MIN}
-            max={GSM_MAX}
-            step={GSM_STEP}
-            value={gsm}
-            aria-valuetext={`${gsm} GSM, ${zone.label.toLowerCase()} weight`}
-            onChange={(e) => setGsm(Number(e.target.value))}
-            style={{ "--range-pct": `${pct}%` }}
-          />
+          {/* Slider */}
+          <div className="gsm-track-wrap">
+            <input
+              type="range"
+              className="gsm-range"
+              min={GSM_MIN}
+              max={GSM_MAX}
+              step={GSM_STEP}
+              value={gsm}
+              onChange={e => setGsm(Number(e.target.value))}
+              aria-label="Fabric weight in GSM"
+              style={{ '--gsm-pct': `${pct}%` }}
+            />
+          </div>
 
-          <div className="gsm-zones" aria-hidden="true">
-            {ZONES.map((z) => (
-              <div key={z.id} className={`gsm-zone ${zone.id === z.id ? "is-active" : ""}`}>
-                <span className="mono">{z.label}</span>
-                <span className="mono gsm-zone__range">{z.range}</span>
-              </div>
+          {/* GSM tick markers */}
+          <div className="gsm-ticks">
+            {GSM_IMAGES.map(img => (
+              <button
+                key={img.gsm}
+                className={`gsm-tick ${gsm === img.gsm ? "is-active" : ""}`}
+                onClick={() => setGsm(img.gsm)}
+                aria-label={`Set ${img.gsm} GSM`}
+              >
+                <span className="gsm-tick__val">{img.gsm}</span>
+                <span className="gsm-tick__unit">GSM</span>
+              </button>
             ))}
           </div>
 
-          <p className="gsm-note" role="status">{zone.note}</p>
-
-          <p className={`mono gsm-band ${inBand ? "is-ok" : "is-warn"}`}>
-            {inBand
-              ? `Within the ${fabric.name} band (${fabric.gsm[0]}–${fabric.gsm[1]} GSM)`
-              : `Outside the standard ${fabric.name} band — ask us if it can be run`}
-          </p>
-
-          <FabricSpecs />
+          {/* Label for active zone */}
+          <p className="mono gsm-zone-label">{active.label}</p>
         </div>
 
+        {/* RIGHT — fabric preview image */}
         <div className="srow__preview">
-          <FabricDrape />
+          {GSM_IMAGES.map(img => (
+            <img
+              key={img.gsm}
+              src={img.src}
+              alt={img.label}
+              className={`gsm-preview-img ${active.gsm === img.gsm ? "is-active" : ""}`}
+            />
+          ))}
         </div>
       </div>
     </div>

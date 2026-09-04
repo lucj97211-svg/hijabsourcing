@@ -63,6 +63,7 @@ export default function CustomizationStudio() {
         </div>
 
         <div className="studio__stack">
+          <GsmSlider />
           <ColorPicker />
           <LogoStudio />
         </div>

@@ -999,3 +999,133 @@
     flex: 1 1 auto;
   }
 }
+
+/* ── GSM Slider (Weight block) ─────────────────────────────────── */
+
+.gsm-readout {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: var(--space-4);
+}
+
+.gsm-readout__value {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--fg);
+}
+
+.gsm-readout__unit {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .12em;
+  color: var(--muted);
+}
+
+/* Range input */
+.gsm-track-wrap {
+  position: relative;
+  margin-bottom: var(--space-5);
+}
+
+.gsm-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--brand-600, #3d6147) 0%,
+    var(--brand-600, #3d6147) var(--gsm-pct, 0%),
+    var(--border) var(--gsm-pct, 0%),
+    var(--border) 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+.gsm-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--bg);
+  border: 2px solid var(--fg);
+  cursor: ew-resize;
+}
+
+.gsm-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--bg);
+  border: 2px solid var(--fg);
+  cursor: ew-resize;
+}
+
+/* GSM tick buttons */
+.gsm-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  gap: 2px;
+}
+
+.gsm-tick {
+  flex: 1;
+  padding: 6px 4px;
+  text-align: center;
+  background: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+
+.gsm-tick.is-active {
+  border-color: var(--brand-600, #3d6147);
+  background: var(--surface);
+}
+
+.gsm-tick__val {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.gsm-tick__unit {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+
+.gsm-zone-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: var(--space-1);
+}
+
+/* Preview image stack — only active image visible */
+.srow__preview {
+  position: relative;
+}
+
+.gsm-preview-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity .35s ease;
+  display: block;
+}
+
+.gsm-preview-img.is-active {
+  opacity: 1;
+  position: relative;  /* active one takes up space */
+}
