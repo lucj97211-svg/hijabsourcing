@@ -13,30 +13,6 @@ const SLIDES = [
       note: "Modal, jersey, bamboo and liquid jersey in 60–240 GSM. We knit, dye, cut, sew and pack in-house.",
     },
   },
-  {
-    img: "https://sc02.alicdn.com/kf/A3a771797d07f4df68959704d29689ac3n.png",
-    caption: {
-      step: "Custom Colour",
-      title: "Match any shade with a physical lab dip.",
-      note: "Submit a colour reference — Pantone, fabric swatch or hex. We confirm on real fabric before bulk.",
-    },
-  },
-  {
-    img: "https://sc02.alicdn.com/kf/A3819c36cf6af4412a45fb625e8fa22599.png",
-    caption: {
-      step: "Private Label",
-      title: "Your logo on every label, tag and box.",
-      note: "Woven labels, hang tags, packaging and thank-you cards — all included in a single production run.",
-    },
-  },
-  {
-    img: "https://sc02.alicdn.com/kf/A601cdcc2a0844e6a8dea636c65c5e32bv.png",
-    caption: {
-      step: "Quality Control",
-      title: "Eight checkpoints from yarn to carton.",
-      note: "Colourfastness, GSM tolerance, seam strength and packaging — inspected before every shipment.",
-    },
-  },
 ];
 
 export default function Hero() {
