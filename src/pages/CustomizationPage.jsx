@@ -10,10 +10,10 @@ export default function CustomizationPage() {
       <SiteHeader />
       <main>
         <div className="page-hero" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-customization.png)' }}>
-          <div className="container page-hero__inner">
-            <span className="eyebrow page-hero__eyebrow">Studio</span>
-            <h1 className="page-hero__title">Customization</h1>
-            <p className="page-hero__lede">
+          <div className="container page-hero__inner" style={{ color: '#111' }}>
+            <span className="eyebrow page-hero__eyebrow" style={{ color: '#2c3e30' }}>Studio</span>
+            <h1 className="page-hero__title" style={{ color: '#111' }}>Customization</h1>
+            <p className="page-hero__lede" style={{ color: '#222' }}>
               Set your fabric weight, match a shade on physical lab dip, and preview your logo
               across every label and packaging piece — all before committing to a sample.
             </p>
