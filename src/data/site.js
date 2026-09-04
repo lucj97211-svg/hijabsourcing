@@ -498,6 +498,7 @@ export const MODAL = [
     id: "modal-tencel",
     name: "Tencel Modal",
     image: "/assets/images/fabrics/modal-tencel.jpg",
+    hover: "/assets/images/fabrics/modal-tencel-2.jpg",
     gsm: [60, 140],
     handFeel:
       "Lyocell-blend modal with a distinctly cool-toned lustre and a crisp highlight edge. Falls in sharp fluid folds.",
