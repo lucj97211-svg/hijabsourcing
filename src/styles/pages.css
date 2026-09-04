@@ -34,7 +34,26 @@
   z-index: 0;
 }
 
-.page-hero__inner {
+/* ── Light hero variant (bright background image, dark text) ─── */
+.page-hero--light {
+  background-color: #f5f3ef;
+}
+
+.page-hero--light::before {
+  display: none;           /* no dark scrim — image is already bright */
+}
+
+.page-hero--light .page-hero__eyebrow {
+  color: var(--brand-600, #3d6147);
+}
+
+.page-hero--light .page-hero__title {
+  color: #1a1815;
+}
+
+.page-hero--light .page-hero__lede {
+  color: #3a3733;
+}
   position: relative;
   z-index: 1;
   max-width: 72ch;
