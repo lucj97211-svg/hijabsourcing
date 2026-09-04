@@ -458,6 +458,7 @@ export const MODAL = [
     id: "modal-40s",
     name: "40s Modal",
     image: "/assets/images/fabrics/modal-40s.webp",
+    hover: "/assets/images/fabrics/modal-40s-hover.jpg",
     hover: "/assets/images/fabrics/modal-40s-drape.webp",
     gsm: [65, 140],
     handFeel:
@@ -468,6 +469,7 @@ export const MODAL = [
     id: "modal-50s",
     name: "50s Modal",
     image: "/assets/images/fabrics/modal-50s.webp",
+    hover: "/assets/images/fabrics/modal-50s-hover.jpg",
     hover: "/assets/images/fabrics/modal-50s-drape.webp",
     gsm: [60, 140],
     handFeel:
@@ -488,6 +490,7 @@ export const MODAL = [
     id: "modal-lenzing",
     name: "Lenzing Modal",
     image: "/assets/images/fabrics/modal-lenzing.webp",
+    hover: "/assets/images/fabrics/modal-lenzing-hover.jpg",
     hover: "/assets/images/fabrics/modal-lenzing-drape.webp",
     gsm: [60, 140],
     handFeel:
