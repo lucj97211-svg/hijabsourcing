@@ -239,7 +239,6 @@ function CarrierTile({ carrier, logo, scale, dark, large = false }) {
           )}
         </span>
       </span>
-      {large && <span className="mono carrier-tile__caption">{carrier.caption}</span>}
     </span>
   );
 }
