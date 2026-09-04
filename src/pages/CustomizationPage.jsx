@@ -9,20 +9,14 @@ export default function CustomizationPage() {
     <>
       <SiteHeader />
       <main>
-        <div
-          className="page-hero page-hero--custom"
-          style={{ '--page-hero-img': 'url(/assets/images/hero/hero-customization.png?v=4)' }}
-        >
+        <div className="page-hero" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-customization.png)' }}>
           <div className="container page-hero__inner">
-            <div className="custom-hero-text">
-              <span className="custom-hero-eyebrow">Studio</span>
-              <h1 className="custom-hero-title">Customization</h1>
-              <div className="custom-hero-rule" />
-              <p className="custom-hero-lede">
-                Set your fabric weight, match a shade on physical lab dip,
-                and preview your logo across every label and packaging piece â€?                all before committing to a sample.
-              </p>
-            </div>
+            <span className="eyebrow page-hero__eyebrow">Studio</span>
+            <h1 className="page-hero__title">Customization</h1>
+            <p className="page-hero__lede">
+              Set your fabric weight, match a shade on physical lab dip, and preview your logo
+              across every label and packaging piece â€” all before committing to a sample.
+            </p>
           </div>
         </div>
         <CustomizationStudio />
@@ -32,4 +26,3 @@ export default function CustomizationPage() {
     </>
   );
 }
-

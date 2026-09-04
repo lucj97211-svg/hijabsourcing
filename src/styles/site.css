@@ -284,20 +284,16 @@
 
 /* ── Cinematic scrim ── */
 .hero__scrim {
-  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.34) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 58%, rgba(0,0,0,.66) 100%),
+    linear-gradient(100deg, rgba(0,0,0,.36) 0%, rgba(0,0,0,.06) 62%);
+  pointer-events: none;
 }
 
-.hero__caption-step,
-.hero__caption-title,
-.hero__caption-note {
-  text-shadow: 0 1px 8px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.3);
-}
-
-.hero__lockup-eyebrow,
-.hero__lockup-title,
-.hero__lockup-sub {
-  text-shadow: 0 1px 10px rgba(0,0,0,.4), 0 0 2px rgba(0,0,0,.25);
-}
+/* ── Film grain overlay ── */
 .hero__grain {
   position: absolute;
   inset: 0;

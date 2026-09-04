@@ -10,10 +10,7 @@
 .studio__stack {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  background: var(--bg, #faf9f7);
-  position: relative;
-  z-index: 1;
+  gap: 0;                      /* blocks share a common border */
 }
 
 /* Each block is a horizontal row: label-col | content-col */
