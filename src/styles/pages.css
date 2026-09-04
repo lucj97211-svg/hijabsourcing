@@ -290,7 +290,9 @@
 }
 
 
-/* ── Customization page — hero typography upgrade ────────────────
+.page-hero--custom {
+  background-position: center 60%;  /* show fabric body, push rod above viewport */
+}
    Scrim is lighter on left only so dark text reads cleanly.
    All typography uses black per user instruction.
 ──────────────────────────────────────────────────────────────────── */
