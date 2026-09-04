@@ -1,24 +1,41 @@
 import React from "react";
-import { CAPABILITIES, PROCESS } from "../data/site.js";
+import { CAPABILITIES } from "../data/site.js";
 
 /* The first four process steps become the timed captions.
-   Background images are the four factory storyboard stills. */
+   Slide 1 uses the user-supplied drape photo with custom factory caption.
+   Slides 2-4 retain the original factory storyboard images. */
 const SLIDES = [
   {
-    img: "https://sc02.alicdn.com/kf/A9f8b1ec96a604536845ac26e659de6d8W.png",
-    step: PROCESS[0],
+    img: "/assets/images/hero/hero-slide1.jpg",
+    caption: {
+      step: "OEM · Private Label",
+      title: "From fabric to finished hijab — under one roof.",
+      note: "Modal, jersey, bamboo and liquid jersey in 60–240 GSM. We knit, dye, cut, sew and pack in-house.",
+    },
   },
   {
     img: "https://sc02.alicdn.com/kf/A3a771797d07f4df68959704d29689ac3n.png",
-    step: PROCESS[1],
+    caption: {
+      step: "Custom Colour",
+      title: "Match any shade with a physical lab dip.",
+      note: "Submit a colour reference — Pantone, fabric swatch or hex. We confirm on real fabric before bulk.",
+    },
   },
   {
     img: "https://sc02.alicdn.com/kf/A3819c36cf6af4412a45fb625e8fa22599.png",
-    step: PROCESS[2],
+    caption: {
+      step: "Private Label",
+      title: "Your logo on every label, tag and box.",
+      note: "Woven labels, hang tags, packaging and thank-you cards — all included in a single production run.",
+    },
   },
   {
     img: "https://sc02.alicdn.com/kf/A601cdcc2a0844e6a8dea636c65c5e32bv.png",
-    step: PROCESS[3],
+    caption: {
+      step: "Quality Control",
+      title: "Eight checkpoints from yarn to carton.",
+      note: "Colourfastness, GSM tolerance, seam strength and packaging — inspected before every shipment.",
+    },
   },
 ];
 
@@ -51,9 +68,9 @@ export default function Hero() {
       <div className="hero__captions" aria-hidden="true">
         {SLIDES.map((s, i) => (
           <div key={i} className="hero__caption">
-            <span className="hero__caption-step">Step {s.step.no}</span>
-            <p className="hero__caption-title">{s.step.name}</p>
-            <p className="hero__caption-note">{s.step.body}</p>
+            <span className="hero__caption-step">{s.caption.step}</span>
+            <p className="hero__caption-title">{s.caption.title}</p>
+            <p className="hero__caption-note">{s.caption.note}</p>
           </div>
         ))}
       </div>
