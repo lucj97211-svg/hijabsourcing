@@ -246,7 +246,7 @@
 /* ── Hero — factory process slideshow ───────────────────────────── */
 
 :root {
-  --hero-total: 16s;   /* 4 slides × 4 s each */
+  --hero-total: 8s;    /* single slide: 4s caption → 4s lockup */
   --hero-clay: #b49071;
 }
 
@@ -276,10 +276,8 @@
 
 @keyframes heroPosterCycle {
   0%   { opacity: 0; transform: scale(1.06); }
-  3%   { opacity: 1; }
-  22%  { opacity: 1; }
-  27%  { opacity: 0; }
-  100% { opacity: 0; transform: scale(1); }
+  5%   { opacity: 1; }
+  100% { opacity: 1; transform: scale(1); }  /* stay visible — no fade-out for single slide */
 }
 
 /* ── Cinematic scrim ── */
@@ -385,10 +383,10 @@
 }
 
 @keyframes heroLockupIn {
-  0%, 72%  { opacity: 0; pointer-events: none; transform: translateY(18px); }
-  78%      { opacity: 1; pointer-events: auto;  transform: translateY(0); }
-  97%      { opacity: 1; pointer-events: auto; }
-  100%     { opacity: 0; pointer-events: none; }
+  /* Single slide: caption shows 0-50%, lockup fades in 50-60% and stays */
+  0%, 48%  { opacity: 0; pointer-events: none; transform: translateY(18px); }
+  58%      { opacity: 1; pointer-events: auto;  transform: translateY(0); }
+  100%     { opacity: 1; pointer-events: auto; }
 }
 
 .hero__lockup-eyebrow {
