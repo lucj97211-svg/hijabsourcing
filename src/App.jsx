@@ -14,6 +14,7 @@ import AboutPage from "./pages/AboutPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
 import BlogPostPage from "./pages/BlogPostPage.jsx";
+import WhatsAppFab from "./components/WhatsAppFab.jsx";
 
 function HomePage() {
   return (
@@ -45,6 +46,7 @@ export default function App() {
         <Route path="/blog"           element={<BlogPage />} />
         <Route path="/blog/:slug"     element={<BlogPostPage />} />
       </Routes>
+      <WhatsAppFab />
     </CustomizationProvider>
   );
 }

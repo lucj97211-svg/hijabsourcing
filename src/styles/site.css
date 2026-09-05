@@ -881,3 +881,54 @@
     padding-inline: 12px;
   }
 }
+
+/* ─── WhatsApp Floating Action Button ─────────────────────────────── */
+.wa-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px 12px 14px;
+  background: #25d366;
+  color: #fff;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, padding 0.25s ease;
+  white-space: nowrap;
+}
+
+.wa-fab:hover,
+.wa-fab:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.55);
+  outline: none;
+}
+
+.wa-fab:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.wa-fab__label {
+  display: inline;
+}
+
+@media (max-width: 480px) {
+  .wa-fab {
+    bottom: 20px;
+    right: 16px;
+    padding: 12px;
+    border-radius: 50%;
+  }
+
+  .wa-fab__label {
+    display: none;
+  }
+}
