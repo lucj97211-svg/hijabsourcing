@@ -3,11 +3,11 @@ import { useCustomization } from "./CustomizationContext.jsx";
 
 /* 5 reference images with their GSM anchor values */
 const GSM_IMAGES = [
-  { gsm: 60,  src: "/assets/images/studio/gsm/gsm-60.jpg",  label: "60 GSM â€” Ultra-light, sheer drape" },
-  { gsm: 90,  src: "/assets/images/studio/gsm/gsm-90.jpg",  label: "90 GSM â€” Lightweight, airy feel" },
-  { gsm: 105, src: "/assets/images/studio/gsm/gsm-105.jpg", label: "105 GSM â€” Light, soft body" },
-  { gsm: 120, src: "/assets/images/studio/gsm/gsm-120.jpg", label: "120 GSM â€” All-season, balanced drape" },
-  { gsm: 140, src: "/assets/images/studio/gsm/gsm-140.jpg", label: "140 GSM â€” Med-heavy, opaque" },
+  { gsm: 60,  src: "/assets/images/studio/gsm/gsm-60.webp",  label: "60 GSM â€?Ultra-light, sheer drape" },
+  { gsm: 90,  src: "/assets/images/studio/gsm/gsm-90.webp",  label: "90 GSM â€?Lightweight, airy feel" },
+  { gsm: 105, src: "/assets/images/studio/gsm/gsm-105.webp", label: "105 GSM â€?Light, soft body" },
+  { gsm: 120, src: "/assets/images/studio/gsm/gsm-120.webp", label: "120 GSM â€?All-season, balanced drape" },
+  { gsm: 140, src: "/assets/images/studio/gsm/gsm-140.webp", label: "140 GSM â€?Med-heavy, opaque" },
 ];
 
 const GSM_MIN = 60;
@@ -31,16 +31,16 @@ export default function GsmSlider() {
 
   return (
     <div className="studio-block studio-block--row" data-component="studio-gsm">
-      {/* LEFT â€” label */}
+      {/* LEFT â€?label */}
       <div className="srow__label">
-        <span className="mono studio-step">01 â€” Weight</span>
+        <span className="mono studio-step">01 â€?Weight</span>
         <h3>Fabric weight</h3>
         <p className="muted studio-block__hint">
           Drag to set GSM. The fabric preview updates as the weight changes.
         </p>
       </div>
 
-      {/* CENTRE â€” controls */}
+      {/* CENTRE â€?controls */}
       <div className="srow__content">
         <div className="srow__controls">
           {/* GSM readout */}
@@ -83,7 +83,7 @@ export default function GsmSlider() {
           <p className="mono gsm-zone-label">{active.label}</p>
         </div>
 
-        {/* RIGHT â€” fabric preview image */}
+        {/* RIGHT â€?fabric preview image */}
         <div className="srow__preview">
           {GSM_IMAGES.map(img => (
             <img

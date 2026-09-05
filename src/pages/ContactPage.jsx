@@ -8,12 +8,12 @@ export default function ContactPage() {
     <>
       <SiteHeader />
       <main>
-        <div className="page-hero" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-contact.png)' }}>
+        <div className="page-hero" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-contact.webp)' }}>
           <div className="container page-hero__inner">
             <span className="eyebrow page-hero__eyebrow">Get in touch</span>
             <h1 className="page-hero__title">Contact</h1>
             <p className="page-hero__lede">
-              Send your fabric, weight and quantity â€” we come back with a quote and a
+              Send your fabric, weight and quantity â€?we come back with a quote and a
               dated schedule, usually within one business day.
             </p>
           </div>

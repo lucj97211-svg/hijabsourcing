@@ -17,7 +17,7 @@ export default function BlogPage() {
     <>
       <SiteHeader />
       <main>
-        <div className="page-hero" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-blog.png)' }}>
+        <div className="page-hero" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-blog.webp)' }}>
           <div className="container page-hero__inner">
             <span className="eyebrow page-hero__eyebrow">Knowledge</span>
             <h1 className="page-hero__title">Blog</h1>
@@ -30,7 +30,7 @@ export default function BlogPage() {
         <section className="section blog-list" data-component="blog-list">
           <div className="container">
             {BLOG_POSTS.length === 0 ? (
-              <p className="blog-empty">No posts yet â€” check back soon.</p>
+              <p className="blog-empty">No posts yet â€?check back soon.</p>
             ) : (
               <ol className="blog-grid" reversed>
                 {BLOG_POSTS.map((post) => (

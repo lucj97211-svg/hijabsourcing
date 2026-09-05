@@ -57,7 +57,7 @@ export default function BlogPostPage() {
       <SiteHeader />
       <main>
         <article className="post" data-component="blog-post">
-          <header className="post-header" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-blog.png)' }}>
+          <header className="post-header" style={{ '--page-hero-img': 'url(/assets/images/hero/hero-blog.webp)' }}>
             <div className="container-narrow">
               <Link to="/blog" className="post-header__back mono">&larr; Blog</Link>
               <span className="post-header__meta mono">
@@ -82,7 +82,7 @@ export default function BlogPostPage() {
               <h2 className="post-footer__cta-title">Talk to the mill directly.</h2>
               <p>
                 Send your fabric, weight target and quantity to{" "}
-                <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> â€” we come back with a
+                <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> â€?we come back with a
                 quote and a dated schedule, usually within one business day.
               </p>
               <Link to="/contact" className="btn btn--solid" style={{ marginTop: "1.5rem", display: "inline-block" }}>
